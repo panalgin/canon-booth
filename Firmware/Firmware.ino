@@ -6,18 +6,12 @@
 
 #include <FastLED.h>
 
-#define NUM_LEDS_RIGHT 90
-#define NUM_LEDS_LEFT 90
-#define DATA_RIGHT_PIN 6
-#define DATA_LEFT_PIN 7
-#define RIGHT_RELAY 8
-#define LEFT_RELAY 9
+#define NUM_LEDS 90
+#define DATA_PIN 6
 
-CRGB leds_right[NUM_LEDS_RIGHT];
-CRGB leds_left[NUM_LEDS_LEFT];
+CRGB leds[NUM_LEDS];
 
-uint8_t rightCounter = 0;
-uint8_t leftCounter = 0;
+uint8_t counter = 0;
 
 // the setup function runs once when you press reset or power the board
 void setup() {
@@ -25,17 +19,12 @@ void setup() {
 
   while (!Serial) { ; }
 
-  pinMode(RIGHT_RELAY, OUTPUT);
-  pinMode(LEFT_RELAY, OUTPUT);
-
-  FastLED.addLeds<WS2812, DATA_RIGHT_PIN, GRB>(leds_right, NUM_LEDS_RIGHT);
-  FastLED.addLeds<WS2812, DATA_LEFT_PIN, GRB>(leds_left, NUM_LEDS_LEFT);
+  FastLED.addLeds<WS2812B, DATA_PIN, GRB>(leds, NUM_LEDS);
 
   FastLED.setCorrection(TypicalSMD5050);
   FastLED.setTemperature(Candle);
 
-  attachInterrupt(digitalPinToInterrupt(2), onRightHallTriggered, RISING);
-  attachInterrupt(digitalPinToInterrupt(3), onLeftHallTriggered, RISING);
+  attachInterrupt(digitalPinToInterrupt(2), onHallTriggered, RISING);
 
   cli(); // stop interrupts
   TCCR1A = 0; // set entire TCCR1A register to 0
@@ -53,42 +42,19 @@ void setup() {
 }
 
 ISR(TIMER1_COMPA_vect) {
-  if (rightCounter > 0)
-    rightCounter--;
-
-  if (leftCounter > 0)
-    leftCounter--;
+  if (counter > 0)
+    counter--;
 }
 
 unsigned long lastCommandSent = millis();
 
-void onRightHallTriggered() {
-  if (rightCounter < NUM_LEDS_RIGHT) {
-    rightCounter++;
+void onHallTriggered() {
+  if (counter < NUM_LEDS) {
+    counter++;
 
-    if (rightCounter == NUM_LEDS_RIGHT) {
+    if (counter == NUM_LEDS) {
       if (millis() - lastCommandSent > (1000 * 10)) {
         lastCommandSent = millis();
-
-        digitalWrite(LEFT_RELAY, LOW);
-        digitalWrite(RIGHT_RELAY, HIGH);
-
-        playVideo();
-      }
-    }
-  }
-}
-
-void onLeftHallTriggered() {
-  if (leftCounter < NUM_LEDS_LEFT) {
-    leftCounter++;
-
-    if (leftCounter == NUM_LEDS_LEFT) {
-      if (millis() - lastCommandSent > (1000 * 10)) {
-        lastCommandSent = millis();
-
-        digitalWrite(RIGHT_RELAY, LOW);
-        digitalWrite(LEFT_RELAY, HIGH);
 
         playVideo();
       }
@@ -108,17 +74,11 @@ void show() {
 }
 
 void updateStrip() {
-  for (uint8_t i = 0; i < NUM_LEDS_RIGHT; i++) {
-    if (i < rightCounter)
-      leds_right[i] = CRGB::Magenta;
+  for (uint8_t i = 0; i < NUM_LEDS; i++) {
+    if (i < counter)
+      leds[i] = CRGB::Magenta;
     else
-      leds_right[i] = CRGB::Black;
-  }
-  for (uint8_t i = 0; i < NUM_LEDS_LEFT; i++) {
-    if (i < leftCounter)
-      leds_left[i] = CRGB::Orange;
-    else
-      leds_left[i] = CRGB::Black;
+      leds[i] = CRGB::Black;
   }
 }
 
