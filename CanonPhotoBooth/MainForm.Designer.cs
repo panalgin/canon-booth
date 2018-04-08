@@ -33,7 +33,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.Start_Button = new System.Windows.Forms.Button();
             this.Preview_Group = new System.Windows.Forms.GroupBox();
-            this.webCameraControl1 = new CanonPhotoBooth.WebCameraControl();
             this.Preview_Group.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -80,21 +79,12 @@
             this.Preview_Group.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.Preview_Group.Controls.Add(this.webCameraControl1);
             this.Preview_Group.Location = new System.Drawing.Point(16, 86);
             this.Preview_Group.Name = "Preview_Group";
             this.Preview_Group.Size = new System.Drawing.Size(602, 347);
             this.Preview_Group.TabIndex = 5;
             this.Preview_Group.TabStop = false;
             this.Preview_Group.Text = "Live Preview";
-            // 
-            // webCameraControl1
-            // 
-            this.webCameraControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.webCameraControl1.Location = new System.Drawing.Point(3, 16);
-            this.webCameraControl1.Name = "webCameraControl1";
-            this.webCameraControl1.Size = new System.Drawing.Size(596, 328);
-            this.webCameraControl1.TabIndex = 0;
             // 
             // MainForm
             // 
@@ -122,7 +112,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button Start_Button;
         private System.Windows.Forms.GroupBox Preview_Group;
-        private WebCameraControl webCameraControl1;
     }
 }
 

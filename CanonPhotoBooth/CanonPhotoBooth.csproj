@@ -42,8 +42,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ComboBoxWebcamItem.cs" />
-    <Compile Include="DirectShowProxy.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -52,13 +50,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WebCameraControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="WebCameraControl.Designer.cs">
-      <DependentUpon>WebCameraControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="WebCameraId.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -86,10 +77,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\DirectShowFacade.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="bin\Debug\DirectShowFacade64.dll" />
+    <Folder Include="bin\Debug\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
