@@ -1,4 +1,5 @@
 ﻿using AForge.Video.DirectShow;
+using ImageMagick;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,6 +21,7 @@ namespace CanonPhotoBooth
         private VideoCaptureDevice videoSource = null;
         private Timer timer = new Timer();
         private double captureInterval = 200;
+        private bool IsRecording = false;
 
         public MainForm()
         {
@@ -28,6 +30,11 @@ namespace CanonPhotoBooth
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            string saveFolder = Path.Combine(Application.StartupPath, "Snapshots");
+
+            if (!Directory.Exists(saveFolder))
+                Directory.CreateDirectory(saveFolder);
+
             timer.Interval = 1000;
             timer.Tick += Timer_Tick;
             GetVideoDevices();
@@ -35,7 +42,8 @@ namespace CanonPhotoBooth
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            label2.Text = "Device running... " + videoSource.FramesReceived.ToString() + " FPS";
+            label2.Text = "Camera Running At: " + videoSource.FramesReceived.ToString() + " FPS";
+            PreviewFps_Label.Text = string.Format("Preview Running At: {0} FPS", (1000 / (int)captureInterval));
         }
 
         private void QuickFrame_Button_Click(object sender, EventArgs e)
@@ -63,20 +71,17 @@ namespace CanonPhotoBooth
 
                     var capabilities = videoSource.VideoCapabilities;
 
-                    videoSource.VideoResolution = capabilities[0];
+                    videoSource.VideoResolution = capabilities[16];
                     videoSource.NewFrame += VideoSource_NewFrame;
                     videoSource.SetCameraProperty(CameraControlProperty.Exposure, -5, CameraControlFlags.Manual);
                     videoSource.SetCameraProperty(CameraControlProperty.Focus, -5, CameraControlFlags.Auto);
-                    
-                    videoSource.ProvideSnapshots = true;
 
-                    /*AForge.Video.DirectShow.
-                    videoSource.SnapshotResolution.FrameSize = new Size 
-                       w*/ 
+                    videoSource.ProvideSnapshots = false;
+
                     CloseVideoSource();
 
                     videoSource.Start();
-                    label2.Text = "Device running...";
+                    label2.Text = "Camera Running At: ";
                     this.Start_Button.Text = "&Stop";
                     timer.Enabled = true;
                     timer.Start();
@@ -102,17 +107,27 @@ namespace CanonPhotoBooth
         ImageCodecInfo encoder = ImageCodecInfo.GetImageEncoders().First(c => c.FormatID == ImageFormat.Jpeg.Guid);
         EncoderParameters encParams = new EncoderParameters() { Param = new[] { new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, 100L) } };
 
-        Task EncodeImage(Bitmap map)
+        void EncodeImage(Bitmap map)
         {
             var stream = new MemoryStream();
             map.Save(stream, encoder, encParams);
 
             Image jpeg = Bitmap.FromStream(stream);
+            pictureBox1.Image = jpeg;
 
-            pictureBox1.BeginInvoke((MethodInvoker)delegate ()
+            if (IsRecording)
             {
-                pictureBox1.Image = jpeg;
-            });
+                Task.Run(async () =>
+                {
+                    await SaveGifFrame(jpeg.Clone() as Image);
+                });
+            }
+        }
+
+        Task<bool> SaveGifFrame(Image image)
+        {
+            string savePath = Path.Combine(Application.StartupPath, "Snapshots", DateTime.Now.ToFileTimeUtc() + ".jpg");
+            image.Save(savePath);
 
             return Task.FromResult(true);
         }
@@ -127,8 +142,7 @@ namespace CanonPhotoBooth
 
                 using (Bitmap img = (Bitmap)eventArgs.Frame.Clone())
                 {
-
-                      EncodeImage(img);
+                    EncodeImage(img);
                 }
             }
         }
@@ -161,6 +175,71 @@ namespace CanonPhotoBooth
         private void Interval_Num_ValueChanged(object sender, EventArgs e)
         {
             captureInterval = Convert.ToDouble(this.Interval_Num.Value);
+        }
+
+        private void RecordAsGif_Button_Click(object sender, EventArgs e)
+        {
+            if (this.RecordAsGif_Button.Text.StartsWith("Rec"))
+            {
+                this.RecordAsGif_Button.Text = "Stop Recording";
+                IsRecording = true;
+
+
+            }
+            else
+            {
+                this.RecordAsGif_Button.Text = "Record As Gif";
+                IsRecording = false;
+            }
+        }
+
+        private void Output_Button_Click(object sender, EventArgs e)
+        {
+            string readPath = Path.Combine(Application.StartupPath, "Snapshots");
+
+            var imageFrames = Directory.EnumerateFiles(readPath, "*.jpg", SearchOption.TopDirectoryOnly);
+
+
+            using (MagickImageCollection collection = new MagickImageCollection())
+            {
+                //collection.CacheDirectory = @"C:\MyProgram\MyTempDir";
+                // Add first image and set the animation delay to 100ms
+                //MagickNET.Initialize(@"C:\Users\johsam\Downloads\Magick\MagickScript.xsd");
+
+                var outputFps = Convert.ToInt32(this.OutputFps_Num.Value);
+                var animationDelay = 1000 / outputFps;
+
+                int curFrame = 0;
+
+                imageFrames.All(delegate (string fileName)
+                {
+                    collection.Add(fileName);
+                    collection[curFrame].AnimationDelay = 15;
+
+                    return true;
+                });
+
+                curFrame = 0;
+                collection.All(delegate (IMagickImage image)
+                {
+                    //image.Implode(0.5, PixelInterpolateMethod.Average);
+                    image.OilPaint();
+                    curFrame++;
+
+                    return true;
+                });
+
+                // Optionally reduce colors
+                QuantizeSettings settings = new QuantizeSettings();
+                settings.Colors = 16;
+                collection.Quantize(settings);
+
+                // Optionally optimize the images (images should have the same size).
+                collection.Optimize();
+
+                var savePath = Path.Combine(Application.StartupPath, "Output.gif");
+                collection.Write(savePath);
+            }
         }
     }
 }
