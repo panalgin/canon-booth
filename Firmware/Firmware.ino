@@ -6,6 +6,11 @@
 
 #include <FastLED.h>
 
+#define INCREMENT_THRESOLD 1000  //milliseconds between two increments, how fast do we want it ?
+#define DECREMENT_THRESOLD 3000  //
+
+#define LED_FPS 30 //how many updates per second ? 
+
 #define NUM_LEDS 90
 #define DATA_PIN 6
 
@@ -15,51 +20,37 @@ uint8_t counter = 0;
 
 // the setup function runs once when you press reset or power the board
 void setup() {
-  Serial.begin(9600);
+	Serial.begin(9600);
 
-  while (!Serial) { ; }
+	while (!Serial) { ; }
 
-  FastLED.addLeds<WS2812B, DATA_PIN, GRB>(leds, NUM_LEDS);
+	FastLED.addLeds<WS2812B, DATA_PIN, GRB>(leds, NUM_LEDS);
 
-  FastLED.setCorrection(TypicalSMD5050);
-  FastLED.setTemperature(Candle);
+	FastLED.setCorrection(TypicalSMD5050);
+	FastLED.setTemperature(Candle);
 
-  attachInterrupt(digitalPinToInterrupt(2), onHallTriggered, RISING);
-
-  cli(); // stop interrupts
-  TCCR1A = 0; // set entire TCCR1A register to 0
-  TCCR1B = 0; // same for TCCR1B
-  TCNT1 = 0; // initialize counter value to 0
-         // set compare match register for 1 Hz increments
-  OCR1A = 62499; // = 16000000 / (256 * 1) - 1 (must be <65536)
-           // turn on CTC mode
-  TCCR1B |= (1 << WGM12);
-  // Set CS12, CS11 and CS10 bits for 256 prescaler
-  TCCR1B |= (1 << CS12) | (0 << CS11) | (0 << CS10);
-  // enable timer compare interrupt
-  TIMSK1 |= (1 << OCIE1A);
-  sei(); // allow interrupts
-}
-
-ISR(TIMER1_COMPA_vect) {
-  if (counter > 0)
-    counter--;
+	attachInterrupt(digitalPinToInterrupt(2), onHallTriggered, RISING);
 }
 
 unsigned long lastCommandSent = millis();
+unsigned long lastIncrementedAt = millis();
 
 void onHallTriggered() {
-  if (counter < NUM_LEDS) {
-    counter++;
+	if (millis() - lastIncrementedAt > INCREMENT_THRESOLD) {
+		lastIncrementedAt = millis();
 
-    if (counter == NUM_LEDS) {
-      if (millis() - lastCommandSent > (1000 * 10)) {
-        lastCommandSent = millis();
+		if (counter < NUM_LEDS) {
+			counter++;
 
-        playVideo();
-      }
-    }
-  }
+			if (counter == NUM_LEDS) {
+				if (millis() - lastCommandSent > (1000 * 10)) {
+					lastCommandSent = millis();
+
+					playVideo();
+				}
+			}
+		}
+	}
 }
 
 // the loop function runs over and over again until power down or reset
@@ -67,10 +58,17 @@ void loop() {
   show();
 }
 
+unsigned long lastSyncedAt = 0;
+
 void show() {
   updateStrip();
-  FastLED.show();
-  FastLED.delay(50);
+
+  if (millis() - lastSyncedAt > (1000 / LED_FPS)) {
+	  FastLED.show();
+	  lastSyncedAt = millis();
+  }
+
+  checkForDecrement();
 }
 
 void updateStrip() {
@@ -84,5 +82,15 @@ void updateStrip() {
 
 void playVideo() {
   Serial.println("Play");
+}
+
+unsigned long lastDecrementedAt = millis();
+
+void checkForDecrement() {
+	if (millis() - lastDecrementedAt > DECREMENT_THRESOLD) {
+		lastDecrementedAt = millis();
+
+		counter--;
+	}
 }
 

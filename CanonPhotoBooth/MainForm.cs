@@ -73,7 +73,7 @@ namespace CanonPhotoBooth
 
                     videoSource.VideoResolution = capabilities[16];
                     videoSource.NewFrame += VideoSource_NewFrame;
-                    videoSource.SetCameraProperty(CameraControlProperty.Exposure, -5, CameraControlFlags.Manual);
+                    videoSource.SetCameraProperty(CameraControlProperty.Exposure, -5, CameraControlFlags.Auto);
                     videoSource.SetCameraProperty(CameraControlProperty.Focus, -5, CameraControlFlags.Auto);
 
                     videoSource.ProvideSnapshots = false;
@@ -105,7 +105,7 @@ namespace CanonPhotoBooth
         }
 
         ImageCodecInfo encoder = ImageCodecInfo.GetImageEncoders().First(c => c.FormatID == ImageFormat.Jpeg.Guid);
-        EncoderParameters encParams = new EncoderParameters() { Param = new[] { new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, 100L) } };
+        EncoderParameters encParams = new EncoderParameters() { Param = new[] { new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, 60L) } };
 
         void EncodeImage(Bitmap map)
         {
@@ -203,18 +203,18 @@ namespace CanonPhotoBooth
             using (MagickImageCollection collection = new MagickImageCollection())
             {
                 //collection.CacheDirectory = @"C:\MyProgram\MyTempDir";
-                // Add first image and set the animation delay to 100ms
+                //Add first image and set the animation delay to 100ms
                 //MagickNET.Initialize(@"C:\Users\johsam\Downloads\Magick\MagickScript.xsd");
 
                 var outputFps = Convert.ToInt32(this.OutputFps_Num.Value);
-                var animationDelay = 1000 / outputFps;
+                var animationDelay = /*1000 /*/ outputFps;
 
                 int curFrame = 0;
 
                 imageFrames.All(delegate (string fileName)
                 {
                     collection.Add(fileName);
-                    collection[curFrame].AnimationDelay = 15;
+                    collection[curFrame].AnimationDelay = animationDelay;
 
                     return true;
                 });
@@ -223,7 +223,7 @@ namespace CanonPhotoBooth
                 collection.All(delegate (IMagickImage image)
                 {
                     //image.Implode(0.5, PixelInterpolateMethod.Average);
-                    image.OilPaint();
+                    //image.OilPaint();
                     curFrame++;
 
                     return true;
@@ -231,11 +231,11 @@ namespace CanonPhotoBooth
 
                 // Optionally reduce colors
                 QuantizeSettings settings = new QuantizeSettings();
-                settings.Colors = 16;
+                settings.Colors = 8;
                 collection.Quantize(settings);
 
                 // Optionally optimize the images (images should have the same size).
-                collection.Optimize();
+                //collection.Optimize();
 
                 var savePath = Path.Combine(Application.StartupPath, "Output.gif");
                 collection.Write(savePath);

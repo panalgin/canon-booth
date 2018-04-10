@@ -204,7 +204,7 @@
             0,
             0});
             this.OutputFps_Num.Minimum = new decimal(new int[] {
-            30,
+            1,
             0,
             0,
             0});
