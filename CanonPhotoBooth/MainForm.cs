@@ -69,10 +69,11 @@ namespace CanonPhotoBooth
                 {
                     videoSource = new VideoCaptureDevice(videoDevices[Cameras_Combo.SelectedIndex].MonikerString);
 
-                    var capabilities = videoSource.VideoCapabilities;
+                    var selectedCapabilityIndex = this.Capabilities_Combo.SelectedIndex;
 
-                    videoSource.VideoResolution = capabilities[16];
+                    videoSource.VideoResolution = videoSource.VideoCapabilities[selectedCapabilityIndex];
                     videoSource.NewFrame += VideoSource_NewFrame;
+                    videoSource.SetCameraProperty(CameraControlProperty.Zoom, 3, CameraControlFlags.Manual);
                     videoSource.SetCameraProperty(CameraControlProperty.Exposure, -5, CameraControlFlags.Auto);
                     videoSource.SetCameraProperty(CameraControlProperty.Focus, -5, CameraControlFlags.Auto);
 
@@ -161,6 +162,10 @@ namespace CanonPhotoBooth
                 foreach (FilterInfo device in videoDevices)
                 {
                     Cameras_Combo.Items.Add(device.Name);
+                    var capabilities = GetCapabilities(device.MonikerString).Select(q => string.Format("Fps: {0} | Resolution: {1}x{2}", q.AverageFrameRate, q.FrameSize.Width, q.FrameSize.Height));
+
+                    this.Capabilities_Combo.Items.AddRange(capabilities.ToArray());
+                    this.Capabilities_Combo.SelectedIndex = 0;
                 }
 
                 Cameras_Combo.SelectedIndex = 0; //make dafault to first cam
@@ -170,6 +175,14 @@ namespace CanonPhotoBooth
                 DeviceExist = false;
                 Cameras_Combo.Items.Add("No capture device on your system");
             }
+        }
+
+        List<VideoCapabilities> GetCapabilities(string moniker)
+        {
+            videoSource = new VideoCaptureDevice(moniker);
+            var capabilities = videoSource.VideoCapabilities.ToList();
+
+            return capabilities;
         }
 
         private void Interval_Num_ValueChanged(object sender, EventArgs e)
@@ -231,7 +244,7 @@ namespace CanonPhotoBooth
 
                 // Optionally reduce colors
                 QuantizeSettings settings = new QuantizeSettings();
-                settings.Colors = 8;
+                settings.Colors = 32;
                 collection.Quantize(settings);
 
                 // Optionally optimize the images (images should have the same size).

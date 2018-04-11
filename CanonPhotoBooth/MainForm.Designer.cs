@@ -44,6 +44,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.OutputFps_Num = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.Capabilities_Combo = new System.Windows.Forms.ComboBox();
             this.Preview_Group.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Interval_Num)).BeginInit();
@@ -52,7 +54,7 @@
             // 
             // RecordAsGif_Button
             // 
-            this.RecordAsGif_Button.Location = new System.Drawing.Point(506, 77);
+            this.RecordAsGif_Button.Location = new System.Drawing.Point(506, 111);
             this.RecordAsGif_Button.Name = "RecordAsGif_Button";
             this.RecordAsGif_Button.Size = new System.Drawing.Size(112, 23);
             this.RecordAsGif_Button.TabIndex = 1;
@@ -64,9 +66,9 @@
             // 
             this.Cameras_Combo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Cameras_Combo.FormattingEnabled = true;
-            this.Cameras_Combo.Location = new System.Drawing.Point(167, 16);
+            this.Cameras_Combo.Location = new System.Drawing.Point(166, 16);
             this.Cameras_Combo.Name = "Cameras_Combo";
-            this.Cameras_Combo.Size = new System.Drawing.Size(231, 21);
+            this.Cameras_Combo.Size = new System.Drawing.Size(232, 21);
             this.Cameras_Combo.TabIndex = 2;
             // 
             // label1
@@ -91,7 +93,7 @@
             // Preview_Group
             // 
             this.Preview_Group.Controls.Add(this.pictureBox1);
-            this.Preview_Group.Location = new System.Drawing.Point(12, 136);
+            this.Preview_Group.Location = new System.Drawing.Point(12, 170);
             this.Preview_Group.Name = "Preview_Group";
             this.Preview_Group.Size = new System.Drawing.Size(328, 259);
             this.Preview_Group.TabIndex = 5;
@@ -110,7 +112,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(59, 51);
+            this.label2.Location = new System.Drawing.Point(59, 85);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(102, 13);
             this.label2.TabIndex = 6;
@@ -118,7 +120,7 @@
             // 
             // Interval_Num
             // 
-            this.Interval_Num.Location = new System.Drawing.Point(167, 78);
+            this.Interval_Num.Location = new System.Drawing.Point(167, 112);
             this.Interval_Num.Maximum = new decimal(new int[] {
             20000,
             0,
@@ -143,7 +145,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.SystemColors.Window;
-            this.label3.Location = new System.Drawing.Point(245, 82);
+            this.label3.Location = new System.Drawing.Point(245, 116);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(20, 13);
             this.label3.TabIndex = 8;
@@ -152,7 +154,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(68, 80);
+            this.label4.Location = new System.Drawing.Point(68, 114);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(93, 13);
             this.label4.TabIndex = 9;
@@ -160,7 +162,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(293, 75);
+            this.button1.Location = new System.Drawing.Point(293, 109);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(47, 23);
             this.button1.TabIndex = 10;
@@ -170,7 +172,7 @@
             // PreviewFps_Label
             // 
             this.PreviewFps_Label.AutoSize = true;
-            this.PreviewFps_Label.Location = new System.Drawing.Point(57, 110);
+            this.PreviewFps_Label.Location = new System.Drawing.Point(57, 144);
             this.PreviewFps_Label.Name = "PreviewFps_Label";
             this.PreviewFps_Label.Size = new System.Drawing.Size(104, 13);
             this.PreviewFps_Label.TabIndex = 11;
@@ -178,7 +180,7 @@
             // 
             // Output_Button
             // 
-            this.Output_Button.Location = new System.Drawing.Point(506, 183);
+            this.Output_Button.Location = new System.Drawing.Point(506, 217);
             this.Output_Button.Name = "Output_Button";
             this.Output_Button.Size = new System.Drawing.Size(75, 23);
             this.Output_Button.TabIndex = 12;
@@ -189,7 +191,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(435, 156);
+            this.label5.Location = new System.Drawing.Point(435, 190);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(65, 13);
             this.label5.TabIndex = 13;
@@ -197,7 +199,7 @@
             // 
             // OutputFps_Num
             // 
-            this.OutputFps_Num.Location = new System.Drawing.Point(506, 152);
+            this.OutputFps_Num.Location = new System.Drawing.Point(506, 186);
             this.OutputFps_Num.Maximum = new decimal(new int[] {
             20000,
             0,
@@ -221,17 +223,37 @@
             // 
             this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.SystemColors.Window;
-            this.label6.Location = new System.Drawing.Point(576, 157);
+            this.label6.Location = new System.Drawing.Point(576, 191);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(20, 13);
             this.label6.TabIndex = 15;
             this.label6.Text = "ms";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(97, 46);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(63, 13);
+            this.label7.TabIndex = 16;
+            this.label7.Text = "Capabilities:";
+            // 
+            // Capabilities_Combo
+            // 
+            this.Capabilities_Combo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Capabilities_Combo.FormattingEnabled = true;
+            this.Capabilities_Combo.Location = new System.Drawing.Point(166, 43);
+            this.Capabilities_Combo.Name = "Capabilities_Combo";
+            this.Capabilities_Combo.Size = new System.Drawing.Size(232, 21);
+            this.Capabilities_Combo.TabIndex = 17;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(630, 445);
+            this.Controls.Add(this.Capabilities_Combo);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.OutputFps_Num);
             this.Controls.Add(this.label5);
@@ -277,6 +299,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.NumericUpDown OutputFps_Num;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ComboBox Capabilities_Combo;
     }
 }
 
