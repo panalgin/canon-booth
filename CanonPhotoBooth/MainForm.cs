@@ -258,7 +258,17 @@ namespace CanonPhotoBooth
         private void Left_Screen_Button_Click(object sender, EventArgs e)
         {
             LeftScreenForm form = new LeftScreenForm();
+            form.Location = new Point(0, 0);
             form.Show();
+            
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+
+            if (this.videoSource != null)
+                CloseVideoSource();
         }
     }
 }

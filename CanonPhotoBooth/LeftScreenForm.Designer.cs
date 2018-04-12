@@ -37,7 +37,7 @@
             this.ClientSize = new System.Drawing.Size(792, 573);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "LeftScreenForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "LeftScreenForm";
             this.Load += new System.EventHandler(this.LeftScreenForm_Load);
             this.ResumeLayout(false);
