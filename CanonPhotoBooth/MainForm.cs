@@ -254,5 +254,11 @@ namespace CanonPhotoBooth
                 collection.Write(savePath);
             }
         }
+
+        private void Left_Screen_Button_Click(object sender, EventArgs e)
+        {
+            LeftScreenForm form = new LeftScreenForm();
+            form.Show();
+        }
     }
 }

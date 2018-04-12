@@ -46,6 +46,8 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.Capabilities_Combo = new System.Windows.Forms.ComboBox();
+            this.Left_Screen_Button = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.Preview_Group.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Interval_Num)).BeginInit();
@@ -247,11 +249,32 @@
             this.Capabilities_Combo.Size = new System.Drawing.Size(232, 21);
             this.Capabilities_Combo.TabIndex = 17;
             // 
+            // Left_Screen_Button
+            // 
+            this.Left_Screen_Button.Location = new System.Drawing.Point(462, 406);
+            this.Left_Screen_Button.Name = "Left_Screen_Button";
+            this.Left_Screen_Button.Size = new System.Drawing.Size(75, 23);
+            this.Left_Screen_Button.TabIndex = 18;
+            this.Left_Screen_Button.Text = "Left Screen";
+            this.Left_Screen_Button.UseVisualStyleBackColor = true;
+            this.Left_Screen_Button.Click += new System.EventHandler(this.Left_Screen_Button_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(543, 406);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 19;
+            this.button2.Text = "Left Screen";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(630, 445);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.Left_Screen_Button);
             this.Controls.Add(this.Capabilities_Combo);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
@@ -301,6 +324,8 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox Capabilities_Combo;
+        private System.Windows.Forms.Button Left_Screen_Button;
+        private System.Windows.Forms.Button button2;
     }
 }
 
