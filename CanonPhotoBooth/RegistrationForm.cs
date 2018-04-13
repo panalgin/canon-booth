@@ -12,16 +12,16 @@ using System.Windows.Forms;
 
 namespace CanonPhotoBooth
 {
-    public partial class LeftScreenForm : Form
+    public partial class RegistrationForm : Form
     {
         public ChromiumWebBrowser Browser { get; set; }
 
-        public LeftScreenForm()
+        public RegistrationForm()
         {
             InitializeComponent();
-
             CreateBrowser();
         }
+
 
         private void CreateBrowser()
         {
@@ -41,7 +41,7 @@ namespace CanonPhotoBooth
             Cef.Shutdown();
         }
 
-        private void LeftScreenForm_Load(object sender, EventArgs e)
+        private void RegistrationForm_Load(object sender, EventArgs e)
         {
 
         }

@@ -1,4 +1,5 @@
 ﻿using AForge.Video.DirectShow;
+using CefSharp;
 using ImageMagick;
 using System;
 using System.Collections.Generic;
@@ -30,6 +31,11 @@ namespace CanonPhotoBooth
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            Cef.Initialize(new CefSettings()
+            {
+
+            });
+
             string saveFolder = Path.Combine(Application.StartupPath, "Snapshots");
 
             if (!Directory.Exists(saveFolder))
@@ -269,6 +275,103 @@ namespace CanonPhotoBooth
 
             if (this.videoSource != null)
                 CloseVideoSource();
+
+            Cef.Shutdown();
+        }
+
+        private void Show_Registration_Button_Click(object sender, EventArgs e)
+        {
+            if (this.Show_Registration_Button.Text == "Show")
+            {
+                RegistrationForm form = new RegistrationForm();
+
+                form.Location = GetLocationFor("Registration");
+                form.Size = GetSizeFor("Registration");
+
+                form.Show();
+
+                this.Show_Registration_Button.Text = "Hide";
+            }
+            else
+            {
+                var regForm = Application.OpenForms.OfType<RegistrationForm>().FirstOrDefault();
+
+                if (regForm != null)
+                {
+                    regForm.Dispose();
+                    this.Show_Registration_Button.Text = "Show";
+                }
+            }
+        }
+
+        private Size GetSizeFor(string page)
+        {
+            int width = 0;
+            int height = 0;
+
+            switch(page)
+            {
+                case "Registration":
+                    {
+                        width = Convert.ToInt32(this.Promoter_Width_Num.Value);
+                        height = Convert.ToInt32(this.Promoter_Height_Num.Value);
+
+                        break;
+                    }
+
+                case "Left":
+                    {
+                        width = Convert.ToInt32(this.Left_Width_Num.Value);
+                        height = Convert.ToInt32(this.Left_Height_Num.Value);
+
+                        break;
+                    }
+
+                case "Right":
+                    {
+                        width = Convert.ToInt32(this.Right_Width_Num.Value);
+                        height = Convert.ToInt32(this.Right_Width_Num.Value);
+
+                        break;
+                    }
+            }
+
+            return new Size(width, height);
+        }
+
+        private Point GetLocationFor(string page)
+        {
+            int x = 0;
+            int y = 0;
+
+            switch (page)
+            {
+                case "Registration":
+                    {
+                        x = Convert.ToInt32(this.Promoter_X_Num.Value);
+                        y = Convert.ToInt32(this.Promoter_Y_Num.Value);
+
+                        break;
+                    }
+
+                case "Left":
+                    {
+                        x = Convert.ToInt32(this.Left_X_Num.Value);
+                        y = Convert.ToInt32(this.Left_Y_Num.Value);
+
+                        break;
+                    }
+
+                case "Right":
+                    {
+                        x = Convert.ToInt32(this.Right_X_Num.Value);
+                        y = Convert.ToInt32(this.Right_Y_Num.Value);
+
+                        break;
+                    }
+            }
+
+            return new Point(x, y);
         }
     }
 }
