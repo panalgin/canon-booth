@@ -632,7 +632,7 @@
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage3.Size = new System.Drawing.Size(503, 283);
             this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Promoter Screen";
+            this.tabPage3.Text = "Registration Screen";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // Promoter_Height_Num
@@ -787,6 +787,7 @@
             this.Update_Screens_Button.TabIndex = 21;
             this.Update_Screens_Button.Text = "Update Screen Positions";
             this.Update_Screens_Button.UseVisualStyleBackColor = true;
+            this.Update_Screens_Button.Click += new System.EventHandler(this.Update_Screens_Button_Click);
             // 
             // tabPage5
             // 

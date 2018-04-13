@@ -22,5 +22,77 @@ namespace CanonPhotoBooth.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Size LeftScreenSize {
+            get {
+                return ((global::System.Drawing.Size)(this["LeftScreenSize"]));
+            }
+            set {
+                this["LeftScreenSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Point LeftScreenLocation {
+            get {
+                return ((global::System.Drawing.Point)(this["LeftScreenLocation"]));
+            }
+            set {
+                this["LeftScreenLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Size RightScreenSize {
+            get {
+                return ((global::System.Drawing.Size)(this["RightScreenSize"]));
+            }
+            set {
+                this["RightScreenSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Point RightScreenLocation {
+            get {
+                return ((global::System.Drawing.Point)(this["RightScreenLocation"]));
+            }
+            set {
+                this["RightScreenLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Size RegistrationScreenSize {
+            get {
+                return ((global::System.Drawing.Size)(this["RegistrationScreenSize"]));
+            }
+            set {
+                this["RegistrationScreenSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Point RegistrationScreenLocation {
+            get {
+                return ((global::System.Drawing.Point)(this["RegistrationScreenLocation"]));
+            }
+            set {
+                this["RegistrationScreenLocation"] = value;
+            }
+        }
     }
 }

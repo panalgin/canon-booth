@@ -1,4 +1,5 @@
 ﻿using AForge.Video.DirectShow;
+using CanonPhotoBooth.Properties;
 using CefSharp;
 using ImageMagick;
 using System;
@@ -31,6 +32,8 @@ namespace CanonPhotoBooth
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            LoadSettings();
+
             Cef.Initialize(new CefSettings()
             {
 
@@ -372,6 +375,58 @@ namespace CanonPhotoBooth
             }
 
             return new Point(x, y);
+        }
+
+        private void Update_Screens_Button_Click(object sender, EventArgs e)
+        {
+            SaveSettings();
+        }
+
+        private void LoadSettings()
+        {
+            Settings.Default.Reload();
+
+            var settings = Settings.Default;
+
+            this.Left_X_Num.Value = settings.LeftScreenLocation.X;
+            this.Left_Y_Num.Value = settings.LeftScreenLocation.Y;
+
+            this.Right_X_Num.Value = settings.RightScreenLocation.X;
+            this.Right_Y_Num.Value = settings.RightScreenLocation.Y;
+
+            this.Promoter_X_Num.Value = settings.RegistrationScreenLocation.X;
+            this.Promoter_Y_Num.Value = settings.RegistrationScreenLocation.Y;
+
+            this.Left_Width_Num.Value = settings.LeftScreenSize.Width;
+            this.Left_Height_Num.Value = settings.LeftScreenSize.Height;
+
+            this.Right_Width_Num.Value = settings.RightScreenSize.Width;
+            this.Right_Height_Num.Value = settings.RightScreenSize.Height;
+
+            this.Promoter_Width_Num.Value = settings.RegistrationScreenSize.Width;
+            this.Promoter_Height_Num.Value = settings.RegistrationScreenSize.Height;
+        }
+
+        private void SaveSettings()
+        {
+            var leftScreenSize = new Size((int)this.Left_Width_Num.Value, (int)this.Left_Height_Num.Value);
+            var rightScreenSize = new Size((int)this.Right_Width_Num.Value, (int)this.Right_Height_Num.Value);
+            var regScreenSize = new Size((int)this.Promoter_Width_Num.Value, (int)this.Promoter_Height_Num.Value);
+
+            var leftScreenLocation = new Point((int)this.Left_X_Num.Value, (int)this.Left_Y_Num.Value);
+            var rightScreenLocation = new Point((int)this.Right_X_Num.Value, (int)this.Right_Y_Num.Value);
+            var regScreenLocation = new Point((int)this.Promoter_X_Num.Value, (int)this.Promoter_Y_Num.Value);
+
+            Settings.Default.LeftScreenSize = leftScreenSize;
+            Settings.Default.LeftScreenLocation = leftScreenLocation;
+
+            Settings.Default.RightScreenSize = rightScreenSize;
+            Settings.Default.RightScreenLocation = rightScreenLocation;
+
+            Settings.Default.RegistrationScreenSize = regScreenSize;
+            Settings.Default.RegistrationScreenLocation = regScreenLocation;
+
+            Settings.Default.Save();            
         }
     }
 }
