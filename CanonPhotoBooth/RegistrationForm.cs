@@ -15,6 +15,8 @@ namespace CanonPhotoBooth
 {
     public partial class RegistrationForm : Form
     {
+        private bool IsBrowserInitialized = false;
+
         public ChromiumWebBrowser Browser { get; set; }
 
         public RegistrationForm()
@@ -44,6 +46,12 @@ namespace CanonPhotoBooth
             Browser.Dock = DockStyle.Fill;
 
             Browser.RegisterAsyncJsObject("windowsApp", handler);
+            Browser.IsBrowserInitializedChanged += Browser_IsBrowserInitializedChanged;
+        }
+
+        private void Browser_IsBrowserInitializedChanged(object sender, IsBrowserInitializedChangedEventArgs e)
+        {
+            IsBrowserInitialized = e.IsBrowserInitialized;
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -65,8 +73,10 @@ namespace CanonPhotoBooth
         {
             if (requestedFrom == this.GetType())
             {
-                if (this.Browser.GetBrowser().HasDocument)
+                if (IsBrowserInitialized)
+                {
                     this.Browser.ShowDevTools();
+                }
             }
         }
     }

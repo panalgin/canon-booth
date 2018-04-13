@@ -6,12 +6,70 @@
     <title>Registration</title>
     <link href="css/main.css" type="text/css" rel="stylesheet" />
     <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/dobPicker.min.js"></script>
 </head>
-<body class="registration-bg">
-    asfsdghfhdh
-
+<body class="registration">
+    <div class="container">
+        <div class="row">
+            <div class="cell left"><span>First Name:</span></div>
+            <div class="cell right"><input type="text" placeholder="John" /></div>
+        </div>
+        <div class="row">
+            <div class="cell left"><span>Last Name:</span></div>
+            <div class="cell right"><input type="text" placeholder="Smith" /></div>
+        </div>
+        <div class="row">
+            <div class="cell left"><span>Email:</span></div>
+            <div class="cell right"><input type="text" placeholder="info@example.com" /></div>
+        </div>
+        <div class="row">
+            <div class="cell left"><span>Date Of Birth:</span></div>
+            <div class="cell right">
+                <select id="day-of-birth">
+                </select>
+                <select id="month-of-birth">
+                </select>
+                <select id="year-of-birth">
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="cell left"><span>Mobile No:</span></div>
+            <div class="cell right"><input type="text" /></div>
+        </div>
+        <div class="row">
+            <div class="cell left"><span>Gender:</span></div>
+            <div class="cell right">
+                <select>
+                    <option>Male</option>
+                    <option>Female</option>
+                </select>
+            </div>
+        </div>
+    </div>
     <script type="text/javascript">
         $(document).ready(function () {
+            $(document).ready(function () {
+                $.dobPicker({
+                    // Selectopr IDs
+                    daySelector: '#day-of-birth',
+                    monthSelector: '#month-of-birth',
+                    yearSelector: '#year-of-birth',
+
+                    // Default option values
+                    dayDefault: 'Day',
+                    monthDefault: 'Month',
+                    yearDefault: 'Year',
+
+                    // Minimum age
+                    minimumAge: 8,
+
+                    // Maximum age
+                    maximumAge: 99
+                });
+            });
+
+
             $("body").dblclick(function (e) {
                 windowsApp.showDevTools();
             });
