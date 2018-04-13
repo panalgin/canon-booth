@@ -26,6 +26,12 @@ namespace CanonPhotoBooth
         private void CreateBrowser()
         {
             Browser = new ChromiumWebBrowser("View\\screen-common.html");
+            Browser.BrowserSettings = new BrowserSettings()
+            {
+                FileAccessFromFileUrls = CefState.Enabled,
+                UniversalAccessFromFileUrls = CefState.Enabled,
+                DefaultEncoding = "UTF8",
+            };
 
             this.Controls.Add(Browser);
             Browser.Dock = DockStyle.Fill;

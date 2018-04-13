@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,10 +26,24 @@ namespace CanonPhotoBooth
 
         private void CreateBrowser()
         {
-            Browser = new ChromiumWebBrowser("View\\screen-common.html");
+            var filePath = Path.Combine(Application.StartupPath, "View\\registration.html");
+
+            Browser = new ChromiumWebBrowser(filePath);
+
+            Browser.BrowserSettings = new BrowserSettings()
+            {
+                FileAccessFromFileUrls = CefState.Enabled,
+                UniversalAccessFromFileUrls = CefState.Enabled,
+                DefaultEncoding = "UTF8",
+            };
+
+            RegistrationJavascriptHandler handler = new RegistrationJavascriptHandler();
+
 
             this.Controls.Add(Browser);
             Browser.Dock = DockStyle.Fill;
+
+            Browser.RegisterAsyncJsObject("windowsApp", handler);
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -43,7 +58,16 @@ namespace CanonPhotoBooth
 
         private void RegistrationForm_Load(object sender, EventArgs e)
         {
+            EventSink.DevToolsRequested += EventSink_DevToolsRequested;
+        }
 
+        private void EventSink_DevToolsRequested(Type requestedFrom)
+        {
+            if (requestedFrom == this.GetType())
+            {
+                if (this.Browser.GetBrowser().HasDocument)
+                    this.Browser.ShowDevTools();
+            }
         }
     }
 }

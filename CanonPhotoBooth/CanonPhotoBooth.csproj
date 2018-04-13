@@ -84,7 +84,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseJavascriptHandler.cs" />
     <Compile Include="CapabilityItem.cs" />
+    <Compile Include="EventSink.cs" />
     <Compile Include="LeftScreenForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -105,6 +107,7 @@
     <Compile Include="RegistrationForm.Designer.cs">
       <DependentUpon>RegistrationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="RegistrationJavascriptHandler.cs" />
     <EmbeddedResource Include="LeftScreenForm.resx">
       <DependentUpon>LeftScreenForm.cs</DependentUpon>
     </EmbeddedResource>

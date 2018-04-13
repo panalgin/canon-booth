@@ -1,6 +1,8 @@
 ﻿using AForge.Video.DirectShow;
 using CanonPhotoBooth.Properties;
 using CefSharp;
+using CefSharp.WinForms;
+
 using ImageMagick;
 using System;
 using System.Collections.Generic;
@@ -38,6 +40,9 @@ namespace CanonPhotoBooth
             {
 
             });
+
+            CefSharpSettings.ShutdownOnExit = true;
+            CefSharpSettings.LegacyJavascriptBindingEnabled = true;
 
             string saveFolder = Path.Combine(Application.StartupPath, "Snapshots");
 

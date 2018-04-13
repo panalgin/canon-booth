@@ -1,7 +1,23 @@
 ﻿body {
     margin: 0;
     padding: 0;
-    color: #000;
+    color: #fff;
     font-family: Tahoma;
     font-size: 12px;
+
+    display: block;
+
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+}
+
+div { display: block; }
+
+.registration-bg {
+    background-image: url('../img/standing-bg.jpg');
+    background-repeat: no-repeat;
+    background-size: 1920px 1080px;
 }
