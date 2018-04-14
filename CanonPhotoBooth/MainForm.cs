@@ -15,12 +15,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using EOSDigital.API;
+using EOSDigital.SDK;
 
 namespace CanonPhotoBooth
 {
     public partial class MainForm : Form
     {
         #region Public/Private Declarations
+        CanonAPI APIHandler;
+        Camera MainCamera;
+        CameraValue[] AvList;
+        CameraValue[] TvList;
+        CameraValue[] ISOList;
+        List<Camera> CamList;
+        bool IsInit = false;
+        Bitmap Evf_Bmp;
+        int LVBw, LVBh, w, h;
+        float LVBratio, LVration;
+
+        int ErrCount;
+        object ErrLock = new object();
+        object LvLock = new object();
+
         private bool DeviceExist = false;
         private FilterInfoCollection videoDevices;
 
@@ -29,6 +46,7 @@ namespace CanonPhotoBooth
 
         private Timer timer = new Timer();
         private Timer timer2 = new Timer();
+        private Timer dslrTimer = new Timer();
 
         private double captureInterval = 200;
         private double captureInterval2 = 200;
@@ -64,6 +82,45 @@ namespace CanonPhotoBooth
             timer2.Interval = 1000;
             timer2.Tick += Timer2_Tick;
             GetVideoDevices();
+
+            try
+            {
+                APIHandler = new CanonAPI();
+                APIHandler.CameraAdded += APIHandler_CameraAdded;
+                ErrorHandler.SevereErrorHappened += ErrorHandler_SevereErrorHappened;
+                ErrorHandler.NonSevereErrorHappened += ErrorHandler_NonSevereErrorHappened;
+                RefreshCamera();
+                IsInit = true;
+            }
+
+            catch (DllNotFoundException) { ReportError("Canon DLLs not found!", true); }
+            catch (Exception ex) { ReportError(ex.Message, true); }
+
+
+            if (MainCamera?.SessionOpen == true)
+                CloseSession();
+
+            OpenSession();
+
+            dslrTimer = new Timer();
+            dslrTimer.Interval = 3000;
+            dslrTimer.Tick += DslrTimer_Tick;
+            dslrTimer.Start();
+        }
+
+        private void DslrTimer_Tick(object sender, EventArgs e)
+        {
+            if (MainCamera != null && MainCamera.SessionOpen)
+            {
+                try
+                {
+                    MainCamera.TakePhotoShutterAsync();
+                }
+                catch (Exception ex)
+                {
+                    ReportError(ex.Message, false);
+                }
+            }
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -79,11 +136,18 @@ namespace CanonPhotoBooth
                     videoSource2.SignalToStop();
             }
 
+            try
+            {
+                IsInit = false;
+                MainCamera?.Dispose();
+                APIHandler?.Dispose();
+            }
+            catch (Exception ex) { ReportError(ex.Message, false); }
+
             Cef.Shutdown();
         }
         #endregion
         #region Camera Parts
-
         private void Timer2_Tick(object sender, EventArgs e)
         {
             label34.Text = "Camera Running At: " + videoSource2.FramesReceived.ToString() + " FPS";
@@ -314,8 +378,10 @@ namespace CanonPhotoBooth
                     index++;
                 }
             }
-            catch (ApplicationException)
+            catch (ApplicationException ex)
             {
+                MessageBox.Show(ex.Message);
+
                 DeviceExist = false;
 
                 Camera1_Name_Label.Text = "No capture device on your system";
@@ -420,7 +486,7 @@ namespace CanonPhotoBooth
         private void Left_Screen_Button_Click(object sender, EventArgs e)
         {
             LeftScreenForm form = new LeftScreenForm();
-            form.Location = new Point(0, 0);
+            form.Location = new System.Drawing.Point(0, 0);
             form.Show();
 
         }
@@ -450,7 +516,7 @@ namespace CanonPhotoBooth
             }
         }
 
-        private Size GetSizeFor(string page)
+        private System.Drawing.Size GetSizeFor(string page)
         {
             int width = 0;
             int height = 0;
@@ -482,10 +548,10 @@ namespace CanonPhotoBooth
                     }
             }
 
-            return new Size(width, height);
+            return new System.Drawing.Size(width, height);
         }
 
-        private Point GetLocationFor(string page)
+        private System.Drawing.Point GetLocationFor(string page)
         {
             int x = 0;
             int y = 0;
@@ -517,7 +583,7 @@ namespace CanonPhotoBooth
                     }
             }
 
-            return new Point(x, y);
+            return new System.Drawing.Point(x, y);
         }
 
         private void Update_Screens_Button_Click(object sender, EventArgs e)
@@ -603,13 +669,13 @@ namespace CanonPhotoBooth
 
         private void SaveSettings()
         {
-            var leftScreenSize = new Size((int)this.Left_Width_Num.Value, (int)this.Left_Height_Num.Value);
-            var rightScreenSize = new Size((int)this.Right_Width_Num.Value, (int)this.Right_Height_Num.Value);
-            var regScreenSize = new Size((int)this.Promoter_Width_Num.Value, (int)this.Promoter_Height_Num.Value);
+            var leftScreenSize = new System.Drawing.Size((int)this.Left_Width_Num.Value, (int)this.Left_Height_Num.Value);
+            var rightScreenSize = new System.Drawing.Size((int)this.Right_Width_Num.Value, (int)this.Right_Height_Num.Value);
+            var regScreenSize = new System.Drawing.Size((int)this.Promoter_Width_Num.Value, (int)this.Promoter_Height_Num.Value);
 
-            var leftScreenLocation = new Point((int)this.Left_X_Num.Value, (int)this.Left_Y_Num.Value);
-            var rightScreenLocation = new Point((int)this.Right_X_Num.Value, (int)this.Right_Y_Num.Value);
-            var regScreenLocation = new Point((int)this.Promoter_X_Num.Value, (int)this.Promoter_Y_Num.Value);
+            var leftScreenLocation = new System.Drawing.Point((int)this.Left_X_Num.Value, (int)this.Left_Y_Num.Value);
+            var rightScreenLocation = new System.Drawing.Point((int)this.Right_X_Num.Value, (int)this.Right_Y_Num.Value);
+            var regScreenLocation = new System.Drawing.Point((int)this.Promoter_X_Num.Value, (int)this.Promoter_Y_Num.Value);
 
             Settings.Default.LeftScreenSize = leftScreenSize;
             Settings.Default.LeftScreenLocation = leftScreenLocation;
@@ -622,6 +688,133 @@ namespace CanonPhotoBooth
 
             Settings.Default.Save();
         }
+        #endregion
+        #region Dslr
+        private void OpenSession()
+        {
+            RefreshCamera();
+
+            if (CamList.Count > 0)
+            {
+                MainCamera = CamList[0];
+                MainCamera.OpenSession();
+                //MainCamera.LiveViewUpdated += MainCamera_LiveViewUpdated;
+                MainCamera.ProgressChanged += MainCamera_ProgressChanged;
+                MainCamera.StateChanged += MainCamera_StateChanged;
+                MainCamera.DownloadReady += MainCamera_DownloadReady;
+
+                //SessionButton.Text = "Close Session";
+                //SessionLabel.Text = MainCamera.DeviceName;
+                AvList = MainCamera.GetSettingsList(PropertyID.Av);
+                TvList = MainCamera.GetSettingsList(PropertyID.Tv);
+                ISOList = MainCamera.GetSettingsList(PropertyID.ISO);
+
+
+                MainCamera.SetSetting(PropertyID.SaveTo, (int)SaveTo.Host);
+                MainCamera.SetCapacity(4096, int.MaxValue);
+
+                /*foreach (var Av in AvList) AvCoBox.Items.Add(Av.StringValue);
+                foreach (var Tv in TvList) TvCoBox.Items.Add(Tv.StringValue);
+                foreach (var ISO in ISOList) ISOCoBox.Items.Add(ISO.StringValue);
+                AvCoBox.SelectedIndex = AvCoBox.Items.IndexOf(AvValues.GetValue(MainCamera.GetInt32Setting(PropertyID.Av)).StringValue);
+                TvCoBox.SelectedIndex = TvCoBox.Items.IndexOf(TvValues.GetValue(MainCamera.GetInt32Setting(PropertyID.Tv)).StringValue);
+                ISOCoBox.SelectedIndex = ISOCoBox.Items.IndexOf(ISOValues.GetValue(MainCamera.GetInt32Setting(PropertyID.ISO)).StringValue);
+                SettingsGroupBox.Enabled = true;
+                LiveViewGroupBox.Enabled = true;*/
+            }
+        }
+
+        private void MainCamera_LiveViewUpdated(Camera sender, Stream img)
+        {
+            try
+            {
+                lock (LvLock)
+                {
+                    Evf_Bmp?.Dispose();
+                    Evf_Bmp = new Bitmap(img);
+                }
+                //LiveViewPicBox.Invalidate();
+            }
+            catch (Exception ex) { ReportError(ex.Message, false); }
+        }
+
+        private void MainCamera_DownloadReady(Camera sender, DownloadInfo Info)
+        {
+            try
+            {
+                string saveFolder = Path.Combine(Application.StartupPath, "Temp");
+                if (!Directory.Exists(saveFolder))
+                    Directory.CreateDirectory(saveFolder);
+
+                string dir = null;
+                Invoke((Action)delegate { dir = saveFolder; });
+                sender.DownloadFile(Info, dir);
+                Invoke((Action)delegate { /*MainProgressBar.Value = 0;*/ });
+            }
+            catch (Exception ex) { ReportError(ex.Message, false); }
+        }
+
+        private void ReportError(string message, bool lockdown)
+        {
+            int errc;
+            lock (ErrLock) { errc = ++ErrCount; }
+
+            if (lockdown) { /* EnableUI(false); */ }
+
+            if (errc < 4) MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            else if (errc == 4) MessageBox.Show("Many errors happened!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            lock (ErrLock) { ErrCount--; }
+        }
+
+        private void CloseSession()
+        {
+            MainCamera.CloseSession();
+            //AvCoBox.Items.Clear();
+            //TvCoBox.Items.Clear();
+            //ISOCoBox.Items.Clear();
+            //SettingsGroupBox.Enabled = false;
+            //LiveViewGroupBox.Enabled = false;
+            //SessionButton.Text = "Open Session";
+            //SessionLabel.Text = "No open session";
+            //LiveViewButton.Text = "Start LV";
+        }
+
+        private void RefreshCamera()
+        {
+            CamList = APIHandler.GetCameraList();
+        }
+        #endregion
+        #region Dslr Api Events
+
+        private void APIHandler_CameraAdded(CanonAPI sender)
+        {
+            try { Invoke((Action)delegate { RefreshCamera(); }); }
+            catch (Exception ex) { ReportError(ex.Message, false); }
+        }
+
+        private void MainCamera_StateChanged(Camera sender, StateEventID eventID, int parameter)
+        {
+            try { if (eventID == StateEventID.Shutdown && IsInit) { Invoke((Action)delegate { CloseSession(); }); } }
+            catch (Exception ex) { ReportError(ex.Message, false); }
+        }
+
+        private void MainCamera_ProgressChanged(object sender, int progress)
+        {
+            try { Invoke((Action)delegate { /*MainProgressBar.Value = progress;*/ }); }
+            catch (Exception ex) { ReportError(ex.Message, false); }
+        }
+
+        private void ErrorHandler_NonSevereErrorHappened(object sender, ErrorCode ex)
+        {
+            ReportError($"SDK Error code: {ex} ({((int)ex).ToString("X")})", false);
+        }
+
+        private void ErrorHandler_SevereErrorHappened(object sender, Exception ex)
+        {
+            ReportError(ex.Message, true);
+        }
+
         #endregion
     }
 }

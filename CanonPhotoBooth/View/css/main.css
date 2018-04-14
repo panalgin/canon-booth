@@ -258,3 +258,7 @@ label.css-label {
     left: calc(50% - 490px);
 }
 
+
+.bg-video {
+    object-fit: cover;
+}
