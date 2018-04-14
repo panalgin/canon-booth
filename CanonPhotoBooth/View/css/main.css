@@ -72,7 +72,6 @@ div {
         height: 40px;
         line-height: 40px;
         outline: 0px;
-        border: 1px solid #000;
         border-radius: 5px;
         min-width: 200px;
         margin-left: 10px;
@@ -80,7 +79,7 @@ div {
         font-weight: bold;
         text-indent: 5px;
         box-sizing: border-box;
-        border: 2px solid #000;
+        border: 1px solid #000;
     }
 
         .container .row input[type='text']:hover {
@@ -200,4 +199,8 @@ label.css-label {
     font-style: italic;
     color: red;
     margin-left: 5px;
+}
+
+.container .row .error {
+    background-color: #ffcece;
 }

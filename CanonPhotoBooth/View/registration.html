@@ -16,15 +16,15 @@
         <form action="" id="playerCheckin">
             <div class="row">
                 <div class="cell left"><span>First Name:</span></div>
-                <div class="cell right"><input type="text" placeholder="John" data-validation="required" /></div>
+                <div class="cell right"><input id="first-name" type="text" placeholder="John" data-validation="required" /></div>
             </div>
             <div class="row">
                 <div class="cell left"><span>Last Name:</span></div>
-                <div class="cell right"><input type="text" placeholder="Smith" data-validation="required" /></div>
+                <div class="cell right"><input id="last-name" type="text" placeholder="Smith" data-validation="required" /></div>
             </div>
             <div class="row">
                 <div class="cell left"><span>Email:</span></div>
-                <div class="cell right"><input type="text" placeholder="info@example.com" data-validation="email" /></div>
+                <div class="cell right"><input id="email" type="text" placeholder="info@example.com" data-validation="email" /></div>
             </div>
             <div class="row">
                 <div class="cell left"><span>Date Of Birth:</span></div>
@@ -41,7 +41,7 @@
             <div class="row">
                 <div class="cell left"><span>Gender:</span></div>
                 <div class="cell right">
-                    <select>
+                    <select id="gender">
                         <option>Male</option>
                         <option>Female</option>
                     </select>
@@ -50,14 +50,14 @@
             <div class="row">
                 <div class="cell left"><span>Address:</span></div>
                 <div class="cell right">
-                    <select>
-                        <option>Abu Dhabi</option>
-                        <option>Ajman</option>
-                        <option>Dubai</option>
-                        <option>Fujairah</option>
-                        <option>Ras al-Khaimah</option>
-                        <option>Sharjah</option>
-                        <option>Umm al-Quwain</option>
+                    <select id="address">
+                        <option value="Abu Dhabi">Abu Dhabi</option>
+                        <option value="Ajman">Ajman</option>
+                        <option value="Dubai">Dubai</option>
+                        <option value="Fujairah">Fujairah</option>
+                        <option value="Ras al-Khaimah">Ras al-Khaimah</option>
+                        <option value="Sharjah">Sharjah</option>
+                        <option value="Umm al-Quwain">Umm al-Quwain</option>
                     </select>
                 </div>
             </div>
@@ -110,10 +110,23 @@
 
             $("body").on("click", "#save-button", function (e) {
                 $.validate({
+                    borderColorOnError: '#000',
                     validateOnBlur: false,
                     form: "#playerCheckin",
                     onSuccess: function ($form) {
-                        alert('The form ' + $form.attr('id') + ' is valid!');
+                        var player = {
+                            firstName: $("input#first-name").val(),
+                            lastName: $("input#last-name").val(),
+                            email: $("input#email").val(),
+                            dateOfBirth: $("select#day-of-birth").val() + '/' + $("select#month-of-birth").val() + '/' + $("select#year-of-birth").val(),
+                            mobileNumber: $("input#mobile-number").val(),
+                            gender: $("select#gender").val(),
+                            address: $("select#address").val()
+                        };
+
+                        var json = JSON.stringify(player);
+                        windowsApp.registerPlayer(json);
+
                         return false; // Will stop the submission of the form
                     },
                 });

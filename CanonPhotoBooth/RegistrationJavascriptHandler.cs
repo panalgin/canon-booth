@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CanonPhotoBooth.Contracts;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +17,11 @@ namespace CanonPhotoBooth
 
             if (regForm != null)
                 EventSink.InvokeDevToolsRequested(regForm.GetType());
+        }
+
+        public void RegisterPlayer(string json)
+        {
+            var player = JsonConvert.DeserializeObject<PlayerContract>(json);
         }
     }
 }
