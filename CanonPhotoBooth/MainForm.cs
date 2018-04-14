@@ -20,6 +20,7 @@ namespace CanonPhotoBooth
 {
     public partial class MainForm : Form
     {
+        #region Public/Private Declarations
         private bool DeviceExist = false;
         private FilterInfoCollection videoDevices;
 
@@ -33,7 +34,8 @@ namespace CanonPhotoBooth
         private double captureInterval2 = 200;
 
         private bool IsRecording = false;
-
+        #endregion
+        #region MainForm Base
         public MainForm()
         {
             InitializeComponent();
@@ -63,6 +65,24 @@ namespace CanonPhotoBooth
             timer2.Tick += Timer2_Tick;
             GetVideoDevices();
         }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+
+            if (this.videoSource != null)
+                CloseVideoSource();
+
+            if (this.videoSource2 != null)
+            {
+                if (videoSource2.IsRunning)
+                    videoSource2.SignalToStop();
+            }
+
+            Cef.Shutdown();
+        }
+        #endregion
+        #region Camera Parts
 
         private void Timer2_Tick(object sender, EventArgs e)
         {
@@ -150,7 +170,7 @@ namespace CanonPhotoBooth
                     var selectedCapabilityIndex = this.Camera2_Caps_Combo.SelectedIndex;
 
                     videoSource2.VideoResolution = videoSource2.VideoCapabilities[selectedCapabilityIndex];
-                    videoSource2.NewFrame += VideoSource_NewFrame;
+                    videoSource2.NewFrame += VideoSource2_NewFrame;
                     videoSource2.SetCameraProperty(CameraControlProperty.Zoom, 3, CameraControlFlags.Manual);
                     videoSource2.SetCameraProperty(CameraControlProperty.Exposure, -5, CameraControlFlags.Auto);
                     videoSource2.SetCameraProperty(CameraControlProperty.Focus, -5, CameraControlFlags.Auto);
@@ -190,30 +210,52 @@ namespace CanonPhotoBooth
             }
         }
 
+        DateTime lastSnapshotAt2 = DateTime.MinValue;
+
+        private void VideoSource2_NewFrame(object sender, AForge.Video.NewFrameEventArgs eventArgs)
+        {
+            if (DateTime.Now - lastSnapshotAt2 > TimeSpan.FromMilliseconds(captureInterval2))
+            {
+                lastSnapshotAt2 = DateTime.Now;
+
+                using (Bitmap img = (Bitmap)eventArgs.Frame.Clone())
+                {
+                    EncodeImage(img, 1);
+                }
+            }
+        }
+
         ImageCodecInfo encoder = ImageCodecInfo.GetImageEncoders().First(c => c.FormatID == ImageFormat.Jpeg.Guid);
         EncoderParameters encParams = new EncoderParameters() { Param = new[] { new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, 60L) } };
 
-        void EncodeImage(Bitmap map)
+        void EncodeImage(Bitmap map, int cameraIndex)
         {
             var stream = new MemoryStream();
             map.Save(stream, encoder, encParams);
 
             Image jpeg = Bitmap.FromStream(stream);
-            pictureBox1.Image = jpeg;
+
+            if (cameraIndex == 0)
+                pictureBox1.Image = jpeg;
+            else
+                pictureBox2.Image = jpeg;
 
             if (IsRecording)
             {
                 Task.Run(async () =>
                 {
-                    await SaveGifFrame(jpeg.Clone() as Image);
+                    await SaveGifFrame(jpeg.Clone() as Image, cameraIndex);
                 });
             }
         }
 
-        Task<bool> SaveGifFrame(Image image)
+        Task<bool> SaveGifFrame(Image image, int cameraIndex)
         {
-            string savePath = Path.Combine(Application.StartupPath, "Snapshots", DateTime.Now.ToFileTimeUtc() + ".jpg");
-            image.Save(savePath);
+            string saveFolder = Path.Combine(Application.StartupPath, "Snapshots", cameraIndex.ToString());
+            string savePath = Path.Combine(saveFolder, DateTime.Now.ToFileTimeUtc() + ".jpg");
+
+            if (!Directory.Exists(saveFolder))
+                image.Save(savePath);
 
             return Task.FromResult(true);
         }
@@ -228,7 +270,7 @@ namespace CanonPhotoBooth
 
                 using (Bitmap img = (Bitmap)eventArgs.Frame.Clone())
                 {
-                    EncodeImage(img);
+                    EncodeImage(img, 0);
                 }
             }
         }
@@ -241,8 +283,6 @@ namespace CanonPhotoBooth
 
                 if (videoDevices.Count == 0)
                     throw new ApplicationException();
-
-
 
                 int index = 0;
 
@@ -261,10 +301,12 @@ namespace CanonPhotoBooth
                     else
                     {
                         Camera2_Name_Label.Text = device.Name;
-                        Camera1_Path_Label.Text = device.MonikerString;
+                        Camera2_Path_Label.Text = device.MonikerString;
 
                         Camera2_Caps_Combo.Items.AddRange(capabilities.ToArray());
                         Camera2_Caps_Combo.SelectedIndex = 0;
+
+                        DeviceExist = true;
                     }
 
                     index++;
@@ -292,6 +334,11 @@ namespace CanonPhotoBooth
             captureInterval = Convert.ToDouble(this.Interval_Num.Value);
         }
 
+        private void Camera2_Interval_Num_ValueChanged(object sender, EventArgs e)
+        {
+            captureInterval2 = Convert.ToDouble(this.Camera2_Interval_Num.Value);
+        }
+
         private void RecordAsGif_Button_Click(object sender, EventArgs e)
         {
             if (this.RecordAsGif_Button.Text.StartsWith("Rec"))
@@ -310,69 +357,67 @@ namespace CanonPhotoBooth
 
         private void Output_Button_Click(object sender, EventArgs e)
         {
-            string readPath = Path.Combine(Application.StartupPath, "Snapshots");
-
-            var imageFrames = Directory.EnumerateFiles(readPath, "*.jpg", SearchOption.TopDirectoryOnly);
-
-
-            using (MagickImageCollection collection = new MagickImageCollection())
+            Task.Run(async () =>
             {
-                //collection.CacheDirectory = @"C:\MyProgram\MyTempDir";
-                //Add first image and set the animation delay to 100ms
-                //MagickNET.Initialize(@"C:\Users\johsam\Downloads\Magick\MagickScript.xsd");
-
-                var outputFps = Convert.ToInt32(this.OutputFps_Num.Value);
-                var animationDelay = /*1000 /*/ outputFps;
-
-                int curFrame = 0;
-
-                imageFrames.All(delegate (string fileName)
-                {
-                    collection.Add(fileName);
-                    collection[curFrame].AnimationDelay = animationDelay;
-
-                    return true;
-                });
-
-                curFrame = 0;
-                collection.All(delegate (IMagickImage image)
-                {
-                    //image.Implode(0.5, PixelInterpolateMethod.Average);
-                    //image.OilPaint();
-                    curFrame++;
-
-                    return true;
-                });
-
-                // Optionally reduce colors
-                QuantizeSettings settings = new QuantizeSettings();
-                settings.Colors = 32;
-                collection.Quantize(settings);
-
-                // Optionally optimize the images (images should have the same size).
-                //collection.Optimize();
-
-                var savePath = Path.Combine(Application.StartupPath, "Output.gif");
-                collection.Write(savePath);
-            }
+                await GenerateGifs();
+            });
         }
+
+        Task<bool> GenerateGifs()
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                string readPath = Path.Combine(Application.StartupPath, "Snapshots", i.ToString());
+
+                var imageFrames = Directory.EnumerateFiles(readPath, "*.jpg", SearchOption.TopDirectoryOnly);
+
+                using (MagickImageCollection collection = new MagickImageCollection())
+                {
+                    var outputFps = Convert.ToInt32(this.OutputFps_Num.Value);
+                    var animationDelay = /*1000 /*/ outputFps;
+
+                    int curFrame = 0;
+
+                    imageFrames.All(delegate (string fileName)
+                    {
+                        collection.Add(fileName);
+                        collection[curFrame].AnimationDelay = animationDelay;
+
+                        return true;
+                    });
+
+                    // Optionally reduce colors
+                    QuantizeSettings settings = new QuantizeSettings();
+                    settings.Colors = 32;
+                    collection.Quantize(settings);
+
+                    // Optionally optimize the images (images should have the same size).
+                    //collection.Optimize();
+
+                    var savePath = Path.Combine(Application.StartupPath, string.Format("Output-{0}-{1}.gif", i, DateTime.Now.ToFileTimeUtc()));
+                    collection.Write(savePath);
+                }
+
+                Directory.EnumerateFiles(readPath).All(delegate (string file)
+                {
+                    var fileInfo = new FileInfo(file);
+                    fileInfo.Delete();
+
+                    return true;
+                });
+            }
+
+            return Task.FromResult(true);
+        }
+        #endregion
+        #region Screen Parts
 
         private void Left_Screen_Button_Click(object sender, EventArgs e)
         {
             LeftScreenForm form = new LeftScreenForm();
             form.Location = new Point(0, 0);
             form.Show();
-            
-        }
 
-        protected override void OnFormClosing(FormClosingEventArgs e)
-        {
-            base.OnFormClosing(e);
-
-            if (this.videoSource != null)
-                CloseVideoSource();
-
-            Cef.Shutdown();
         }
 
         private void Show_Registration_Button_Click(object sender, EventArgs e)
@@ -405,7 +450,7 @@ namespace CanonPhotoBooth
             int width = 0;
             int height = 0;
 
-            switch(page)
+            switch (page)
             {
                 case "Registration":
                     {
@@ -475,53 +520,6 @@ namespace CanonPhotoBooth
             SaveSettings();
         }
 
-        private void LoadSettings()
-        {
-            Settings.Default.Reload();
-
-            var settings = Settings.Default;
-
-            this.Left_X_Num.Value = settings.LeftScreenLocation.X;
-            this.Left_Y_Num.Value = settings.LeftScreenLocation.Y;
-
-            this.Right_X_Num.Value = settings.RightScreenLocation.X;
-            this.Right_Y_Num.Value = settings.RightScreenLocation.Y;
-
-            this.Promoter_X_Num.Value = settings.RegistrationScreenLocation.X;
-            this.Promoter_Y_Num.Value = settings.RegistrationScreenLocation.Y;
-
-            this.Left_Width_Num.Value = settings.LeftScreenSize.Width;
-            this.Left_Height_Num.Value = settings.LeftScreenSize.Height;
-
-            this.Right_Width_Num.Value = settings.RightScreenSize.Width;
-            this.Right_Height_Num.Value = settings.RightScreenSize.Height;
-
-            this.Promoter_Width_Num.Value = settings.RegistrationScreenSize.Width;
-            this.Promoter_Height_Num.Value = settings.RegistrationScreenSize.Height;
-        }
-
-        private void SaveSettings()
-        {
-            var leftScreenSize = new Size((int)this.Left_Width_Num.Value, (int)this.Left_Height_Num.Value);
-            var rightScreenSize = new Size((int)this.Right_Width_Num.Value, (int)this.Right_Height_Num.Value);
-            var regScreenSize = new Size((int)this.Promoter_Width_Num.Value, (int)this.Promoter_Height_Num.Value);
-
-            var leftScreenLocation = new Point((int)this.Left_X_Num.Value, (int)this.Left_Y_Num.Value);
-            var rightScreenLocation = new Point((int)this.Right_X_Num.Value, (int)this.Right_Y_Num.Value);
-            var regScreenLocation = new Point((int)this.Promoter_X_Num.Value, (int)this.Promoter_Y_Num.Value);
-
-            Settings.Default.LeftScreenSize = leftScreenSize;
-            Settings.Default.LeftScreenLocation = leftScreenLocation;
-
-            Settings.Default.RightScreenSize = rightScreenSize;
-            Settings.Default.RightScreenLocation = rightScreenLocation;
-
-            Settings.Default.RegistrationScreenSize = regScreenSize;
-            Settings.Default.RegistrationScreenLocation = regScreenLocation;
-
-            Settings.Default.Save();            
-        }
-
         private void Show_Left_Screen_Button_Click(object sender, EventArgs e)
         {
             if (this.Show_Left_Screen_Button.Text == "Show")
@@ -571,5 +569,54 @@ namespace CanonPhotoBooth
                 }
             }
         }
+        #endregion
+        #region Settings
+        private void LoadSettings()
+        {
+            Settings.Default.Reload();
+
+            var settings = Settings.Default;
+
+            this.Left_X_Num.Value = settings.LeftScreenLocation.X;
+            this.Left_Y_Num.Value = settings.LeftScreenLocation.Y;
+
+            this.Right_X_Num.Value = settings.RightScreenLocation.X;
+            this.Right_Y_Num.Value = settings.RightScreenLocation.Y;
+
+            this.Promoter_X_Num.Value = settings.RegistrationScreenLocation.X;
+            this.Promoter_Y_Num.Value = settings.RegistrationScreenLocation.Y;
+
+            this.Left_Width_Num.Value = settings.LeftScreenSize.Width;
+            this.Left_Height_Num.Value = settings.LeftScreenSize.Height;
+
+            this.Right_Width_Num.Value = settings.RightScreenSize.Width;
+            this.Right_Height_Num.Value = settings.RightScreenSize.Height;
+
+            this.Promoter_Width_Num.Value = settings.RegistrationScreenSize.Width;
+            this.Promoter_Height_Num.Value = settings.RegistrationScreenSize.Height;
+        }
+
+        private void SaveSettings()
+        {
+            var leftScreenSize = new Size((int)this.Left_Width_Num.Value, (int)this.Left_Height_Num.Value);
+            var rightScreenSize = new Size((int)this.Right_Width_Num.Value, (int)this.Right_Height_Num.Value);
+            var regScreenSize = new Size((int)this.Promoter_Width_Num.Value, (int)this.Promoter_Height_Num.Value);
+
+            var leftScreenLocation = new Point((int)this.Left_X_Num.Value, (int)this.Left_Y_Num.Value);
+            var rightScreenLocation = new Point((int)this.Right_X_Num.Value, (int)this.Right_Y_Num.Value);
+            var regScreenLocation = new Point((int)this.Promoter_X_Num.Value, (int)this.Promoter_Y_Num.Value);
+
+            Settings.Default.LeftScreenSize = leftScreenSize;
+            Settings.Default.LeftScreenLocation = leftScreenLocation;
+
+            Settings.Default.RightScreenSize = rightScreenSize;
+            Settings.Default.RightScreenLocation = rightScreenLocation;
+
+            Settings.Default.RegistrationScreenSize = regScreenSize;
+            Settings.Default.RegistrationScreenLocation = regScreenLocation;
+
+            Settings.Default.Save();
+        }
+        #endregion
     }
 }

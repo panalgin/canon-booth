@@ -43,6 +43,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.Show_Left_Screen_Button = new System.Windows.Forms.Button();
             this.Left_Height_Num = new System.Windows.Forms.NumericUpDown();
             this.Left_Width_Num = new System.Windows.Forms.NumericUpDown();
             this.label13 = new System.Windows.Forms.Label();
@@ -54,6 +55,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.Show_Right_Screen_Button = new System.Windows.Forms.Button();
             this.Right_Height_Num = new System.Windows.Forms.NumericUpDown();
             this.Right_Width_Num = new System.Windows.Forms.NumericUpDown();
             this.label14 = new System.Windows.Forms.Label();
@@ -82,15 +84,13 @@
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.tabControl3 = new System.Windows.Forms.TabControl();
             this.tabPage6 = new System.Windows.Forms.TabPage();
-            this.tabPage7 = new System.Windows.Forms.TabPage();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.Show_Left_Screen_Button = new System.Windows.Forms.Button();
-            this.Show_Right_Screen_Button = new System.Windows.Forms.Button();
-            this.label26 = new System.Windows.Forms.Label();
-            this.label27 = new System.Windows.Forms.Label();
-            this.label28 = new System.Windows.Forms.Label();
+            this.Camera1_Path_Label = new System.Windows.Forms.Label();
+            this.Camera1_Name_Label = new System.Windows.Forms.Label();
             this.Camera1_Caps_Combo = new System.Windows.Forms.ComboBox();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.tabPage7 = new System.Windows.Forms.TabPage();
             this.Camera2_Caps_Combo = new System.Windows.Forms.ComboBox();
             this.Camera2_Path_Label = new System.Windows.Forms.Label();
             this.Camera2_Name_Label = new System.Windows.Forms.Label();
@@ -98,13 +98,13 @@
             this.label32 = new System.Windows.Forms.Label();
             this.label33 = new System.Windows.Forms.Label();
             this.Camera2_Start_Button = new System.Windows.Forms.Button();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.Camera2_Interval_Num = new System.Windows.Forms.NumericUpDown();
             this.label34 = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
             this.label36 = new System.Windows.Forms.Label();
             this.label37 = new System.Windows.Forms.Label();
-            this.Camera1_Path_Label = new System.Windows.Forms.Label();
-            this.Camera1_Name_Label = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.Preview_Group.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Interval_Num)).BeginInit();
@@ -131,9 +131,9 @@
             this.tabControl3.SuspendLayout();
             this.tabPage6.SuspendLayout();
             this.tabPage7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Camera2_Interval_Num)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // RecordAsGif_Button
@@ -318,6 +318,16 @@
             this.tabPage1.Text = "Player #1 Screen";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // Show_Left_Screen_Button
+            // 
+            this.Show_Left_Screen_Button.Location = new System.Drawing.Point(420, 252);
+            this.Show_Left_Screen_Button.Name = "Show_Left_Screen_Button";
+            this.Show_Left_Screen_Button.Size = new System.Drawing.Size(75, 23);
+            this.Show_Left_Screen_Button.TabIndex = 21;
+            this.Show_Left_Screen_Button.Text = "Show";
+            this.Show_Left_Screen_Button.UseVisualStyleBackColor = true;
+            this.Show_Left_Screen_Button.Click += new System.EventHandler(this.Show_Left_Screen_Button_Click);
+            // 
             // Left_Height_Num
             // 
             this.Left_Height_Num.Location = new System.Drawing.Point(111, 159);
@@ -470,6 +480,16 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Player #2 Screen";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // Show_Right_Screen_Button
+            // 
+            this.Show_Right_Screen_Button.Location = new System.Drawing.Point(420, 252);
+            this.Show_Right_Screen_Button.Name = "Show_Right_Screen_Button";
+            this.Show_Right_Screen_Button.Size = new System.Drawing.Size(75, 23);
+            this.Show_Right_Screen_Button.TabIndex = 21;
+            this.Show_Right_Screen_Button.Text = "Show";
+            this.Show_Right_Screen_Button.UseVisualStyleBackColor = true;
+            this.Show_Right_Screen_Button.Click += new System.EventHandler(this.Show_Right_Screen_Button_Click);
             // 
             // Right_Height_Num
             // 
@@ -851,6 +871,58 @@
             this.tabPage6.Text = "Camera #1";
             this.tabPage6.UseVisualStyleBackColor = true;
             // 
+            // Camera1_Path_Label
+            // 
+            this.Camera1_Path_Label.Location = new System.Drawing.Point(125, 31);
+            this.Camera1_Path_Label.Name = "Camera1_Path_Label";
+            this.Camera1_Path_Label.Size = new System.Drawing.Size(216, 20);
+            this.Camera1_Path_Label.TabIndex = 31;
+            this.Camera1_Path_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Camera1_Name_Label
+            // 
+            this.Camera1_Name_Label.Location = new System.Drawing.Point(124, 9);
+            this.Camera1_Name_Label.Name = "Camera1_Name_Label";
+            this.Camera1_Name_Label.Size = new System.Drawing.Size(205, 20);
+            this.Camera1_Name_Label.TabIndex = 30;
+            this.Camera1_Name_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Camera1_Caps_Combo
+            // 
+            this.Camera1_Caps_Combo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Camera1_Caps_Combo.FormattingEnabled = true;
+            this.Camera1_Caps_Combo.Location = new System.Drawing.Point(125, 54);
+            this.Camera1_Caps_Combo.Name = "Camera1_Caps_Combo";
+            this.Camera1_Caps_Combo.Size = new System.Drawing.Size(207, 21);
+            this.Camera1_Caps_Combo.TabIndex = 18;
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(55, 57);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(63, 13);
+            this.label28.TabIndex = 14;
+            this.label28.Text = "Capabilities:";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(85, 35);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(32, 13);
+            this.label27.TabIndex = 13;
+            this.label27.Text = "Path:";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(56, 13);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(62, 13);
+            this.label26.TabIndex = 12;
+            this.label26.Text = "Camera #1:";
+            // 
             // tabPage7
             // 
             this.tabPage7.Controls.Add(this.Camera2_Caps_Combo);
@@ -860,7 +932,7 @@
             this.tabPage7.Controls.Add(this.label32);
             this.tabPage7.Controls.Add(this.label33);
             this.tabPage7.Controls.Add(this.Camera2_Start_Button);
-            this.tabPage7.Controls.Add(this.numericUpDown1);
+            this.tabPage7.Controls.Add(this.Camera2_Interval_Num);
             this.tabPage7.Controls.Add(this.label34);
             this.tabPage7.Controls.Add(this.label35);
             this.tabPage7.Controls.Add(this.label36);
@@ -873,81 +945,6 @@
             this.tabPage7.TabIndex = 1;
             this.tabPage7.Text = "Camera #2";
             this.tabPage7.UseVisualStyleBackColor = true;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.pictureBox2);
-            this.groupBox1.Location = new System.Drawing.Point(6, 179);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(328, 259);
-            this.groupBox1.TabIndex = 6;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Live Preview";
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Location = new System.Drawing.Point(3, 16);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(320, 240);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 0;
-            this.pictureBox2.TabStop = false;
-            // 
-            // Show_Left_Screen_Button
-            // 
-            this.Show_Left_Screen_Button.Location = new System.Drawing.Point(420, 252);
-            this.Show_Left_Screen_Button.Name = "Show_Left_Screen_Button";
-            this.Show_Left_Screen_Button.Size = new System.Drawing.Size(75, 23);
-            this.Show_Left_Screen_Button.TabIndex = 21;
-            this.Show_Left_Screen_Button.Text = "Show";
-            this.Show_Left_Screen_Button.UseVisualStyleBackColor = true;
-            this.Show_Left_Screen_Button.Click += new System.EventHandler(this.Show_Left_Screen_Button_Click);
-            // 
-            // Show_Right_Screen_Button
-            // 
-            this.Show_Right_Screen_Button.Location = new System.Drawing.Point(420, 252);
-            this.Show_Right_Screen_Button.Name = "Show_Right_Screen_Button";
-            this.Show_Right_Screen_Button.Size = new System.Drawing.Size(75, 23);
-            this.Show_Right_Screen_Button.TabIndex = 21;
-            this.Show_Right_Screen_Button.Text = "Show";
-            this.Show_Right_Screen_Button.UseVisualStyleBackColor = true;
-            this.Show_Right_Screen_Button.Click += new System.EventHandler(this.Show_Right_Screen_Button_Click);
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(56, 13);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(62, 13);
-            this.label26.TabIndex = 12;
-            this.label26.Text = "Camera #1:";
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(85, 35);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(32, 13);
-            this.label27.TabIndex = 13;
-            this.label27.Text = "Path:";
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(55, 57);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(63, 13);
-            this.label28.TabIndex = 14;
-            this.label28.Text = "Capabilities:";
-            // 
-            // Camera1_Caps_Combo
-            // 
-            this.Camera1_Caps_Combo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.Camera1_Caps_Combo.FormattingEnabled = true;
-            this.Camera1_Caps_Combo.Location = new System.Drawing.Point(125, 54);
-            this.Camera1_Caps_Combo.Name = "Camera1_Caps_Combo";
-            this.Camera1_Caps_Combo.Size = new System.Drawing.Size(207, 21);
-            this.Camera1_Caps_Combo.TabIndex = 18;
             // 
             // Camera2_Caps_Combo
             // 
@@ -1013,27 +1010,28 @@
             this.Camera2_Start_Button.UseVisualStyleBackColor = true;
             this.Camera2_Start_Button.Click += new System.EventHandler(this.Camera2_Start_Button_Click);
             // 
-            // numericUpDown1
+            // Camera2_Interval_Num
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(125, 84);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
+            this.Camera2_Interval_Num.Location = new System.Drawing.Point(125, 84);
+            this.Camera2_Interval_Num.Maximum = new decimal(new int[] {
             20000,
             0,
             0,
             0});
-            this.numericUpDown1.Minimum = new decimal(new int[] {
+            this.Camera2_Interval_Num.Minimum = new decimal(new int[] {
             30,
             0,
             0,
             0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(118, 20);
-            this.numericUpDown1.TabIndex = 21;
-            this.numericUpDown1.Value = new decimal(new int[] {
+            this.Camera2_Interval_Num.Name = "Camera2_Interval_Num";
+            this.Camera2_Interval_Num.Size = new System.Drawing.Size(118, 20);
+            this.Camera2_Interval_Num.TabIndex = 21;
+            this.Camera2_Interval_Num.Value = new decimal(new int[] {
             200,
             0,
             0,
             0});
+            this.Camera2_Interval_Num.ValueChanged += new System.EventHandler(this.Camera2_Interval_Num_ValueChanged);
             // 
             // label34
             // 
@@ -1072,21 +1070,24 @@
             this.label37.TabIndex = 24;
             this.label37.Text = "Preview Running At:";
             // 
-            // Camera1_Path_Label
+            // groupBox1
             // 
-            this.Camera1_Path_Label.Location = new System.Drawing.Point(125, 31);
-            this.Camera1_Path_Label.Name = "Camera1_Path_Label";
-            this.Camera1_Path_Label.Size = new System.Drawing.Size(216, 20);
-            this.Camera1_Path_Label.TabIndex = 31;
-            this.Camera1_Path_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.groupBox1.Controls.Add(this.pictureBox2);
+            this.groupBox1.Location = new System.Drawing.Point(6, 179);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(328, 259);
+            this.groupBox1.TabIndex = 6;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Live Preview";
             // 
-            // Camera1_Name_Label
+            // pictureBox2
             // 
-            this.Camera1_Name_Label.Location = new System.Drawing.Point(124, 9);
-            this.Camera1_Name_Label.Name = "Camera1_Name_Label";
-            this.Camera1_Name_Label.Size = new System.Drawing.Size(205, 20);
-            this.Camera1_Name_Label.TabIndex = 30;
-            this.Camera1_Name_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.pictureBox2.Location = new System.Drawing.Point(3, 16);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(320, 240);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.TabIndex = 0;
+            this.pictureBox2.TabStop = false;
             // 
             // MainForm
             // 
@@ -1133,9 +1134,9 @@
             this.tabPage6.PerformLayout();
             this.tabPage7.ResumeLayout(false);
             this.tabPage7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Camera2_Interval_Num)).EndInit();
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1211,7 +1212,7 @@
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.Button Camera2_Start_Button;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown Camera2_Interval_Num;
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.Label label36;
