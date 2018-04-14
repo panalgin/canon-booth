@@ -220,6 +220,14 @@ label.css-label {
     /*background-image: url('../img/holding-bg.jpg');
     background-repeat: no-repeat;
     background-size: 1920px 1080px;*/
+
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+
+    display: block;
 }
 
 
@@ -231,28 +239,27 @@ label.css-label {
 
 .exp-energy {
     font-family: BladeRunner;
-    font-size: 60px;
+    font-size: 80px;
     margin: 0;
     padding: 0;
     position: absolute;
-    bottom: 50px;
+    bottom: 150px;
     text-align: center;
     display: block;
     width: 100%;
-    -webkit-text-stroke: 2px #000;
+    -webkit-text-stroke: 3px #000;
 }
 
 .unlock-the-scientist {
-    font-family: Tahoma;
-    font-size: 60px;
+    font-family: Gotham;
+    font-size: 70px;
     font-weight: bold;
     margin: 0;
     padding: 0;
     position: absolute;
-    top: 50px;
+    top: 250px;
     width: 100%;
     text-align: center;
-    -webkit-text-stroke: 3px #000;
 }
 
 .cyclists {
@@ -268,7 +275,7 @@ label.css-label {
 }
 
 #holding {
-    display: none;
+    display: block;
 }
 
 #pre-play {
@@ -369,6 +376,7 @@ label.css-label {
 
 
 #loading {
+    display: none;
     top: 0px;
     left: 0px;
     bottom: 0px;
@@ -450,3 +458,29 @@ label.css-label {
         left: 1050px;
         line-height: 90px;
     }
+
+#block-input {
+    background-color: #000;
+
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    position: absolute;
+    
+    background-image: url('../img/giphy.gif');
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+#block-input p {
+    margin: 0; padding: 0;
+    font-family: Gotham;
+    font-size: 60px;
+    font-weight: bold;
+
+    text-align: center;
+    position: absolute;
+    top: 100px;
+    width: 100%;
+}

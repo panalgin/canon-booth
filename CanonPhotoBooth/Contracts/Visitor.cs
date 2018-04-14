@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CanonPhotoBooth.Contracts
 {
-    public class PlayerContract
+    public class Visitor
     {
         [JsonProperty(PropertyName = "firstName")]
         public string Name { get; set; }

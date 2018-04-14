@@ -65,6 +65,13 @@ namespace CanonPhotoBooth
         private void RegistrationForm_Load(object sender, EventArgs e)
         {
             EventSink.DevToolsRequested += EventSink_DevToolsRequested;
+            EventSink.GameInitialized += EventSink_GameInitialized;
+            //EventSink.GameFinished
+        }
+
+        private void EventSink_GameInitialized()
+        {
+            ScriptRunner.Run(this.Browser, ScriptAction.BlockNewcomers, null);
         }
 
         private void EventSink_DevToolsRequested(Type requestedFrom)

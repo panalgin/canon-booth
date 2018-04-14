@@ -21,9 +21,16 @@ namespace CanonPhotoBooth
 
         public bool RegisterPlayer(string json)
         {
-            var player = JsonConvert.DeserializeObject<PlayerContract>(json);
+            var visitor = JsonConvert.DeserializeObject<Visitor>(json);
 
-            return true;
+            if (Game.IsJoinable())
+            {
+                EventSink.InvokeVisitorRegistered(visitor);
+
+                return true;
+            }
+            else
+                return false;
         }
     }
 }
