@@ -9,63 +9,72 @@
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/dobPicker.min.js"></script>
     <script type="text/javascript" src="js/vex.combined.min.js"></script>
+    <script type="text/javascript" src="js/validator.js"></script>
 </head>
 <body class="registration">
     <div class="container">
-        <div class="row">
-            <div class="cell left"><span>First Name:</span></div>
-            <div class="cell right"><input type="text" placeholder="John" /></div>
-        </div>
-        <div class="row">
-            <div class="cell left"><span>Last Name:</span></div>
-            <div class="cell right"><input type="text" placeholder="Smith" /></div>
-        </div>
-        <div class="row">
-            <div class="cell left"><span>Email:</span></div>
-            <div class="cell right"><input type="text" placeholder="info@example.com" /></div>
-        </div>
-        <div class="row">
-            <div class="cell left"><span>Date Of Birth:</span></div>
-            <div class="cell right">
-                <select id="day-of-birth"></select>
-                <select id="month-of-birth"></select>
-                <select id="year-of-birth"></select>
+        <form action="" id="playerCheckin">
+            <div class="row">
+                <div class="cell left"><span>First Name:</span></div>
+                <div class="cell right"><input type="text" placeholder="John" data-validation="required" /></div>
             </div>
-        </div>
-        <div class="row">
-            <div class="cell left"><span>Mobile No:</span></div>
-            <div class="cell right"><input type="text" /></div>
-        </div>
-        <div class="row">
-            <div class="cell left"><span>Gender:</span></div>
-            <div class="cell right">
-                <select>
-                    <option>Male</option>
-                    <option>Female</option>
-                </select>
+            <div class="row">
+                <div class="cell left"><span>Last Name:</span></div>
+                <div class="cell right"><input type="text" placeholder="Smith" data-validation="required" /></div>
             </div>
-        </div>
-        <div class="row">
-            <div class="cell left"><span>Address:</span></div>
-            <div class="cell right">
-                <select>
-                    <option>Abu Dhabi</option>
-                    <option>Ajman</option>
-                    <option>Dubai</option>
-                    <option>Fujairah</option>
-                    <option>Ras al-Khaimah</option>
-                    <option>Sharjah</option>
-                    <option>Umm al-Quwain</option>
-                </select>
+            <div class="row">
+                <div class="cell left"><span>Email:</span></div>
+                <div class="cell right"><input type="text" placeholder="info@example.com" data-validation="email" /></div>
             </div>
-        </div>
-        <div class="row">
-            <div class="cell left"><span></span></div>
-            <div class="cell right">
-                <input type="checkbox" name="checkboxG6" id="checkboxG6" class="css-checkbox" /><label for="checkboxG6" class="css-label">I have carefully read and accept </label>
-                <i id="terms">the terms and conditions</i>
+            <div class="row">
+                <div class="cell left"><span>Date Of Birth:</span></div>
+                <div class="cell right">
+                    <select id="day-of-birth" data-validation="required"></select>
+                    <select id="month-of-birth" data-validation="required"></select>
+                    <select id="year-of-birth" data-validation="required"></select>
+                </div>
             </div>
-        </div>
+            <div class="row">
+                <div class="cell left"><span>Mobile No:</span></div>
+                <div class="cell right"><input type="text" id="mobile-number" data-validation="required" /></div>
+            </div>
+            <div class="row">
+                <div class="cell left"><span>Gender:</span></div>
+                <div class="cell right">
+                    <select>
+                        <option>Male</option>
+                        <option>Female</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="cell left"><span>Address:</span></div>
+                <div class="cell right">
+                    <select>
+                        <option>Abu Dhabi</option>
+                        <option>Ajman</option>
+                        <option>Dubai</option>
+                        <option>Fujairah</option>
+                        <option>Ras al-Khaimah</option>
+                        <option>Sharjah</option>
+                        <option>Umm al-Quwain</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="cell left"><span></span></div>
+                <div class="cell right">
+                    <input type="checkbox" name="checkboxG6" id="checkboxG6" class="css-checkbox" data-validation="required" /><label for="checkboxG6" class="css-label">I have carefully read and accept </label>
+                    <i id="terms">the terms and conditions</i>
+                </div>
+            </div>
+            <div class="row">
+                <div class="cell left"><span></span></div>
+                <div class="cell right">
+                    <input type="submit" id="save-button" value="Join" />
+                </div>
+            </div>
+        </form>
     </div>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -98,6 +107,19 @@
             $("body").dblclick(function (e) {
                 windowsApp.showDevTools();
             });
+
+            $("body").on("click", "#save-button", function (e) {
+                $.validate({
+                    validateOnBlur: false,
+                    form: "#playerCheckin",
+                    onSuccess: function ($form) {
+                        alert('The form ' + $form.attr('id') + ' is valid!');
+                        return false; // Will stop the submission of the form
+                    },
+                });
+            });
+
+
         });
     </script>
 </body>
