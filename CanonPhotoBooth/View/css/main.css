@@ -204,3 +204,10 @@ label.css-label {
 .container .row .error {
     background-color: #ffcece;
 }
+
+
+.holding {
+    background-image: url('../img/holding-bg.jpg');
+    background-repeat: no-repeat;
+    background-size: 1920px 1080px;
+}

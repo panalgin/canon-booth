@@ -19,9 +19,11 @@ namespace CanonPhotoBooth
                 EventSink.InvokeDevToolsRequested(regForm.GetType());
         }
 
-        public void RegisterPlayer(string json)
+        public bool RegisterPlayer(string json)
         {
             var player = JsonConvert.DeserializeObject<PlayerContract>(json);
+
+            return true;
         }
     }
 }

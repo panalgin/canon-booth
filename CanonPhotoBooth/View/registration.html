@@ -125,7 +125,11 @@
                         };
 
                         var json = JSON.stringify(player);
-                        windowsApp.registerPlayer(json);
+                        var result = windowsApp.registerPlayer(json);
+
+                        if (result == true) {
+
+                        }
 
                         return false; // Will stop the submission of the form
                     },

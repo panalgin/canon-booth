@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,7 +26,9 @@ namespace CanonPhotoBooth
 
         private void CreateBrowser()
         {
-            Browser = new ChromiumWebBrowser("View\\screen-common.html");
+            string filePath = Path.Combine(Application.StartupPath, "View\\screen-common.html");
+            Browser = new ChromiumWebBrowser(filePath);
+
             Browser.BrowserSettings = new BrowserSettings()
             {
                 FileAccessFromFileUrls = CefState.Enabled,

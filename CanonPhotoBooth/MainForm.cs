@@ -433,5 +433,30 @@ namespace CanonPhotoBooth
 
             Settings.Default.Save();            
         }
+
+        private void Show_Left_Screen_Button_Click(object sender, EventArgs e)
+        {
+            if (this.Show_Left_Screen_Button.Text == "Show")
+            {
+                LeftScreenForm form = new LeftScreenForm();
+
+                form.Location = GetLocationFor("Left");
+                form.Size = GetSizeFor("Left");
+
+                form.Show();
+
+                this.Show_Left_Screen_Button.Text = "Hide";
+            }
+            else
+            {
+                var leftForm = Application.OpenForms.OfType<LeftScreenForm>().FirstOrDefault();
+
+                if (leftForm != null)
+                {
+                    leftForm.Dispose();
+                    this.Show_Left_Screen_Button.Text = "Show";
+                }
+            }
+        }
     }
 }

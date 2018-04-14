@@ -70,6 +70,7 @@
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.Show_Registration_Button = new System.Windows.Forms.Button();
             this.Promoter_Height_Num = new System.Windows.Forms.NumericUpDown();
             this.Promoter_Width_Num = new System.Windows.Forms.NumericUpDown();
             this.label20 = new System.Windows.Forms.Label();
@@ -89,7 +90,8 @@
             this.tabPage7 = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.Show_Registration_Button = new System.Windows.Forms.Button();
+            this.Show_Left_Screen_Button = new System.Windows.Forms.Button();
+            this.Show_Right_Screen_Button = new System.Windows.Forms.Button();
             this.Preview_Group.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Interval_Num)).BeginInit();
@@ -330,6 +332,7 @@
             // tabPage1
             // 
             this.tabPage1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tabPage1.Controls.Add(this.Show_Left_Screen_Button);
             this.tabPage1.Controls.Add(this.Left_Height_Num);
             this.tabPage1.Controls.Add(this.Left_Width_Num);
             this.tabPage1.Controls.Add(this.label13);
@@ -473,6 +476,7 @@
             // tabPage2
             // 
             this.tabPage2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tabPage2.Controls.Add(this.Show_Right_Screen_Button);
             this.tabPage2.Controls.Add(this.Right_Height_Num);
             this.tabPage2.Controls.Add(this.Right_Width_Num);
             this.tabPage2.Controls.Add(this.label14);
@@ -634,6 +638,16 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Registration Screen";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // Show_Registration_Button
+            // 
+            this.Show_Registration_Button.Location = new System.Drawing.Point(420, 252);
+            this.Show_Registration_Button.Name = "Show_Registration_Button";
+            this.Show_Registration_Button.Size = new System.Drawing.Size(75, 23);
+            this.Show_Registration_Button.TabIndex = 20;
+            this.Show_Registration_Button.Text = "Show";
+            this.Show_Registration_Button.UseVisualStyleBackColor = true;
+            this.Show_Registration_Button.Click += new System.EventHandler(this.Show_Registration_Button_Click);
             // 
             // Promoter_Height_Num
             // 
@@ -861,15 +875,24 @@
             this.pictureBox2.TabIndex = 0;
             this.pictureBox2.TabStop = false;
             // 
-            // Show_Registration_Button
+            // Show_Left_Screen_Button
             // 
-            this.Show_Registration_Button.Location = new System.Drawing.Point(420, 252);
-            this.Show_Registration_Button.Name = "Show_Registration_Button";
-            this.Show_Registration_Button.Size = new System.Drawing.Size(75, 23);
-            this.Show_Registration_Button.TabIndex = 20;
-            this.Show_Registration_Button.Text = "Show";
-            this.Show_Registration_Button.UseVisualStyleBackColor = true;
-            this.Show_Registration_Button.Click += new System.EventHandler(this.Show_Registration_Button_Click);
+            this.Show_Left_Screen_Button.Location = new System.Drawing.Point(420, 252);
+            this.Show_Left_Screen_Button.Name = "Show_Left_Screen_Button";
+            this.Show_Left_Screen_Button.Size = new System.Drawing.Size(75, 23);
+            this.Show_Left_Screen_Button.TabIndex = 21;
+            this.Show_Left_Screen_Button.Text = "Show";
+            this.Show_Left_Screen_Button.UseVisualStyleBackColor = true;
+            this.Show_Left_Screen_Button.Click += new System.EventHandler(this.Show_Left_Screen_Button_Click);
+            // 
+            // Show_Right_Screen_Button
+            // 
+            this.Show_Right_Screen_Button.Location = new System.Drawing.Point(420, 252);
+            this.Show_Right_Screen_Button.Name = "Show_Right_Screen_Button";
+            this.Show_Right_Screen_Button.Size = new System.Drawing.Size(75, 23);
+            this.Show_Right_Screen_Button.TabIndex = 21;
+            this.Show_Right_Screen_Button.Text = "Show";
+            this.Show_Right_Screen_Button.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -991,6 +1014,8 @@
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Button Show_Registration_Button;
+        private System.Windows.Forms.Button Show_Left_Screen_Button;
+        private System.Windows.Forms.Button Show_Right_Screen_Button;
     }
 }
 
