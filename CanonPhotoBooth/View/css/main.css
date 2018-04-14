@@ -14,6 +14,11 @@
     user-select: none;
 }
 
+@font-face {
+    font-family: 'BladeRunner'; /*a name to be used later*/
+    src: url('../fonts/bladerunner.TTF'); /*URL to font*/
+}
+
 div {
     display: block;
 }
@@ -210,4 +215,38 @@ label.css-label {
     background-image: url('../img/holding-bg.jpg');
     background-repeat: no-repeat;
     background-size: 1920px 1080px;
+}
+
+
+.logo {
+    position: absolute;
+    top: 50px;
+    left: calc(50% - 192.5px);
+}
+
+.exp-energy {
+    font-family: BladeRunner;
+    font-size: 60px;
+    margin: 0;
+    padding: 0;
+
+    position: absolute;
+    bottom: 50px;
+    text-align: center;
+    display: block;
+    width: 100%;
+    -webkit-text-stroke: 2px #000;
+}
+
+.unlock-the-scientist {
+    font-family: Tahoma;
+    font-size: 50px;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 200px;
+    width: 100%;
+    text-align: center;
+    -webkit-text-stroke: 2px #000;
 }

@@ -60,8 +60,6 @@ namespace CanonPhotoBooth
 
             if (this.Browser != null)
                 this.Browser.Dispose();
-
-            Cef.Shutdown();
         }
 
         private void RegistrationForm_Load(object sender, EventArgs e)
