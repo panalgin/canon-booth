@@ -5,8 +5,10 @@
     <meta charset="utf-8" />
     <title>Registration</title>
     <link href="css/main.css" type="text/css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/vex-theme-flat-attack.css" />
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/dobPicker.min.js"></script>
+    <script type="text/javascript" src="js/vex.combined.min.js"></script>
 </head>
 <body class="registration">
     <div class="container">
@@ -25,12 +27,9 @@
         <div class="row">
             <div class="cell left"><span>Date Of Birth:</span></div>
             <div class="cell right">
-                <select id="day-of-birth">
-                </select>
-                <select id="month-of-birth">
-                </select>
-                <select id="year-of-birth">
-                </select>
+                <select id="day-of-birth"></select>
+                <select id="month-of-birth"></select>
+                <select id="year-of-birth"></select>
             </div>
         </div>
         <div class="row">
@@ -46,29 +45,55 @@
                 </select>
             </div>
         </div>
+        <div class="row">
+            <div class="cell left"><span>Address:</span></div>
+            <div class="cell right">
+                <select>
+                    <option>Abu Dhabi</option>
+                    <option>Ajman</option>
+                    <option>Dubai</option>
+                    <option>Fujairah</option>
+                    <option>Ras al-Khaimah</option>
+                    <option>Sharjah</option>
+                    <option>Umm al-Quwain</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="cell left"><span></span></div>
+            <div class="cell right">
+                <input type="checkbox" name="checkboxG6" id="checkboxG6" class="css-checkbox" /><label for="checkboxG6" class="css-label">I have carefully read and accept </label>
+                <i id="terms">the terms and conditions</i>
+            </div>
+        </div>
     </div>
     <script type="text/javascript">
         $(document).ready(function () {
-            $(document).ready(function () {
-                $.dobPicker({
-                    // Selectopr IDs
-                    daySelector: '#day-of-birth',
-                    monthSelector: '#month-of-birth',
-                    yearSelector: '#year-of-birth',
+            $.dobPicker({
+                // Selectopr IDs
+                daySelector: '#day-of-birth',
+                monthSelector: '#month-of-birth',
+                yearSelector: '#year-of-birth',
 
-                    // Default option values
-                    dayDefault: 'Day',
-                    monthDefault: 'Month',
-                    yearDefault: 'Year',
+                // Default option values
+                dayDefault: 'Day',
+                monthDefault: 'Month',
+                yearDefault: 'Year',
 
-                    // Minimum age
-                    minimumAge: 8,
+                // Minimum age
+                minimumAge: 8,
 
-                    // Maximum age
-                    maximumAge: 99
-                });
+                // Maximum age
+                maximumAge: 99
             });
 
+            vex.defaultOptions.className = 'vex-theme-flat-attack';
+
+            $("body").on("click", "i", function (e) {
+                vex.dialog.alert({
+                    message: 'Testing the wireframe theme.'
+                });
+            });
 
             $("body").dblclick(function (e) {
                 windowsApp.showDevTools();
