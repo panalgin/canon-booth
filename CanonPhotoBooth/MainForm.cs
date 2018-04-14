@@ -31,8 +31,6 @@ namespace CanonPhotoBooth
         List<Camera> CamList;
         bool IsInit = false;
         Bitmap Evf_Bmp;
-        int LVBw, LVBh, w, h;
-        float LVBratio, LVration;
 
         int ErrCount;
         object ErrLock = new object();

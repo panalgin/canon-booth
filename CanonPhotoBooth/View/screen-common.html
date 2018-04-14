@@ -5,34 +5,64 @@
     <script type="text/javascript" src="js/jquery.js"></script>
 </head>
 <body class="holding">
-    <video class="bg-video" src="videos/overload.webm" loop autoplay></video>
+    <div id="holding">
+        <video class="bg-video" src="videos/overload.webm" loop autoplay></video>
 
-    <p class="unlock-the-scientist">Are you READY to Unlock the scientist in you?</p>
-    <img class="cyclists" src="img/cyclists..png" />
+        <p class="unlock-the-scientist">Are you READY to Unlock the scientist in you?</p>
+        <img class="cyclists" src="img/cyclists..png" />
 
-    <p class="exp-energy">Come Experience The Energy</p>
+        <p class="exp-energy">Come Experience The Energy</p>
 
-    <script type="text/javascript">
-        function typeEffect(element, speed) {
-            var text = $(element).text();
-            $(element).html('');
+        <script type="text/javascript">
+            function typeEffect(element, speed) {
+                var text = $(element).text();
+                $(element).html('');
 
-            var i = 0;
-            var timer = setInterval(function () {
-                if (i < text.length) {
-                    $(element).append(text.charAt(i));
-                    i++;
-                } else {
-                    clearInterval(timer);
-                }
-            }, speed);
-        }
+                var i = 0;
+                var timer = setInterval(function () {
+                    if (i < text.length) {
+                        $(element).append(text.charAt(i));
+                        i++;
+                    } else {
+                        clearInterval(timer);
+                    }
+                }, speed);
+            }
 
-        $(document).ready(function () {
-            setInterval(function () {
-                typeEffect($("p.exp-energy"), 50);
-            }, 3000);
-        });
-    </script>
+            $(document).ready(function () {
+                setInterval(function () {
+                    typeEffect($("p.exp-energy"), 50);
+                }, 3000);
+            });
+        </script>
+    </div>
+    <div id="pre-play">
+        <p id="player-name">Welcome Khaiz</p>
+        <p id="counter-label">GO!</p>
+        <img class="arms" src="img/bicycle-arms.png" />
+    </div>
+    <div id="play">
+        <video class="bg-video" src="videos/hexagon.webm" loop autoplay></video>
+        
+        <span id="name-label">Player 1: Khaiz</span>
+        <span id="speed-label">30 km/h</span>
+        <span id="time-left-label">39 secs</span>
+        <span id="energy-label">39 kCal</span>
+
+        <img class="arms" src="img/bicycle-arms.png" />
+        <img class="battery" src="img/battery-empty.png" />
+        <div class="battery-overlay"></div>
+    </div>
+    <div id="loading">
+        <p id="heading">Hold tight,<br /> we are preparing your gif animation!</p>
+    </div>
+    <div id="result">
+        <p id="result-name">Khaiz</p>
+        <img id="result-gif" />
+        <div id="result-gif-holder">
+            Hey wait, we are generating the GIF!
+        </div>
+        <span id="result-message">You<br />Could<br />Do<br />Better</span>
+    </div>
 </body>
 </html>
