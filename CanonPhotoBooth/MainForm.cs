@@ -255,7 +255,9 @@ namespace CanonPhotoBooth
             string savePath = Path.Combine(saveFolder, DateTime.Now.ToFileTimeUtc() + ".jpg");
 
             if (!Directory.Exists(saveFolder))
-                image.Save(savePath);
+                Directory.CreateDirectory(saveFolder);
+
+            image.Save(savePath);
 
             return Task.FromResult(true);
         }
@@ -371,40 +373,43 @@ namespace CanonPhotoBooth
 
                 var imageFrames = Directory.EnumerateFiles(readPath, "*.jpg", SearchOption.TopDirectoryOnly);
 
-                using (MagickImageCollection collection = new MagickImageCollection())
+                if (imageFrames.Count() > 0)
                 {
-                    var outputFps = Convert.ToInt32(this.OutputFps_Num.Value);
-                    var animationDelay = /*1000 /*/ outputFps;
-
-                    int curFrame = 0;
-
-                    imageFrames.All(delegate (string fileName)
+                    using (MagickImageCollection collection = new MagickImageCollection())
                     {
-                        collection.Add(fileName);
-                        collection[curFrame].AnimationDelay = animationDelay;
+                        var outputFps = Convert.ToInt32(this.OutputFps_Num.Value);
+                        var animationDelay = /*1000 /*/ outputFps;
+
+                        int curFrame = 0;
+
+                        imageFrames.All(delegate (string fileName)
+                        {
+                            collection.Add(fileName);
+                            collection[curFrame].AnimationDelay = animationDelay;
+
+                            return true;
+                        });
+
+                        // Optionally reduce colors
+                        QuantizeSettings settings = new QuantizeSettings();
+                        settings.Colors = 32;
+                        collection.Quantize(settings);
+
+                        // Optionally optimize the images (images should have the same size).
+                        //collection.Optimize();
+
+                        var savePath = Path.Combine(Application.StartupPath, string.Format("Output-{0}-{1}.gif", i, DateTime.Now.ToFileTimeUtc()));
+                        collection.Write(savePath);
+                    }
+
+                    Directory.EnumerateFiles(readPath).All(delegate (string file)
+                    {
+                        var fileInfo = new FileInfo(file);
+                        fileInfo.Delete();
 
                         return true;
                     });
-
-                    // Optionally reduce colors
-                    QuantizeSettings settings = new QuantizeSettings();
-                    settings.Colors = 32;
-                    collection.Quantize(settings);
-
-                    // Optionally optimize the images (images should have the same size).
-                    //collection.Optimize();
-
-                    var savePath = Path.Combine(Application.StartupPath, string.Format("Output-{0}-{1}.gif", i, DateTime.Now.ToFileTimeUtc()));
-                    collection.Write(savePath);
                 }
-
-                Directory.EnumerateFiles(readPath).All(delegate (string file)
-                {
-                    var fileInfo = new FileInfo(file);
-                    fileInfo.Delete();
-
-                    return true;
-                });
             }
 
             return Task.FromResult(true);
