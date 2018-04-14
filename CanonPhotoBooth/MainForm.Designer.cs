@@ -31,14 +31,13 @@
             this.RecordAsGif_Button = new System.Windows.Forms.Button();
             this.Cameras_Combo = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.Start_Button = new System.Windows.Forms.Button();
+            this.Camera1_Start_Button = new System.Windows.Forms.Button();
             this.Preview_Group = new System.Windows.Forms.GroupBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
             this.Interval_Num = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.PreviewFps_Label = new System.Windows.Forms.Label();
             this.Output_Button = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
@@ -92,6 +91,24 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.Show_Left_Screen_Button = new System.Windows.Forms.Button();
             this.Show_Right_Screen_Button = new System.Windows.Forms.Button();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
+            this.Camera1_Caps_Combo = new System.Windows.Forms.ComboBox();
+            this.Camera2_Caps_Combo = new System.Windows.Forms.ComboBox();
+            this.Camera2_Path_Label = new System.Windows.Forms.Label();
+            this.Camera2_Name_Label = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
+            this.Camera2_Start_Button = new System.Windows.Forms.Button();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.label34 = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
+            this.label36 = new System.Windows.Forms.Label();
+            this.label37 = new System.Windows.Forms.Label();
+            this.Camera1_Path_Label = new System.Windows.Forms.Label();
+            this.Camera1_Name_Label = new System.Windows.Forms.Label();
             this.Preview_Group.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Interval_Num)).BeginInit();
@@ -120,11 +137,12 @@
             this.tabPage7.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // RecordAsGif_Button
             // 
-            this.RecordAsGif_Button.Location = new System.Drawing.Point(739, 32);
+            this.RecordAsGif_Button.Location = new System.Drawing.Point(592, 16);
             this.RecordAsGif_Button.Name = "RecordAsGif_Button";
             this.RecordAsGif_Button.Size = new System.Drawing.Size(112, 23);
             this.RecordAsGif_Button.TabIndex = 1;
@@ -138,7 +156,7 @@
             this.Cameras_Combo.FormattingEnabled = true;
             this.Cameras_Combo.Location = new System.Drawing.Point(166, 16);
             this.Cameras_Combo.Name = "Cameras_Combo";
-            this.Cameras_Combo.Size = new System.Drawing.Size(232, 21);
+            this.Cameras_Combo.Size = new System.Drawing.Size(194, 21);
             this.Cameras_Combo.TabIndex = 2;
             // 
             // label1
@@ -150,15 +168,15 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "Detected Recording Devices:";
             // 
-            // Start_Button
+            // Camera1_Start_Button
             // 
-            this.Start_Button.Location = new System.Drawing.Point(404, 14);
-            this.Start_Button.Name = "Start_Button";
-            this.Start_Button.Size = new System.Drawing.Size(75, 23);
-            this.Start_Button.TabIndex = 4;
-            this.Start_Button.Text = "&Start";
-            this.Start_Button.UseVisualStyleBackColor = true;
-            this.Start_Button.Click += new System.EventHandler(this.Start_Button_Click);
+            this.Camera1_Start_Button.Location = new System.Drawing.Point(249, 81);
+            this.Camera1_Start_Button.Name = "Camera1_Start_Button";
+            this.Camera1_Start_Button.Size = new System.Drawing.Size(81, 23);
+            this.Camera1_Start_Button.TabIndex = 4;
+            this.Camera1_Start_Button.Text = "&Start";
+            this.Camera1_Start_Button.UseVisualStyleBackColor = true;
+            this.Camera1_Start_Button.Click += new System.EventHandler(this.Start_Button_Click);
             // 
             // Preview_Group
             // 
@@ -182,7 +200,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(17, 112);
+            this.label2.Location = new System.Drawing.Point(17, 116);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(102, 13);
             this.label2.TabIndex = 6;
@@ -190,7 +208,7 @@
             // 
             // Interval_Num
             // 
-            this.Interval_Num.Location = new System.Drawing.Point(125, 80);
+            this.Interval_Num.Location = new System.Drawing.Point(125, 84);
             this.Interval_Num.Maximum = new decimal(new int[] {
             20000,
             0,
@@ -202,7 +220,7 @@
             0,
             0});
             this.Interval_Num.Name = "Interval_Num";
-            this.Interval_Num.Size = new System.Drawing.Size(120, 20);
+            this.Interval_Num.Size = new System.Drawing.Size(118, 20);
             this.Interval_Num.TabIndex = 7;
             this.Interval_Num.Value = new decimal(new int[] {
             200,
@@ -215,7 +233,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.SystemColors.Window;
-            this.label3.Location = new System.Drawing.Point(203, 84);
+            this.label3.Location = new System.Drawing.Point(203, 86);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(20, 13);
             this.label3.TabIndex = 8;
@@ -224,25 +242,16 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(26, 82);
+            this.label4.Location = new System.Drawing.Point(26, 86);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(93, 13);
             this.label4.TabIndex = 9;
             this.label4.Text = "Capturing Interval:";
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(251, 77);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(47, 23);
-            this.button1.TabIndex = 10;
-            this.button1.Text = "Set";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // PreviewFps_Label
             // 
             this.PreviewFps_Label.AutoSize = true;
-            this.PreviewFps_Label.Location = new System.Drawing.Point(14, 137);
+            this.PreviewFps_Label.Location = new System.Drawing.Point(15, 143);
             this.PreviewFps_Label.Name = "PreviewFps_Label";
             this.PreviewFps_Label.Size = new System.Drawing.Size(104, 13);
             this.PreviewFps_Label.TabIndex = 11;
@@ -250,7 +259,7 @@
             // 
             // Output_Button
             // 
-            this.Output_Button.Location = new System.Drawing.Point(748, 100);
+            this.Output_Button.Location = new System.Drawing.Point(629, 45);
             this.Output_Button.Name = "Output_Button";
             this.Output_Button.Size = new System.Drawing.Size(75, 23);
             this.Output_Button.TabIndex = 12;
@@ -261,7 +270,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(677, 73);
+            this.label5.Location = new System.Drawing.Point(440, 52);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(65, 13);
             this.label5.TabIndex = 13;
@@ -269,7 +278,7 @@
             // 
             // OutputFps_Num
             // 
-            this.OutputFps_Num.Location = new System.Drawing.Point(748, 69);
+            this.OutputFps_Num.Location = new System.Drawing.Point(511, 48);
             this.OutputFps_Num.Maximum = new decimal(new int[] {
             20000,
             0,
@@ -293,7 +302,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.SystemColors.Window;
-            this.label6.Location = new System.Drawing.Point(818, 74);
+            this.label6.Location = new System.Drawing.Point(581, 53);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(20, 13);
             this.label6.TabIndex = 15;
@@ -314,7 +323,7 @@
             this.Capabilities_Combo.FormattingEnabled = true;
             this.Capabilities_Combo.Location = new System.Drawing.Point(166, 43);
             this.Capabilities_Combo.Name = "Capabilities_Combo";
-            this.Capabilities_Combo.Size = new System.Drawing.Size(232, 21);
+            this.Capabilities_Combo.Size = new System.Drawing.Size(194, 21);
             this.Capabilities_Combo.TabIndex = 17;
             // 
             // tabControl1
@@ -430,6 +439,11 @@
             0,
             0,
             0});
+            this.Left_Y_Num.Minimum = new decimal(new int[] {
+            4096,
+            0,
+            0,
+            -2147483648});
             this.Left_Y_Num.Name = "Left_Y_Num";
             this.Left_Y_Num.Size = new System.Drawing.Size(84, 20);
             this.Left_Y_Num.TabIndex = 4;
@@ -442,6 +456,11 @@
             0,
             0,
             0});
+            this.Left_X_Num.Minimum = new decimal(new int[] {
+            4096,
+            0,
+            0,
+            -2147483648});
             this.Left_X_Num.Name = "Left_X_Num";
             this.Left_X_Num.Size = new System.Drawing.Size(84, 20);
             this.Left_X_Num.TabIndex = 3;
@@ -574,6 +593,11 @@
             0,
             0,
             0});
+            this.Right_Y_Num.Minimum = new decimal(new int[] {
+            4096,
+            0,
+            0,
+            -2147483648});
             this.Right_Y_Num.Name = "Right_Y_Num";
             this.Right_Y_Num.Size = new System.Drawing.Size(84, 20);
             this.Right_Y_Num.TabIndex = 14;
@@ -586,6 +610,11 @@
             0,
             0,
             0});
+            this.Right_X_Num.Minimum = new decimal(new int[] {
+            4096,
+            0,
+            0,
+            -2147483648});
             this.Right_X_Num.Name = "Right_X_Num";
             this.Right_X_Num.Size = new System.Drawing.Size(84, 20);
             this.Right_X_Num.TabIndex = 13;
@@ -728,6 +757,11 @@
             0,
             0,
             0});
+            this.Promoter_Y_Num.Minimum = new decimal(new int[] {
+            4096,
+            0,
+            0,
+            -2147483648});
             this.Promoter_Y_Num.Name = "Promoter_Y_Num";
             this.Promoter_Y_Num.Size = new System.Drawing.Size(84, 20);
             this.Promoter_Y_Num.TabIndex = 14;
@@ -740,6 +774,11 @@
             0,
             0,
             0});
+            this.Promoter_X_Num.Minimum = new decimal(new int[] {
+            4096,
+            0,
+            0,
+            -2147483648});
             this.Promoter_X_Num.Name = "Promoter_X_Num";
             this.Promoter_X_Num.Size = new System.Drawing.Size(84, 20);
             this.Promoter_X_Num.TabIndex = 13;
@@ -773,12 +812,15 @@
             // 
             // tabControl2
             // 
+            this.tabControl2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl2.Controls.Add(this.tabPage4);
             this.tabControl2.Controls.Add(this.tabPage5);
             this.tabControl2.Location = new System.Drawing.Point(12, 100);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(684, 532);
+            this.tabControl2.Size = new System.Drawing.Size(692, 510);
             this.tabControl2.TabIndex = 21;
             // 
             // tabPage4
@@ -788,7 +830,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(676, 506);
+            this.tabPage4.Size = new System.Drawing.Size(684, 371);
             this.tabPage4.TabIndex = 0;
             this.tabPage4.Text = "Screens ";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -809,7 +851,7 @@
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(676, 506);
+            this.tabPage5.Size = new System.Drawing.Size(684, 484);
             this.tabPage5.TabIndex = 1;
             this.tabPage5.Text = "Cameras";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -829,12 +871,18 @@
             // tabPage6
             // 
             this.tabPage6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tabPage6.Controls.Add(this.Camera1_Path_Label);
+            this.tabPage6.Controls.Add(this.Camera1_Name_Label);
+            this.tabPage6.Controls.Add(this.Camera1_Caps_Combo);
+            this.tabPage6.Controls.Add(this.label28);
+            this.tabPage6.Controls.Add(this.label27);
+            this.tabPage6.Controls.Add(this.label26);
             this.tabPage6.Controls.Add(this.Preview_Group);
+            this.tabPage6.Controls.Add(this.Camera1_Start_Button);
             this.tabPage6.Controls.Add(this.Interval_Num);
             this.tabPage6.Controls.Add(this.label2);
             this.tabPage6.Controls.Add(this.label3);
             this.tabPage6.Controls.Add(this.label4);
-            this.tabPage6.Controls.Add(this.button1);
             this.tabPage6.Controls.Add(this.PreviewFps_Label);
             this.tabPage6.Location = new System.Drawing.Point(4, 25);
             this.tabPage6.Name = "tabPage6";
@@ -847,6 +895,18 @@
             // tabPage7
             // 
             this.tabPage7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tabPage7.Controls.Add(this.Camera2_Caps_Combo);
+            this.tabPage7.Controls.Add(this.Camera2_Path_Label);
+            this.tabPage7.Controls.Add(this.Camera2_Name_Label);
+            this.tabPage7.Controls.Add(this.label31);
+            this.tabPage7.Controls.Add(this.label32);
+            this.tabPage7.Controls.Add(this.label33);
+            this.tabPage7.Controls.Add(this.Camera2_Start_Button);
+            this.tabPage7.Controls.Add(this.numericUpDown1);
+            this.tabPage7.Controls.Add(this.label34);
+            this.tabPage7.Controls.Add(this.label35);
+            this.tabPage7.Controls.Add(this.label36);
+            this.tabPage7.Controls.Add(this.label37);
             this.tabPage7.Controls.Add(this.groupBox1);
             this.tabPage7.Location = new System.Drawing.Point(4, 25);
             this.tabPage7.Name = "tabPage7";
@@ -893,12 +953,186 @@
             this.Show_Right_Screen_Button.TabIndex = 21;
             this.Show_Right_Screen_Button.Text = "Show";
             this.Show_Right_Screen_Button.UseVisualStyleBackColor = true;
+            this.Show_Right_Screen_Button.Click += new System.EventHandler(this.Show_Right_Screen_Button_Click);
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(56, 13);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(62, 13);
+            this.label26.TabIndex = 12;
+            this.label26.Text = "Camera #1:";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(84, 35);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(32, 13);
+            this.label27.TabIndex = 13;
+            this.label27.Text = "Path:";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(55, 57);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(63, 13);
+            this.label28.TabIndex = 14;
+            this.label28.Text = "Capabilities:";
+            // 
+            // Camera1_Caps_Combo
+            // 
+            this.Camera1_Caps_Combo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Camera1_Caps_Combo.FormattingEnabled = true;
+            this.Camera1_Caps_Combo.Location = new System.Drawing.Point(125, 54);
+            this.Camera1_Caps_Combo.Name = "Camera1_Caps_Combo";
+            this.Camera1_Caps_Combo.Size = new System.Drawing.Size(207, 21);
+            this.Camera1_Caps_Combo.TabIndex = 18;
+            // 
+            // Camera2_Caps_Combo
+            // 
+            this.Camera2_Caps_Combo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Camera2_Caps_Combo.FormattingEnabled = true;
+            this.Camera2_Caps_Combo.Location = new System.Drawing.Point(125, 54);
+            this.Camera2_Caps_Combo.Name = "Camera2_Caps_Combo";
+            this.Camera2_Caps_Combo.Size = new System.Drawing.Size(207, 21);
+            this.Camera2_Caps_Combo.TabIndex = 30;
+            // 
+            // Camera2_Path_Label
+            // 
+            this.Camera2_Path_Label.Location = new System.Drawing.Point(122, 31);
+            this.Camera2_Path_Label.Name = "Camera2_Path_Label";
+            this.Camera2_Path_Label.Size = new System.Drawing.Size(422, 20);
+            this.Camera2_Path_Label.TabIndex = 29;
+            this.Camera2_Path_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Camera2_Name_Label
+            // 
+            this.Camera2_Name_Label.Location = new System.Drawing.Point(122, 9);
+            this.Camera2_Name_Label.Name = "Camera2_Name_Label";
+            this.Camera2_Name_Label.Size = new System.Drawing.Size(205, 20);
+            this.Camera2_Name_Label.TabIndex = 28;
+            this.Camera2_Name_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.Camera2_Name_Label.Click += new System.EventHandler(this.Camera2_Name_Label_Click);
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(55, 57);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(63, 13);
+            this.label31.TabIndex = 27;
+            this.label31.Text = "Capabilities:";
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(84, 35);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(32, 13);
+            this.label32.TabIndex = 26;
+            this.label32.Text = "Path:";
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(55, 13);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(62, 13);
+            this.label33.TabIndex = 25;
+            this.label33.Text = "Camera #2:";
+            // 
+            // Camera2_Start_Button
+            // 
+            this.Camera2_Start_Button.Location = new System.Drawing.Point(249, 81);
+            this.Camera2_Start_Button.Name = "Camera2_Start_Button";
+            this.Camera2_Start_Button.Size = new System.Drawing.Size(81, 23);
+            this.Camera2_Start_Button.TabIndex = 19;
+            this.Camera2_Start_Button.Text = "&Start";
+            this.Camera2_Start_Button.UseVisualStyleBackColor = true;
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(125, 84);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            20000,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Minimum = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(118, 20);
+            this.numericUpDown1.TabIndex = 21;
+            this.numericUpDown1.Value = new decimal(new int[] {
+            200,
+            0,
+            0,
+            0});
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(17, 116);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(102, 13);
+            this.label34.TabIndex = 20;
+            this.label34.Text = "Camera Running At:";
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.BackColor = System.Drawing.SystemColors.Window;
+            this.label35.Location = new System.Drawing.Point(203, 86);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(20, 13);
+            this.label35.TabIndex = 22;
+            this.label35.Text = "ms";
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Location = new System.Drawing.Point(26, 86);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(93, 13);
+            this.label36.TabIndex = 23;
+            this.label36.Text = "Capturing Interval:";
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Location = new System.Drawing.Point(15, 143);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(104, 13);
+            this.label37.TabIndex = 24;
+            this.label37.Text = "Preview Running At:";
+            // 
+            // Camera1_Path_Label
+            // 
+            this.Camera1_Path_Label.Location = new System.Drawing.Point(125, 31);
+            this.Camera1_Path_Label.Name = "Camera1_Path_Label";
+            this.Camera1_Path_Label.Size = new System.Drawing.Size(419, 20);
+            this.Camera1_Path_Label.TabIndex = 31;
+            this.Camera1_Path_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Camera1_Name_Label
+            // 
+            this.Camera1_Name_Label.Location = new System.Drawing.Point(124, 9);
+            this.Camera1_Name_Label.Name = "Camera1_Name_Label";
+            this.Camera1_Name_Label.Size = new System.Drawing.Size(205, 20);
+            this.Camera1_Name_Label.TabIndex = 30;
+            this.Camera1_Name_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1100, 660);
+            this.ClientSize = new System.Drawing.Size(717, 622);
             this.Controls.Add(this.tabControl2);
             this.Controls.Add(this.Capabilities_Combo);
             this.Controls.Add(this.label7);
@@ -906,7 +1140,6 @@
             this.Controls.Add(this.OutputFps_Num);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.Output_Button);
-            this.Controls.Add(this.Start_Button);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Cameras_Combo);
             this.Controls.Add(this.RecordAsGif_Button);
@@ -944,8 +1177,10 @@
             this.tabPage6.ResumeLayout(false);
             this.tabPage6.PerformLayout();
             this.tabPage7.ResumeLayout(false);
+            this.tabPage7.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -955,14 +1190,13 @@
         private System.Windows.Forms.Button RecordAsGif_Button;
         private System.Windows.Forms.ComboBox Cameras_Combo;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button Start_Button;
+        private System.Windows.Forms.Button Camera1_Start_Button;
         private System.Windows.Forms.GroupBox Preview_Group;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.NumericUpDown Interval_Num;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label PreviewFps_Label;
         private System.Windows.Forms.Button Output_Button;
         private System.Windows.Forms.Label label5;
@@ -1016,6 +1250,24 @@
         private System.Windows.Forms.Button Show_Registration_Button;
         private System.Windows.Forms.Button Show_Left_Screen_Button;
         private System.Windows.Forms.Button Show_Right_Screen_Button;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.ComboBox Camera1_Caps_Combo;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.ComboBox Camera2_Caps_Combo;
+        private System.Windows.Forms.Label Camera2_Path_Label;
+        private System.Windows.Forms.Label Camera2_Name_Label;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.Button Camera2_Start_Button;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.Label Camera1_Path_Label;
+        private System.Windows.Forms.Label Camera1_Name_Label;
     }
 }
 

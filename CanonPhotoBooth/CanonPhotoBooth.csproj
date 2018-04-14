@@ -92,6 +92,7 @@
     <Compile Include="CapabilityItem.cs" />
     <Compile Include="Contracts\PlayerContract.cs" />
     <Compile Include="EventSink.cs" />
+    <Compile Include="Game.cs" />
     <Compile Include="LeftScreenForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -113,6 +114,12 @@
       <DependentUpon>RegistrationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="RegistrationJavascriptHandler.cs" />
+    <Compile Include="RightScreenForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RightScreenForm.Designer.cs">
+      <DependentUpon>RightScreenForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="LeftScreenForm.resx">
       <DependentUpon>LeftScreenForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -131,6 +138,9 @@
     </Compile>
     <EmbeddedResource Include="RegistrationForm.resx">
       <DependentUpon>RegistrationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RightScreenForm.resx">
+      <DependentUpon>RightScreenForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -184,6 +194,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="View\img\checkbox.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="View\img\cyclists..png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="View\img\holding-bg.jpg">

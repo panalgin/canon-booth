@@ -77,13 +77,13 @@ namespace CanonPhotoBooth
 
         private void Start_Button_Click(object sender, EventArgs e)
         {
-            if (this.Start_Button.Text == "&Start")
+            if (this.Camera1_Start_Button.Text == "&Start")
             {
                 if (DeviceExist)
                 {
-                    videoSource = new VideoCaptureDevice(videoDevices[Cameras_Combo.SelectedIndex].MonikerString);
+                    videoSource = new VideoCaptureDevice(videoDevices[0].MonikerString);
 
-                    var selectedCapabilityIndex = this.Capabilities_Combo.SelectedIndex;
+                    var selectedCapabilityIndex = this.Camera1_Caps_Combo.SelectedIndex;
 
                     videoSource.VideoResolution = videoSource.VideoCapabilities[selectedCapabilityIndex];
                     videoSource.NewFrame += VideoSource_NewFrame;
@@ -97,7 +97,7 @@ namespace CanonPhotoBooth
 
                     videoSource.Start();
                     label2.Text = "Camera Running At: ";
-                    this.Start_Button.Text = "&Stop";
+                    this.Camera1_Start_Button.Text = "&Stop";
                     timer.Enabled = true;
                     timer.Start();
                 }
@@ -114,7 +114,7 @@ namespace CanonPhotoBooth
                     timer.Stop();
                     CloseVideoSource();
                     label2.Text = "Device stopped.";
-                    this.Start_Button.Text = "&Start";
+                    this.Camera1_Start_Button.Text = "&Start";
                 }
             }
         }
@@ -173,16 +173,29 @@ namespace CanonPhotoBooth
 
                 DeviceExist = true;
 
+                int index = 0;
+
                 foreach (FilterInfo device in videoDevices)
                 {
-                    Cameras_Combo.Items.Add(device.Name);
                     var capabilities = GetCapabilities(device.MonikerString).Select(q => string.Format("Fps: {0} | Resolution: {1}x{2}", q.AverageFrameRate, q.FrameSize.Width, q.FrameSize.Height));
 
-                    this.Capabilities_Combo.Items.AddRange(capabilities.ToArray());
-                    this.Capabilities_Combo.SelectedIndex = 0;
-                }
+                    if (index == 0)
+                    {
+                        Camera1_Name_Label.Text = device.Name;
+                        Camera1_Path_Label.Text = device.MonikerString;
 
-                Cameras_Combo.SelectedIndex = 0; //make dafault to first cam
+                        Camera1_Caps_Combo.Items.AddRange(capabilities.ToArray());
+                        Camera1_Caps_Combo.SelectedIndex = 0;
+                    }
+                    else
+                    {
+                        Camera2_Name_Label.Text = device.Name;
+                        Camera1_Path_Label.Text = device.MonikerString;
+
+                        Camera2_Caps_Combo.Items.AddRange(capabilities.ToArray());
+                        Camera2_Caps_Combo.SelectedIndex = 0;
+                    }
+                }
             }
             catch (ApplicationException)
             {
@@ -457,6 +470,36 @@ namespace CanonPhotoBooth
                     this.Show_Left_Screen_Button.Text = "Show";
                 }
             }
+        }
+
+        private void Show_Right_Screen_Button_Click(object sender, EventArgs e)
+        {
+            if (this.Show_Right_Screen_Button.Text == "Show")
+            {
+                RightScreenForm form = new RightScreenForm();
+
+                form.Location = GetLocationFor("Right");
+                form.Size = GetSizeFor("Right");
+
+                form.Show();
+
+                this.Show_Right_Screen_Button.Text = "Hide";
+            }
+            else
+            {
+                var rightForm = Application.OpenForms.OfType<RightScreenForm>().FirstOrDefault();
+
+                if (rightForm != null)
+                {
+                    rightForm.Dispose();
+                    this.Show_Right_Screen_Button.Text = "Show";
+                }
+            }
+        }
+
+        private void Camera2_Name_Label_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

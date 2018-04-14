@@ -5,8 +5,32 @@
     <script type="text/javascript" src="js/jquery.js"></script>
 </head>
 <body class="holding">
-    <img class="logo" src="img/canon-logo.jpg" />
-    <p class="unlock-the-scientist">Are you Ready to Unlock the scientist in you?</p>
+    <p class="unlock-the-scientist">Are you READY to Unlock the scientist in you?</p>
+    <img class="cyclists" src="img/cyclists..png" />
+
     <p class="exp-energy">Come Experience The Energy</p>
+
+    <script type="text/javascript">
+        function typeEffect(element, speed) {
+            var text = $(element).text();
+            $(element).html('');
+
+            var i = 0;
+            var timer = setInterval(function () {
+                if (i < text.length) {
+                    $(element).append(text.charAt(i));
+                    i++;
+                } else {
+                    clearInterval(timer);
+                }
+            }, speed);
+        }
+
+        $(document).ready(function () {
+            setInterval(function () {
+                typeEffect($("p.exp-energy"), 50);
+            }, 3000);
+        });
+    </script>
 </body>
 </html>
