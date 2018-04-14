@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             this.RecordAsGif_Button = new System.Windows.Forms.Button();
-            this.Cameras_Combo = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.Camera1_Start_Button = new System.Windows.Forms.Button();
             this.Preview_Group = new System.Windows.Forms.GroupBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -43,8 +41,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.OutputFps_Num = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.Capabilities_Combo = new System.Windows.Forms.ComboBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.Left_Height_Num = new System.Windows.Forms.NumericUpDown();
@@ -142,31 +138,13 @@
             // 
             // RecordAsGif_Button
             // 
-            this.RecordAsGif_Button.Location = new System.Drawing.Point(592, 16);
+            this.RecordAsGif_Button.Location = new System.Drawing.Point(533, 31);
             this.RecordAsGif_Button.Name = "RecordAsGif_Button";
             this.RecordAsGif_Button.Size = new System.Drawing.Size(112, 23);
             this.RecordAsGif_Button.TabIndex = 1;
             this.RecordAsGif_Button.Text = "Record As Gif";
             this.RecordAsGif_Button.UseVisualStyleBackColor = true;
             this.RecordAsGif_Button.Click += new System.EventHandler(this.RecordAsGif_Button_Click);
-            // 
-            // Cameras_Combo
-            // 
-            this.Cameras_Combo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.Cameras_Combo.FormattingEnabled = true;
-            this.Cameras_Combo.Location = new System.Drawing.Point(166, 16);
-            this.Cameras_Combo.Name = "Cameras_Combo";
-            this.Cameras_Combo.Size = new System.Drawing.Size(194, 21);
-            this.Cameras_Combo.TabIndex = 2;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 19);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(148, 13);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Detected Recording Devices:";
             // 
             // Camera1_Start_Button
             // 
@@ -259,7 +237,7 @@
             // 
             // Output_Button
             // 
-            this.Output_Button.Location = new System.Drawing.Point(629, 45);
+            this.Output_Button.Location = new System.Drawing.Point(570, 60);
             this.Output_Button.Name = "Output_Button";
             this.Output_Button.Size = new System.Drawing.Size(75, 23);
             this.Output_Button.TabIndex = 12;
@@ -270,7 +248,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(440, 52);
+            this.label5.Location = new System.Drawing.Point(381, 65);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(65, 13);
             this.label5.TabIndex = 13;
@@ -278,7 +256,7 @@
             // 
             // OutputFps_Num
             // 
-            this.OutputFps_Num.Location = new System.Drawing.Point(511, 48);
+            this.OutputFps_Num.Location = new System.Drawing.Point(452, 63);
             this.OutputFps_Num.Maximum = new decimal(new int[] {
             20000,
             0,
@@ -302,33 +280,14 @@
             // 
             this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.SystemColors.Window;
-            this.label6.Location = new System.Drawing.Point(581, 53);
+            this.label6.Location = new System.Drawing.Point(522, 68);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(20, 13);
             this.label6.TabIndex = 15;
             this.label6.Text = "ms";
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(97, 46);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(63, 13);
-            this.label7.TabIndex = 16;
-            this.label7.Text = "Capabilities:";
-            // 
-            // Capabilities_Combo
-            // 
-            this.Capabilities_Combo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.Capabilities_Combo.FormattingEnabled = true;
-            this.Capabilities_Combo.Location = new System.Drawing.Point(166, 43);
-            this.Capabilities_Combo.Name = "Capabilities_Combo";
-            this.Capabilities_Combo.Size = new System.Drawing.Size(194, 21);
-            this.Capabilities_Combo.TabIndex = 17;
-            // 
             // tabControl1
             // 
-            this.tabControl1.Appearance = System.Windows.Forms.TabAppearance.Buttons;
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
@@ -340,7 +299,6 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tabPage1.Controls.Add(this.Show_Left_Screen_Button);
             this.tabPage1.Controls.Add(this.Left_Height_Num);
             this.tabPage1.Controls.Add(this.Left_Width_Num);
@@ -352,10 +310,10 @@
             this.tabPage1.Controls.Add(this.label10);
             this.tabPage1.Controls.Add(this.label9);
             this.tabPage1.Controls.Add(this.label8);
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(503, 283);
+            this.tabPage1.Size = new System.Drawing.Size(503, 286);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Player #1 Screen";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -494,7 +452,6 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tabPage2.Controls.Add(this.Show_Right_Screen_Button);
             this.tabPage2.Controls.Add(this.Right_Height_Num);
             this.tabPage2.Controls.Add(this.Right_Width_Num);
@@ -506,10 +463,10 @@
             this.tabPage2.Controls.Add(this.label17);
             this.tabPage2.Controls.Add(this.label18);
             this.tabPage2.Controls.Add(this.label19);
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(503, 283);
+            this.tabPage2.Size = new System.Drawing.Size(503, 286);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Player #2 Screen";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -648,7 +605,6 @@
             // 
             // tabPage3
             // 
-            this.tabPage3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tabPage3.Controls.Add(this.Show_Registration_Button);
             this.tabPage3.Controls.Add(this.Promoter_Height_Num);
             this.tabPage3.Controls.Add(this.Promoter_Width_Num);
@@ -660,10 +616,10 @@
             this.tabPage3.Controls.Add(this.label23);
             this.tabPage3.Controls.Add(this.label24);
             this.tabPage3.Controls.Add(this.label25);
-            this.tabPage3.Location = new System.Drawing.Point(4, 25);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(503, 283);
+            this.tabPage3.Size = new System.Drawing.Size(503, 286);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Registration Screen";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -817,10 +773,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl2.Controls.Add(this.tabPage4);
             this.tabControl2.Controls.Add(this.tabPage5);
-            this.tabControl2.Location = new System.Drawing.Point(12, 100);
+            this.tabControl2.Location = new System.Drawing.Point(12, 12);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(692, 510);
+            this.tabControl2.Size = new System.Drawing.Size(665, 525);
             this.tabControl2.TabIndex = 21;
             // 
             // tabPage4
@@ -830,14 +786,14 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(684, 371);
+            this.tabPage4.Size = new System.Drawing.Size(657, 499);
             this.tabPage4.TabIndex = 0;
             this.tabPage4.Text = "Screens ";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // Update_Screens_Button
             // 
-            this.Update_Screens_Button.Location = new System.Drawing.Point(523, 31);
+            this.Update_Screens_Button.Location = new System.Drawing.Point(504, 458);
             this.Update_Screens_Button.Name = "Update_Screens_Button";
             this.Update_Screens_Button.Size = new System.Drawing.Size(147, 35);
             this.Update_Screens_Button.TabIndex = 21;
@@ -848,29 +804,32 @@
             // tabPage5
             // 
             this.tabPage5.Controls.Add(this.tabControl3);
+            this.tabPage5.Controls.Add(this.label6);
+            this.tabPage5.Controls.Add(this.OutputFps_Num);
+            this.tabPage5.Controls.Add(this.RecordAsGif_Button);
+            this.tabPage5.Controls.Add(this.label5);
+            this.tabPage5.Controls.Add(this.Output_Button);
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(684, 484);
+            this.tabPage5.Size = new System.Drawing.Size(657, 499);
             this.tabPage5.TabIndex = 1;
             this.tabPage5.Text = "Cameras";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
             // tabControl3
             // 
-            this.tabControl3.Appearance = System.Windows.Forms.TabAppearance.Buttons;
             this.tabControl3.Controls.Add(this.tabPage6);
             this.tabControl3.Controls.Add(this.tabPage7);
             this.tabControl3.Location = new System.Drawing.Point(6, 6);
             this.tabControl3.Multiline = true;
             this.tabControl3.Name = "tabControl3";
             this.tabControl3.SelectedIndex = 0;
-            this.tabControl3.Size = new System.Drawing.Size(560, 475);
+            this.tabControl3.Size = new System.Drawing.Size(355, 475);
             this.tabControl3.TabIndex = 0;
             // 
             // tabPage6
             // 
-            this.tabPage6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tabPage6.Controls.Add(this.Camera1_Path_Label);
             this.tabPage6.Controls.Add(this.Camera1_Name_Label);
             this.tabPage6.Controls.Add(this.Camera1_Caps_Combo);
@@ -884,17 +843,16 @@
             this.tabPage6.Controls.Add(this.label3);
             this.tabPage6.Controls.Add(this.label4);
             this.tabPage6.Controls.Add(this.PreviewFps_Label);
-            this.tabPage6.Location = new System.Drawing.Point(4, 25);
+            this.tabPage6.Location = new System.Drawing.Point(4, 22);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(552, 446);
+            this.tabPage6.Size = new System.Drawing.Size(347, 449);
             this.tabPage6.TabIndex = 0;
             this.tabPage6.Text = "Camera #1";
             this.tabPage6.UseVisualStyleBackColor = true;
             // 
             // tabPage7
             // 
-            this.tabPage7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tabPage7.Controls.Add(this.Camera2_Caps_Combo);
             this.tabPage7.Controls.Add(this.Camera2_Path_Label);
             this.tabPage7.Controls.Add(this.Camera2_Name_Label);
@@ -908,10 +866,10 @@
             this.tabPage7.Controls.Add(this.label36);
             this.tabPage7.Controls.Add(this.label37);
             this.tabPage7.Controls.Add(this.groupBox1);
-            this.tabPage7.Location = new System.Drawing.Point(4, 25);
+            this.tabPage7.Location = new System.Drawing.Point(4, 22);
             this.tabPage7.Name = "tabPage7";
             this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage7.Size = new System.Drawing.Size(552, 446);
+            this.tabPage7.Size = new System.Drawing.Size(347, 449);
             this.tabPage7.TabIndex = 1;
             this.tabPage7.Text = "Camera #2";
             this.tabPage7.UseVisualStyleBackColor = true;
@@ -967,7 +925,7 @@
             // label27
             // 
             this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(84, 35);
+            this.label27.Location = new System.Drawing.Point(85, 35);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(32, 13);
             this.label27.TabIndex = 13;
@@ -1002,9 +960,11 @@
             // 
             // Camera2_Path_Label
             // 
+            this.Camera2_Path_Label.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.Camera2_Path_Label.Location = new System.Drawing.Point(122, 31);
             this.Camera2_Path_Label.Name = "Camera2_Path_Label";
-            this.Camera2_Path_Label.Size = new System.Drawing.Size(422, 20);
+            this.Camera2_Path_Label.Size = new System.Drawing.Size(219, 20);
             this.Camera2_Path_Label.TabIndex = 29;
             this.Camera2_Path_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -1015,7 +975,6 @@
             this.Camera2_Name_Label.Size = new System.Drawing.Size(205, 20);
             this.Camera2_Name_Label.TabIndex = 28;
             this.Camera2_Name_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Camera2_Name_Label.Click += new System.EventHandler(this.Camera2_Name_Label_Click);
             // 
             // label31
             // 
@@ -1029,7 +988,7 @@
             // label32
             // 
             this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(84, 35);
+            this.label32.Location = new System.Drawing.Point(85, 35);
             this.label32.Name = "label32";
             this.label32.Size = new System.Drawing.Size(32, 13);
             this.label32.TabIndex = 26;
@@ -1052,6 +1011,7 @@
             this.Camera2_Start_Button.TabIndex = 19;
             this.Camera2_Start_Button.Text = "&Start";
             this.Camera2_Start_Button.UseVisualStyleBackColor = true;
+            this.Camera2_Start_Button.Click += new System.EventHandler(this.Camera2_Start_Button_Click);
             // 
             // numericUpDown1
             // 
@@ -1116,7 +1076,7 @@
             // 
             this.Camera1_Path_Label.Location = new System.Drawing.Point(125, 31);
             this.Camera1_Path_Label.Name = "Camera1_Path_Label";
-            this.Camera1_Path_Label.Size = new System.Drawing.Size(419, 20);
+            this.Camera1_Path_Label.Size = new System.Drawing.Size(216, 20);
             this.Camera1_Path_Label.TabIndex = 31;
             this.Camera1_Path_Label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -1132,17 +1092,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(717, 622);
+            this.ClientSize = new System.Drawing.Size(690, 549);
             this.Controls.Add(this.tabControl2);
-            this.Controls.Add(this.Capabilities_Combo);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.OutputFps_Num);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.Output_Button);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.Cameras_Combo);
-            this.Controls.Add(this.RecordAsGif_Button);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Canon Photo Booth - Test";
@@ -1173,6 +1127,7 @@
             this.tabControl2.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
+            this.tabPage5.PerformLayout();
             this.tabControl3.ResumeLayout(false);
             this.tabPage6.ResumeLayout(false);
             this.tabPage6.PerformLayout();
@@ -1182,14 +1137,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
         private System.Windows.Forms.Button RecordAsGif_Button;
-        private System.Windows.Forms.ComboBox Cameras_Combo;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button Camera1_Start_Button;
         private System.Windows.Forms.GroupBox Preview_Group;
         private System.Windows.Forms.Label label2;
@@ -1202,8 +1154,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.NumericUpDown OutputFps_Num;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.ComboBox Capabilities_Combo;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;

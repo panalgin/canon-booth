@@ -22,9 +22,16 @@ namespace CanonPhotoBooth
     {
         private bool DeviceExist = false;
         private FilterInfoCollection videoDevices;
+
         private VideoCaptureDevice videoSource = null;
+        private VideoCaptureDevice videoSource2 = null;
+
         private Timer timer = new Timer();
+        private Timer timer2 = new Timer();
+
         private double captureInterval = 200;
+        private double captureInterval2 = 200;
+
         private bool IsRecording = false;
 
         public MainForm()
@@ -51,18 +58,22 @@ namespace CanonPhotoBooth
 
             timer.Interval = 1000;
             timer.Tick += Timer_Tick;
+
+            timer2.Interval = 1000;
+            timer2.Tick += Timer2_Tick;
             GetVideoDevices();
+        }
+
+        private void Timer2_Tick(object sender, EventArgs e)
+        {
+            label34.Text = "Camera Running At: " + videoSource2.FramesReceived.ToString() + " FPS";
+            label37.Text = string.Format("Preview Running At: {0} FPS", (1000 / (int)captureInterval2));
         }
 
         private void Timer_Tick(object sender, EventArgs e)
         {
             label2.Text = "Camera Running At: " + videoSource.FramesReceived.ToString() + " FPS";
             PreviewFps_Label.Text = string.Format("Preview Running At: {0} FPS", (1000 / (int)captureInterval));
-        }
-
-        private void QuickFrame_Button_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void CloseVideoSource()
@@ -81,6 +92,8 @@ namespace CanonPhotoBooth
             {
                 if (DeviceExist)
                 {
+                    CloseVideoSource();
+
                     videoSource = new VideoCaptureDevice(videoDevices[0].MonikerString);
 
                     var selectedCapabilityIndex = this.Camera1_Caps_Combo.SelectedIndex;
@@ -92,8 +105,6 @@ namespace CanonPhotoBooth
                     videoSource.SetCameraProperty(CameraControlProperty.Focus, -5, CameraControlFlags.Auto);
 
                     videoSource.ProvideSnapshots = false;
-
-                    CloseVideoSource();
 
                     videoSource.Start();
                     label2.Text = "Camera Running At: ";
@@ -115,6 +126,66 @@ namespace CanonPhotoBooth
                     CloseVideoSource();
                     label2.Text = "Device stopped.";
                     this.Camera1_Start_Button.Text = "&Start";
+                }
+            }
+        }
+
+        private void Camera2_Start_Button_Click(object sender, EventArgs e)
+        {
+            if (this.Camera2_Start_Button.Text == "&Start")
+            {
+                if (DeviceExist)
+                {
+                    if (videoSource2 != null)
+                    {
+                        if (videoSource2.IsRunning)
+                        {
+                            videoSource2.SignalToStop();
+                            videoSource2 = null;
+                        }
+                    }
+
+                    videoSource2 = new VideoCaptureDevice(videoDevices[1].MonikerString);
+
+                    var selectedCapabilityIndex = this.Camera2_Caps_Combo.SelectedIndex;
+
+                    videoSource2.VideoResolution = videoSource2.VideoCapabilities[selectedCapabilityIndex];
+                    videoSource2.NewFrame += VideoSource_NewFrame;
+                    videoSource2.SetCameraProperty(CameraControlProperty.Zoom, 3, CameraControlFlags.Manual);
+                    videoSource2.SetCameraProperty(CameraControlProperty.Exposure, -5, CameraControlFlags.Auto);
+                    videoSource2.SetCameraProperty(CameraControlProperty.Focus, -5, CameraControlFlags.Auto);
+                    videoSource2.ProvideSnapshots = false;
+                    label34.Text = "Camera Running At: ";
+                    videoSource2.Start();
+
+                    label34.Text = "Camera Running At: ";
+                    this.Camera2_Start_Button.Text = "&Stop";
+                    timer2.Enabled = true;
+                    timer2.Start();
+                }
+                else
+                {
+                    label34.Text = "Error: No Device selected.";
+                }
+            }
+            else
+            {
+                if (videoSource2.IsRunning)
+                {
+                    timer2.Enabled = false;
+                    timer2.Stop();
+
+                    if (videoSource2 != null)
+                    {
+                        if (videoSource2.IsRunning)
+                        {
+                            videoSource2.SignalToStop();
+                            videoSource2 = null;
+                        }
+                    }
+
+                    label34.Text = "Device stopped.";
+                    this.Camera2_Start_Button.Text = "&Start";
                 }
             }
         }
@@ -171,7 +242,7 @@ namespace CanonPhotoBooth
                 if (videoDevices.Count == 0)
                     throw new ApplicationException();
 
-                DeviceExist = true;
+
 
                 int index = 0;
 
@@ -195,12 +266,16 @@ namespace CanonPhotoBooth
                         Camera2_Caps_Combo.Items.AddRange(capabilities.ToArray());
                         Camera2_Caps_Combo.SelectedIndex = 0;
                     }
+
+                    index++;
                 }
             }
             catch (ApplicationException)
             {
                 DeviceExist = false;
-                Cameras_Combo.Items.Add("No capture device on your system");
+
+                Camera1_Name_Label.Text = "No capture device on your system";
+                Camera2_Name_Label.Text = "No capture device on your system";
             }
         }
 
@@ -495,11 +570,6 @@ namespace CanonPhotoBooth
                     this.Show_Right_Screen_Button.Text = "Show";
                 }
             }
-        }
-
-        private void Camera2_Name_Label_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
