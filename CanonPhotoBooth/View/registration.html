@@ -90,8 +90,8 @@
             vex.defaultOptions.className = 'vex-theme-flat-attack';
 
             $("body").on("click", "i", function (e) {
-                vex.dialog.alert({
-                    message: 'Testing the wireframe theme.'
+                $.when($.get("terms.html")).done(function (result) {
+                    vex.dialog.alert({ unsafeMessage: result });
                 });
             });
 

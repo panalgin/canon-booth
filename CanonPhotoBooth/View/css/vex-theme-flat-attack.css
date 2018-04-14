@@ -64,7 +64,8 @@
     position: relative;
     margin: 0 auto;
     max-width: 100%;
-    width: 600px; }
+    width: 600px; 
+  }
     .vex.vex-theme-flat-attack .vex-content h1, .vex.vex-theme-flat-attack .vex-content h2, .vex.vex-theme-flat-attack .vex-content h3, .vex.vex-theme-flat-attack .vex-content h4, .vex.vex-theme-flat-attack .vex-content h5, .vex.vex-theme-flat-attack .vex-content h6, .vex.vex-theme-flat-attack .vex-content p, .vex.vex-theme-flat-attack .vex-content ul, .vex.vex-theme-flat-attack .vex-content li {
       color: inherit; }
   .vex.vex-theme-flat-attack .vex-close {
@@ -89,7 +90,12 @@
       color: #fff;
       background: #666; }
   .vex.vex-theme-flat-attack .vex-dialog-form .vex-dialog-message {
-    margin-bottom: .5em; }
+    margin-bottom: .5em; 
+
+    max-height: 650px;
+    overflow-y: auto;
+    overflow-x: auto;
+  }
   .vex.vex-theme-flat-attack .vex-dialog-form .vex-dialog-input {
     margin-bottom: .5em; }
     .vex.vex-theme-flat-attack .vex-dialog-form .vex-dialog-input textarea, .vex.vex-theme-flat-attack .vex-dialog-form .vex-dialog-input input[type="date"], .vex.vex-theme-flat-attack .vex-dialog-form .vex-dialog-input input[type="datetime"], .vex.vex-theme-flat-attack .vex-dialog-form .vex-dialog-input input[type="datetime-local"], .vex.vex-theme-flat-attack .vex-dialog-form .vex-dialog-input input[type="email"], .vex.vex-theme-flat-attack .vex-dialog-form .vex-dialog-input input[type="month"], .vex.vex-theme-flat-attack .vex-dialog-form .vex-dialog-input input[type="number"], .vex.vex-theme-flat-attack .vex-dialog-form .vex-dialog-input input[type="password"], .vex.vex-theme-flat-attack .vex-dialog-form .vex-dialog-input input[type="search"], .vex.vex-theme-flat-attack .vex-dialog-form .vex-dialog-input input[type="tel"], .vex.vex-theme-flat-attack .vex-dialog-form .vex-dialog-input input[type="text"], .vex.vex-theme-flat-attack .vex-dialog-form .vex-dialog-input input[type="time"], .vex.vex-theme-flat-attack .vex-dialog-form .vex-dialog-input input[type="url"], .vex.vex-theme-flat-attack .vex-dialog-form .vex-dialog-input input[type="week"] {
@@ -111,7 +117,8 @@
     padding-top: 1em;
     margin-bottom: -3em;
     margin-left: -2em;
-    margin-right: -2em; }
+    margin-right: -2em; 
+  }
     .vex.vex-theme-flat-attack .vex-dialog-form .vex-dialog-buttons:after {
       content: "";
       display: table;
