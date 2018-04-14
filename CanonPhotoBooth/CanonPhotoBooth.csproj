@@ -112,6 +112,7 @@
   <ItemGroup>
     <Compile Include="BaseJavascriptHandler.cs" />
     <Compile Include="CapabilityItem.cs" />
+    <Compile Include="Config.cs" />
     <Compile Include="Contracts\Visitor.cs" />
     <Compile Include="ControlBoard.cs" />
     <Compile Include="EventSink.cs" />
