@@ -72,6 +72,12 @@ namespace CanonPhotoBooth
             EventSink.PlayerUpdated += EventSink_PlayerUpdated;
             EventSink.GameFinished += EventSink_GameFinished;
             EventSink.GifGenerated += EventSink_GifGenerated;
+            EventSink.GameReset += EventSink_GameReset;
+        }
+
+        private void EventSink_GameReset()
+        {
+            ScriptRunner.Run(this.Browser, ScriptAction.GameReset, null);
         }
 
         private void EventSink_GifGenerated(int playerIndex, string filePath)

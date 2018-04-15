@@ -205,7 +205,7 @@ namespace CanonPhotoBooth
                     videoSource.VideoResolution = videoSource.VideoCapabilities[selectedCapabilityIndex];
                     videoSource.NewFrame += VideoSource_NewFrame;
                     videoSource.SetCameraProperty(CameraControlProperty.Zoom, 0, CameraControlFlags.Manual);
-                    videoSource.SetCameraProperty(CameraControlProperty.Exposure, -5, CameraControlFlags.Auto);
+                    videoSource.SetCameraProperty(CameraControlProperty.Exposure, -5, CameraControlFlags.Manual);
                     videoSource.SetCameraProperty(CameraControlProperty.Focus, -5, CameraControlFlags.Auto);
 
                     videoSource.ProvideSnapshots = false;
@@ -251,8 +251,8 @@ namespace CanonPhotoBooth
 
                     videoSource2.VideoResolution = videoSource2.VideoCapabilities[selectedCapabilityIndex];
                     videoSource2.NewFrame += VideoSource2_NewFrame;
-                    videoSource2.SetCameraProperty(CameraControlProperty.Zoom, 3, CameraControlFlags.Manual);
-                    videoSource2.SetCameraProperty(CameraControlProperty.Exposure, -5, CameraControlFlags.Auto);
+                    videoSource2.SetCameraProperty(CameraControlProperty.Zoom, 0, CameraControlFlags.Manual);
+                    videoSource2.SetCameraProperty(CameraControlProperty.Exposure, -5, CameraControlFlags.Manual);
                     videoSource2.SetCameraProperty(CameraControlProperty.Focus, -5, CameraControlFlags.Auto);
                     videoSource2.ProvideSnapshots = false;
                     label34.Text = "Camera Running At: ";

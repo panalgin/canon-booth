@@ -98,14 +98,12 @@ void checkForSampling() {
 		uint16_t timeElapsed = millis() - lastSampledAt;
 		lastSampledAt = millis();
 
-		/*uint16_t revsOccurred = revolutions - lastRevSample;
+		uint16_t revsOccurred = revolutions - lastRevSample;
 
 		Serial.print("D:");
 		Serial.print(revsOccurred);
 		Serial.print(",");
-		Serial.println(timeElapsed);*/
-
-		Serial.println(counter);
+		Serial.println(timeElapsed);
 	}
 }
 

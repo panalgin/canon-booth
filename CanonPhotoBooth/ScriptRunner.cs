@@ -20,6 +20,8 @@ namespace CanonPhotoBooth
         PlayerUpdated,
         GameFinished,
         GifGenerated,
+        GameReset,
+        UnblockNewcomers,
     }
 
     public static class ScriptRunner
@@ -34,8 +36,9 @@ namespace CanonPhotoBooth
             { ScriptAction.GameUpdated, new ScriptInfo("View\\js\\async\\game-updated.js", true) },
             { ScriptAction.PlayerUpdated, new ScriptInfo("View\\js\\async\\player-updated.js", true) },
             { ScriptAction.GameFinished, new ScriptInfo("View\\js\\async\\game-finished.js", true) },
-            { ScriptAction.GifGenerated, new ScriptInfo("View\\js\\async\\gif-generated.js", true) }
-
+            { ScriptAction.GifGenerated, new ScriptInfo("View\\js\\async\\gif-generated.js", true) },
+            { ScriptAction.GameReset, new ScriptInfo("View\\js\\async\\game-reset.js", true) },
+            { ScriptAction.UnblockNewcomers, new ScriptInfo("View\\js\\async\\unblock-registry-desk.js", true) },
 
             /*{ ScriptAction.GerberTaskResolved, new ScriptInfo("View\\js\\async\\gerber-resolved.js", false) },
             { ScriptAction.SvgTaskResolved, new ScriptInfo("View\\js\\async\\svg-resolved.js", false ) },

@@ -59,6 +59,12 @@ namespace CanonPhotoBooth
             EventSink.PlayerUpdated += EventSink_PlayerUpdated;
             EventSink.GameFinished += EventSink_GameFinished;
             EventSink.GifGenerated += EventSink_GifGenerated;
+            EventSink.GameReset += EventSink_GameReset;
+        }
+
+        private void EventSink_GameReset()
+        {
+            ScriptRunner.Run(this.Browser, ScriptAction.GameReset, null);
         }
 
         private void EventSink_GifGenerated(int playerIndex, string filePath)
@@ -71,7 +77,7 @@ namespace CanonPhotoBooth
 
         private void EventSink_GameFinished(Player winner)
         {
-            ScriptRunner.Run(this.Browser, ScriptAction.GameFinished, winner.Board == World.Boards[1]);
+                ScriptRunner.Run(this.Browser, ScriptAction.GameFinished, winner.Board == World.Boards[1]);
         }
 
         private void EventSink_PlayerUpdated(Player player)

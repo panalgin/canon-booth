@@ -65,7 +65,12 @@ namespace CanonPhotoBooth
         {
             EventSink.DevToolsRequested += EventSink_DevToolsRequested;
             EventSink.GameInitialized += EventSink_GameInitialized;
-            //EventSink.GameFinished
+            EventSink.GameReset += EventSink_GameReset;
+        }
+
+        private void EventSink_GameReset()
+        {
+            ScriptRunner.Run(this.Browser, ScriptAction.UnblockNewcomers, null);
         }
 
         private void EventSink_GameInitialized()
