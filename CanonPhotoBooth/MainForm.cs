@@ -67,7 +67,7 @@ namespace CanonPhotoBooth
             GetVideoDevices();
             GetComPorts();
 
-            Cef.Initialize(new CefSettings() {});
+            Cef.Initialize(new CefSettings() { });
 
             CefSharpSettings.ShutdownOnExit = true;
             CefSharpSettings.LegacyJavascriptBindingEnabled = true;
@@ -120,7 +120,12 @@ namespace CanonPhotoBooth
 
             Task.Run(async () =>
             {
-                await GenerateGifs();
+                await GenerateGif(0);
+            });
+
+            Task.Run(async () =>
+            {
+                await GenerateGif(1);
             });
         }
 
@@ -330,7 +335,7 @@ namespace CanonPhotoBooth
                     });
                 }
             }
-            catch(OutOfMemoryException ex)
+            catch (OutOfMemoryException ex)
             {
 
             }
@@ -501,6 +506,55 @@ namespace CanonPhotoBooth
                         return true;
                     });
                 }
+            }
+
+            return Task.FromResult(true);
+        }
+
+        Task<bool> GenerateGif(int cameraIndex)
+        {
+            string readPath = Path.Combine(Application.StartupPath, "Snapshots", cameraIndex.ToString());
+
+            var imageFrames = Directory.EnumerateFiles(readPath, "*.jpg", SearchOption.TopDirectoryOnly);
+
+            if (imageFrames.Count() > 0)
+            {
+                using (MagickImageCollection collection = new MagickImageCollection())
+                {
+                    var outputFps = Convert.ToInt32(this.OutputFps_Num.Value);
+                    var animationDelay = /*1000 /*/ outputFps;
+
+                    int curFrame = 0;
+
+                    imageFrames.All(delegate (string fileName)
+                    {
+                        collection.Add(fileName);
+                        collection[curFrame].AnimationDelay = animationDelay;
+
+                        return true;
+                    });
+
+                    // Optionally reduce colors
+                    QuantizeSettings settings = new QuantizeSettings();
+                    settings.Colors = 32;
+                    collection.Quantize(settings);
+
+                    // Optionally optimize the images (images should have the same size).
+                    //collection.Optimize();
+
+                    var savePath = Path.Combine(Application.StartupPath, string.Format("Output-{0}-{1}.gif", cameraIndex, DateTime.Now.ToFileTimeUtc()));
+                    collection.Write(savePath);
+
+                    EventSink.InvokeGifGenerated(cameraIndex, savePath);
+                }
+
+                Directory.EnumerateFiles(readPath).All(delegate (string file)
+                {
+                    var fileInfo = new FileInfo(file);
+                    fileInfo.Delete();
+
+                    return true;
+                });
             }
 
             return Task.FromResult(true);
@@ -866,7 +920,7 @@ namespace CanonPhotoBooth
             }
             else
                 MessageBox.Show("An error occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            
+
         }
 
         private void Connect_Right_Button_Click(object sender, EventArgs e)

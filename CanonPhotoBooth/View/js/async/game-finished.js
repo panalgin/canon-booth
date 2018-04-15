@@ -1,5 +1,5 @@
 ﻿var data = "{0}";
-var isWinner = (data == "True");
+var isWinner = data === "True";
 
 if (isWinner)
     $("span#result-message").css("font-size", "120px").html("<br />YOU<br />WIN!");

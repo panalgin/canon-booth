@@ -13,6 +13,7 @@
 </head>
 <body class="registration">
     <div class="container">
+        <img class="logo" src="img/canon-logo.png" />
         <form action="" id="playerCheckin">
             <div class="row">
                 <div class="cell left"><span>First Name:</span></div>
@@ -61,11 +62,29 @@
                     </select>
                 </div>
             </div>
-            <div class="row">
+            <div class="row large">
                 <div class="cell left"><span></span></div>
                 <div class="cell right">
-                    <input type="checkbox" name="checkboxG6" id="checkboxG6" class="css-checkbox" data-validation="required" /><label for="checkboxG6" class="css-label">I have carefully read and accept </label>
-                    <i id="terms">the terms and conditions</i>
+                    <input type="checkbox" name="checkboxG7" id="checkboxG7" class="css-checkbox" checked />
+                    <label for="checkboxG7" class="css-label"></label>
+                    <p>
+                        Sign me up for Canon news, tutorials and offers such as:-
+                        Hear from the experts, get the latest tips, and keep up to date through our Canon community email newsletter
+                        Don't miss out on flash deals and special offers from our Canon online store via text
+                        Invites to local events and inspiration from our Canon community by post
+
+                    </p>
+                </div>
+            </div>
+            <div class="row medium">
+                <div class="cell left"><span></span></div>
+                <div class="cell right">
+                    <input type="checkbox" name="checkboxG6" id="checkboxG6" class="css-checkbox" data-validation="required" />
+                    <label for="checkboxG6" class="css-label"></label>
+                    <p>
+                        By clicking SUBMIT, you confirm you have read and accept 
+                        <i id="terms">the Canon Consumer Privacy Policy</i>
+                    </p>
                 </div>
             </div>
             <div class="row">
@@ -106,10 +125,24 @@
                 $.when($.get("terms.html")).done(function (result) {
                     vex.dialog.alert({ unsafeMessage: result });
                 });
+
+
+                return false;
             });
 
             $("body").dblclick(function (e) {
                 windowsApp.showDevTools();
+            });
+
+            $(".large p").click(function () {
+                var isChecked = $("#checkboxG7").prop("checked");
+                $("#checkboxG7").prop("checked", !isChecked);
+            });
+
+            $(".medium p").click(function (e) {
+                var isChecked = $("#checkboxG6").prop("checked");
+                $("#checkboxG6").prop("checked", !isChecked);
+
             });
 
             $("body").on("click", "#save-button", function (e) {

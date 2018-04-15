@@ -20,8 +20,8 @@ namespace CanonPhotoBooth
         }
 
         const int MaxAllowedPlayers = 2;
-        const int GameDuration = 15; //seconds
-        const int AftermathDuration = 50; //seconds
+        const int GameDuration = 90; //seconds
+        const int AftermathDuration = 180; //seconds
 
         private static Timer GameTimer = new Timer(1000);
         private static Timer AftermathTimer = new Timer(1000);
