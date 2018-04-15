@@ -13,19 +13,19 @@
 </head>
 <body class="registration">
     <div class="container">
-        <img class="logo" src="img/canon-logo.png" />
+        <img class="logo" src="img/canon-logo.jpg" />
         <form action="" id="playerCheckin">
             <div class="row">
                 <div class="cell left"><span>First Name:</span></div>
-                <div class="cell right"><input id="first-name" type="text" placeholder="John" data-validation="required" /></div>
+                <div class="cell right"><input spellcheck="false" id="first-name" type="text" placeholder="John" data-validation="required" /></div>
             </div>
             <div class="row">
                 <div class="cell left"><span>Last Name:</span></div>
-                <div class="cell right"><input id="last-name" type="text" placeholder="Smith" data-validation="required" /></div>
+                <div class="cell right"><input spellcheck="false" id="last-name" type="text" placeholder="Smith" data-validation="required" /></div>
             </div>
             <div class="row">
                 <div class="cell left"><span>Email:</span></div>
-                <div class="cell right"><input id="email" type="text" placeholder="info@example.com" data-validation="email" /></div>
+                <div class="cell right"><input spellcheck="false" id="email" type="text" placeholder="info@example.com" data-validation="email" /></div>
             </div>
             <div class="row">
                 <div class="cell left"><span>Date Of Birth:</span></div>
@@ -37,7 +37,7 @@
             </div>
             <div class="row">
                 <div class="cell left"><span>Mobile No:</span></div>
-                <div class="cell right"><input type="text" id="mobile-number" data-validation="required" /></div>
+                <div class="cell right"><input spellcheck="false" type="text" id="mobile-number" data-validation="required" /></div>
             </div>
             <div class="row">
                 <div class="cell left"><span>Gender:</span></div>
@@ -130,9 +130,9 @@
                 return false;
             });
 
-            $("body").dblclick(function (e) {
+            /*$("body").dblclick(function (e) {
                 windowsApp.showDevTools();
-            });
+            });*/
 
             $(".large p").click(function () {
                 var isChecked = $("#checkboxG7").prop("checked");

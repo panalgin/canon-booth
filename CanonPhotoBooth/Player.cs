@@ -51,21 +51,21 @@ namespace CanonPhotoBooth
             if (this.Entries.Count >= MaxDataPoints)
                 this.Entries = this.Entries.Skip(1).ToList();
 
-            this.Entries.Add(new SampleEntry() { Revolutions = Math.Pow(revs, 2), TimeElapsed = Math.Pow(timePassed, 2) });
+            this.Entries.Add(new SampleEntry() { Revolutions = revs, TimeElapsed = timePassed });
 
 
             var totalRevsSq = this.Entries.Sum(q => q.Revolutions);
             var totalTimeElapsedSq = this.Entries.Sum(q => q.TimeElapsed);
 
-            var revPerMs = Math.Sqrt(totalRevsSq / totalTimeElapsedSq);
+            var revPerMs = (totalRevsSq / totalTimeElapsedSq) / Entries.Count;
             var totalRevPerHour = revPerMs * 1000 * 60 * 60;
             var distancePerRev = Config.DistancePerRevolution; //cm
-            var estimatedKmph = (totalRevPerHour * distancePerRev) / 100 / 1000; // divided for meter / then kilometer
+            var estimatedKmph = Math.Round((totalRevPerHour * distancePerRev) / 100 / 1000, 2); // divided for meter / then kilometer
 
             this.Speed = estimatedKmph;
             this.DistanceCovered += (revs * distancePerRev) / 100; //in meters
-            this.CaloriesBurnt += timePassed * Config.CaloriesPerMillisecond; //cal
-            this.PowerGenerated = (this.CaloriesBurnt * 0.001163) * 1000; //to watt/hour
+            this.CaloriesBurnt += Math.Round(timePassed * Config.CaloriesPerMillisecond, 2); //cal
+            this.PowerGenerated = Math.Round((this.CaloriesBurnt * 0.001163) * 1000, 2); //to watt/hour
 
             EventSink.InvokePlayerUpdated(this);
         }
