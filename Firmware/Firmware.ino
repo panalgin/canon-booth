@@ -11,16 +11,16 @@
 
 #define LED_FPS 30 //how many updates per second ? 
 
-#define NUM_LEDS 90
+#define NUM_LEDS 300
 #define DATA_PIN 6
 
 CRGB leds[NUM_LEDS];
 
-uint8_t counter = 0;
+uint16_t counter = 0;
 
 // the setup function runs once when you press reset or power the board
 void setup() {
-	Serial.begin(9600);
+	Serial.begin(115200);
 
 	while (!Serial) { ; }
 
@@ -41,14 +41,6 @@ void onHallTriggered() {
 
 		if (counter < NUM_LEDS) {
 			counter++;
-
-			if (counter == NUM_LEDS) {
-				if (millis() - lastCommandSent > (1000 * 10)) {
-					lastCommandSent = millis();
-
-					playVideo();
-				}
-			}
 		}
 	}
 }
@@ -72,16 +64,12 @@ void show() {
 }
 
 void updateStrip() {
-  for (uint8_t i = 0; i < NUM_LEDS; i++) {
+  for (uint16_t i = 0; i < NUM_LEDS; i++) {
     if (i < counter)
       leds[i] = CRGB::Magenta;
     else
       leds[i] = CRGB::Black;
   }
-}
-
-void playVideo() {
-  Serial.println("Play");
 }
 
 unsigned long lastDecrementedAt = millis();

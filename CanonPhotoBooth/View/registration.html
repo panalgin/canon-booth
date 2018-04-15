@@ -77,7 +77,8 @@
         </form>
     </div>
     <div id="block-input">
-        <p>A game is in progress, we can't add you at the moment.</p>
+        <p>Thanks for participating!. <br />Be fast! The race is about to start...</p>
+        <p id="laterOn">A game is in progress, we can't add you at the moment.</p>
     </div>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -128,11 +129,30 @@
                         };
 
                         var json = JSON.stringify(player);
-                        var result = windowsApp.registerPlayer(json);
+                        var promise = windowsApp.registerPlayer(json);
 
-                        if (result == true) {
+                        promise.then(function (result) {
+                            if (result == true) {
+                                var text = "Thanks for joining in! Now head over to your bicycle and get ready";
+                                vex.dialog.alert({ unsafeMessage: text });
+                                setTimeout(function () {
+                                    vex.closeAll();
+                                }, 5000);
 
-                        }
+                                $("input#first-name").val("");
+                                $("input#last-name").val("");
+                                $("input#email").val("");
+                                $("select#day-of-birth").val("");
+                                $("select#month-of-birth").val("");
+                                $("select#year-of-birth").val("");
+                                $("input#mobile-number").val("");
+                                $("input#checkboxG6").prop("checked", false);
+                                $("select#gender").val("Male");
+                                $("select#address").val("Abu Dhabi");
+                                
+
+                            }
+                        });
 
                         return false; // Will stop the submission of the form
                     },

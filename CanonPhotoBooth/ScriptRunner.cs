@@ -38,32 +38,31 @@ namespace CanonPhotoBooth
         public static void Run(ChromiumWebBrowser browser, ScriptAction action, params object[] parameters)
         {
             var entity = ScriptEntities[action];
+            string script = string.Empty;
 
-            browser.BeginInvoke(new Action(() =>
+            if (entity.Exists)
             {
-                string m_Script = string.Empty;
-
-                if (entity.Exists)
+                if (entity.Cacheable == false)
                 {
-                    if (entity.Cacheable == false)
+                    using (StreamReader reader = new StreamReader(entity.FileLocation))
                     {
-                        using (StreamReader reader = new StreamReader(entity.FileLocation))
-                        {
-                            m_Script = reader.ReadToEnd();
-                        }
+                        script = reader.ReadToEnd();
                     }
-                    else
-                        m_Script = entity.CachedData;
-
-                    var formattedScript = string.Format(m_Script, parameters);
-
-                    browser.ExecuteScriptAsync(formattedScript);
                 }
                 else
-                {
-                    throw new FileNotFoundException(entity.FileLocation + " bulunamadı.");
-                }
-            }));
+                    script = entity.CachedData;
+
+                string formattedScript = script;
+
+                if (parameters != null)
+                    formattedScript = string.Format(script, parameters);
+
+                browser.ExecuteScriptAsync(formattedScript);
+            }
+            else
+            {
+                throw new FileNotFoundException(entity.FileLocation + " bulunamadı.");
+            }
         }
 
         private class ScriptInfo

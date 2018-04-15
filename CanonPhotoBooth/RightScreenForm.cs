@@ -1,5 +1,6 @@
 ﻿using CefSharp;
 using CefSharp.WinForms;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -46,6 +47,20 @@ namespace CanonPhotoBooth
                 this.Browser.Dispose();
 
             Cef.Shutdown();
+        }
+
+        private void RightScreenForm_Load(object sender, EventArgs e)
+        {
+            EventSink.PlayerJoined += EventSink_PlayerJoined;
+        }
+
+        private void EventSink_PlayerJoined(Player player)
+        {
+            if (player.Board == World.Boards[1])
+            {
+                string data = JsonConvert.SerializeObject(player);
+                ScriptRunner.Run(this.Browser, ScriptAction.PlayerJoined, Utility.HtmlEncode(data));
+            }
         }
     }
 }

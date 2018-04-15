@@ -39,6 +39,7 @@
             this.Name = "RightScreenForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "RightScreenForm";
+            this.Load += new System.EventHandler(this.RightScreenForm_Load);
             this.ResumeLayout(false);
 
         }
