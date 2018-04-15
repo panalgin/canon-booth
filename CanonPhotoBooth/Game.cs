@@ -20,8 +20,8 @@ namespace CanonPhotoBooth
         }
 
         const int MaxAllowedPlayers = 2;
-        const int GameDuration = 90; //seconds
-        const int AftermathDuration = 180; //seconds
+        const int GameDuration = 60; //seconds
+        const int AftermathDuration = 120; //seconds
 
         private static Timer GameTimer = new Timer(1000);
         private static Timer AftermathTimer = new Timer(1000);
@@ -121,6 +121,12 @@ namespace CanonPhotoBooth
             {
                 Finish();
             }
+        }
+
+        public static void Halt()
+        {
+            if (State == GameState.Running)
+                Finish();
         }
 
         private static void Finish()

@@ -91,6 +91,7 @@
             this.label27 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
             this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.Source2_Properties_Button = new System.Windows.Forms.Button();
             this.Camera2_Caps_Combo = new System.Windows.Forms.ComboBox();
             this.Camera2_Path_Label = new System.Windows.Forms.Label();
             this.Camera2_Name_Label = new System.Windows.Forms.Label();
@@ -106,16 +107,17 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.tabPage8 = new System.Windows.Forms.TabPage();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.Connect_Left_Button = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.Connect_Right_Button = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.Connect_Left_Button = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.tabPage9 = new System.Windows.Forms.TabPage();
             this.Trigger_GameStart_Button = new System.Windows.Forms.Button();
+            this.Source1_Properties_Button = new System.Windows.Forms.Button();
             this.Preview_Group.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Camera1_Interval_Num)).BeginInit();
@@ -146,8 +148,8 @@
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.tabPage8.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.tabPage9.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -163,7 +165,7 @@
             // 
             // Camera1_Start_Button
             // 
-            this.Camera1_Start_Button.Location = new System.Drawing.Point(249, 81);
+            this.Camera1_Start_Button.Location = new System.Drawing.Point(253, 81);
             this.Camera1_Start_Button.Name = "Camera1_Start_Button";
             this.Camera1_Start_Button.Size = new System.Drawing.Size(81, 23);
             this.Camera1_Start_Button.TabIndex = 4;
@@ -867,6 +869,7 @@
             // 
             // tabPage6
             // 
+            this.tabPage6.Controls.Add(this.Source1_Properties_Button);
             this.tabPage6.Controls.Add(this.Camera1_Path_Label);
             this.tabPage6.Controls.Add(this.Camera1_Name_Label);
             this.tabPage6.Controls.Add(this.Camera1_Caps_Combo);
@@ -942,6 +945,7 @@
             // 
             // tabPage7
             // 
+            this.tabPage7.Controls.Add(this.Source2_Properties_Button);
             this.tabPage7.Controls.Add(this.Camera2_Caps_Combo);
             this.tabPage7.Controls.Add(this.Camera2_Path_Label);
             this.tabPage7.Controls.Add(this.Camera2_Name_Label);
@@ -962,6 +966,16 @@
             this.tabPage7.TabIndex = 1;
             this.tabPage7.Text = "Camera #2";
             this.tabPage7.UseVisualStyleBackColor = true;
+            // 
+            // Source2_Properties_Button
+            // 
+            this.Source2_Properties_Button.Location = new System.Drawing.Point(284, 150);
+            this.Source2_Properties_Button.Name = "Source2_Properties_Button";
+            this.Source2_Properties_Button.Size = new System.Drawing.Size(48, 23);
+            this.Source2_Properties_Button.TabIndex = 31;
+            this.Source2_Properties_Button.Text = "?";
+            this.Source2_Properties_Button.UseVisualStyleBackColor = true;
+            this.Source2_Properties_Button.Click += new System.EventHandler(this.Source2_Properties_Button_Click);
             // 
             // Camera2_Caps_Combo
             // 
@@ -1118,46 +1132,6 @@
             this.tabPage8.Text = "Arduinos";
             this.tabPage8.UseVisualStyleBackColor = true;
             // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.comboBox1);
-            this.groupBox2.Controls.Add(this.Connect_Left_Button);
-            this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Location = new System.Drawing.Point(6, 6);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(244, 146);
-            this.groupBox2.TabIndex = 0;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Bicycle #1";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(47, 34);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(56, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "COM Port:";
-            // 
-            // Connect_Left_Button
-            // 
-            this.Connect_Left_Button.Location = new System.Drawing.Point(163, 67);
-            this.Connect_Left_Button.Name = "Connect_Left_Button";
-            this.Connect_Left_Button.Size = new System.Drawing.Size(75, 23);
-            this.Connect_Left_Button.TabIndex = 1;
-            this.Connect_Left_Button.Text = "Connect:";
-            this.Connect_Left_Button.UseVisualStyleBackColor = true;
-            this.Connect_Left_Button.Click += new System.EventHandler(this.Connect_Left_Button_Click);
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(109, 31);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(129, 21);
-            this.comboBox1.TabIndex = 2;
-            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.comboBox2);
@@ -1198,6 +1172,46 @@
             this.label7.TabIndex = 0;
             this.label7.Text = "COM Port:";
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.comboBox1);
+            this.groupBox2.Controls.Add(this.Connect_Left_Button);
+            this.groupBox2.Controls.Add(this.label1);
+            this.groupBox2.Location = new System.Drawing.Point(6, 6);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(244, 146);
+            this.groupBox2.TabIndex = 0;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Bicycle #1";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(109, 31);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(129, 21);
+            this.comboBox1.TabIndex = 2;
+            // 
+            // Connect_Left_Button
+            // 
+            this.Connect_Left_Button.Location = new System.Drawing.Point(163, 67);
+            this.Connect_Left_Button.Name = "Connect_Left_Button";
+            this.Connect_Left_Button.Size = new System.Drawing.Size(75, 23);
+            this.Connect_Left_Button.TabIndex = 1;
+            this.Connect_Left_Button.Text = "Connect:";
+            this.Connect_Left_Button.UseVisualStyleBackColor = true;
+            this.Connect_Left_Button.Click += new System.EventHandler(this.Connect_Left_Button_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(47, 34);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(56, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "COM Port:";
+            // 
             // tabPage9
             // 
             this.tabPage9.Controls.Add(this.Trigger_GameStart_Button);
@@ -1218,6 +1232,16 @@
             this.Trigger_GameStart_Button.Text = "Trigger Game - Start";
             this.Trigger_GameStart_Button.UseVisualStyleBackColor = true;
             this.Trigger_GameStart_Button.Click += new System.EventHandler(this.Trigger_GameStart_Button_Click);
+            // 
+            // Source1_Properties_Button
+            // 
+            this.Source1_Properties_Button.Location = new System.Drawing.Point(286, 138);
+            this.Source1_Properties_Button.Name = "Source1_Properties_Button";
+            this.Source1_Properties_Button.Size = new System.Drawing.Size(48, 23);
+            this.Source1_Properties_Button.TabIndex = 32;
+            this.Source1_Properties_Button.Text = "?";
+            this.Source1_Properties_Button.UseVisualStyleBackColor = true;
+            this.Source1_Properties_Button.Click += new System.EventHandler(this.Source1_Properties_Button_Click);
             // 
             // MainForm
             // 
@@ -1268,10 +1292,10 @@
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.tabPage8.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.tabPage9.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -1366,6 +1390,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TabPage tabPage9;
         private System.Windows.Forms.Button Trigger_GameStart_Button;
+        private System.Windows.Forms.Button Source2_Properties_Button;
+        private System.Windows.Forms.Button Source1_Properties_Button;
     }
 }
 

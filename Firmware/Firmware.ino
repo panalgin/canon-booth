@@ -6,10 +6,10 @@ Author:  Mashadow
 
 #include <FastLED.h>
 
-#define INCREMENT_THRESOLD 40  //milliseconds between two increments, how fast do we want it ?
-#define DECREMENT_THRESOLD 40  //
+#define INCREMENT_THRESOLD 2  //milliseconds between two increments, how fast do we want it ?
+#define DECREMENT_THRESOLD 100  //
 
-#define LED_FPS 60 //how many updates per second ? 
+#define LED_FPS 30 //how many updates per second ? 
 
 #define NUM_LEDS 300
 #define DATA_PIN 6
@@ -24,7 +24,9 @@ volatile unsigned long revolutions = 0;
 void setup() {
 	Serial.begin(115200);
 
-	while (!Serial) { ; }
+	while (!Serial) {
+		;
+	}
 
 	pinMode(TRIGGER_PIN, INPUT_PULLUP);
 
@@ -49,6 +51,9 @@ void onHallTriggered() {
 
 		if (counter < NUM_LEDS) {
 			counter++;
+
+			if (counter >= 290)
+				Serial.println("Stop");
 		}
 	}
 }
@@ -116,10 +121,10 @@ void updateStrip() {
 	}
 }
 
-unsigned long lastDecrementedAt = millis();
+unsigned long lastDecrementedAt = 0;
 
 void checkForDecrement() {
-	if (millis() - lastIncrementedAt > INCREMENT_THRESOLD * 5) {
+	if (millis() - lastIncrementedAt > 400) {
 		if (millis() - lastDecrementedAt > DECREMENT_THRESOLD) {
 			lastDecrementedAt = millis();
 

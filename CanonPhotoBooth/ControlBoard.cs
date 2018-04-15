@@ -57,6 +57,10 @@ namespace CanonPhotoBooth
             {
                 Game.Start();
             }
+            else if (inputBuffer.StartsWith("Stop"))
+            {
+                Game.Halt();
+            }
             else if (inputBuffer.StartsWith("D:"))
             {
                 inputBuffer = inputBuffer.Replace("D:", "");

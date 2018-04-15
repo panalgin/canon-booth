@@ -44,28 +44,35 @@ namespace CanonPhotoBooth
             }
         }
 
-
-
         private void Board_SampleAcquired(ulong revs, ulong timePassed)
         {
-            if (this.Entries.Count >= MaxDataPoints)
-                this.Entries = this.Entries.Skip(1).ToList();
+            if (revs == 0)
+                return;
 
             this.Entries.Add(new SampleEntry() { Revolutions = revs, TimeElapsed = timePassed });
 
 
-            var totalRevsSq = this.Entries.Sum(q => q.Revolutions);
-            var totalTimeElapsedSq = this.Entries.Sum(q => q.TimeElapsed);
+            var totalRevs = Entries.Sum(q => q.Revolutions);
+            var totalElapsed = Entries.Sum(q => q.TimeElapsed);
 
-            var revPerMs = (totalRevsSq / totalTimeElapsedSq) / Entries.Count;
+            var revPerMs = totalRevs / totalElapsed;
+
             var totalRevPerHour = revPerMs * 1000 * 60 * 60;
-            var distancePerRev = Config.DistancePerRevolution; //cm
-            var estimatedKmph = Math.Round((totalRevPerHour * distancePerRev) / 100 / 1000, 2); // divided for meter / then kilometer
+
+            var totalDistanceAchieved = totalRevs * Config.DistancePerRevolution / 100 / 1000; //km
+
+            var estimatedKmph = Math.Round(totalDistanceAchieved / (totalElapsed / 1000 / 60 / 60), 2);
+
+            if (estimatedKmph > 50)
+                estimatedKmph = 50;
+
+            var caloriesBurnt = Math.Round(totalElapsed * Config.CaloriesPerMillisecond, 2); //cal
+
+            if (caloriesBurnt > 30.0)
+                caloriesBurnt = 30;
 
             this.Speed = estimatedKmph;
-            this.DistanceCovered += (revs * distancePerRev) / 100; //in meters
-            this.CaloriesBurnt += Math.Round(timePassed * Config.CaloriesPerMillisecond, 2); //cal
-            this.PowerGenerated = Math.Round((this.CaloriesBurnt * 0.001163) * 1000, 2); //to watt/hour
+            this.CaloriesBurnt = caloriesBurnt;
 
             EventSink.InvokePlayerUpdated(this);
         }
@@ -93,6 +100,6 @@ namespace CanonPhotoBooth
     public class SampleEntry
     {
         public double Revolutions { get; set; }
-        public double TimeElapsed { get; set; } 
+        public double TimeElapsed { get; set; }
     }
 }

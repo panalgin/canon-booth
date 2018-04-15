@@ -3,13 +3,15 @@ $("input#playerInstance").val(data);
 
 var player = JSON.parse(data);
 
-$("span#speed-label").html(player.speed + " km/h");
-$("span#energy-label").html(player.caloriesBurnt + " kcal");
+var speed = (Math.round(player.speed * 100) / 100).toFixed(2);
+var calorie = (Math.round(player.caloriesBurnt * 100) / 100).toFixed(2);
 
-var batteryLevel = map(player.caloriesBurnt, 0, 20, 0, 200);
-var videoSpeed = map(player.speed, 0, 50, 0.01, 5);
+$("span#speed-label").html(speed + " km/h");
+$("span#energy-label").html(calorie + " kcal");
 
-var videoPlayer = document.getElementById("video-player");
+var batteryLevel = map(player.caloriesBurnt, 0, 30, 0, 250);
 
-videoPlayer.playbackRate = videoSpeed;
+if (batteryLevel > 250)
+    batteryLevel = 250;
+
 $("div.battery-overlay").css("height", batteryLevel + "px");

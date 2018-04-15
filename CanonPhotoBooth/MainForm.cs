@@ -58,8 +58,25 @@ namespace CanonPhotoBooth
             InitializeComponent();
         }
 
+        void CleanUp()
+        {
+            var savePath = Path.Combine(Application.StartupPath, "Snapshots");
+            var files = Directory.EnumerateFiles(savePath, "*.jpg", SearchOption.AllDirectories);
+
+            files.All(delegate (string file)
+            {
+                FileInfo info = new FileInfo(file);
+
+                info.Delete();
+
+                return true;
+            });
+        }
+
         private void MainForm_Load(object sender, EventArgs e)
         {
+            CleanUp();
+
             World.Initialize();
             Game.Initialize();
 
@@ -203,14 +220,14 @@ namespace CanonPhotoBooth
                 {
                     CloseVideoSource();
 
-                    videoSource = new VideoCaptureDevice(videoDevices[0].MonikerString);
+                    videoSource = new VideoCaptureDevice(videoDevices[1].MonikerString);
 
                     var selectedCapabilityIndex = this.Camera1_Caps_Combo.SelectedIndex;
 
                     videoSource.VideoResolution = videoSource.VideoCapabilities[selectedCapabilityIndex];
                     videoSource.NewFrame += VideoSource_NewFrame;
-                    videoSource.SetCameraProperty(CameraControlProperty.Zoom, 0, CameraControlFlags.Manual);
-                    videoSource.SetCameraProperty(CameraControlProperty.Exposure, -5, CameraControlFlags.Manual);
+                    videoSource.SetCameraProperty(CameraControlProperty.Zoom, 0, CameraControlFlags.Auto);
+                    videoSource.SetCameraProperty(CameraControlProperty.Exposure, -3, CameraControlFlags.Auto);
                     videoSource.SetCameraProperty(CameraControlProperty.Focus, -5, CameraControlFlags.Auto);
 
                     videoSource.ProvideSnapshots = false;
@@ -239,39 +256,31 @@ namespace CanonPhotoBooth
         {
             if (this.Camera2_Start_Button.Text == "&Start")
             {
-                if (DeviceExist)
+                if (videoSource2 != null)
                 {
-                    if (videoSource2 != null)
+                    if (videoSource2.IsRunning)
                     {
-                        if (videoSource2.IsRunning)
-                        {
-                            videoSource2.SignalToStop();
-                            videoSource2 = null;
-                        }
+                        videoSource2.SignalToStop();
+                        videoSource2 = null;
                     }
-
-                    videoSource2 = new VideoCaptureDevice(videoDevices[1].MonikerString);
-
-                    var selectedCapabilityIndex = this.Camera2_Caps_Combo.SelectedIndex;
-
-                    videoSource2.VideoResolution = videoSource2.VideoCapabilities[selectedCapabilityIndex];
-                    videoSource2.NewFrame += VideoSource2_NewFrame;
-                    videoSource2.SetCameraProperty(CameraControlProperty.Zoom, 0, CameraControlFlags.Manual);
-                    videoSource2.SetCameraProperty(CameraControlProperty.Exposure, -5, CameraControlFlags.Manual);
-                    videoSource2.SetCameraProperty(CameraControlProperty.Focus, -5, CameraControlFlags.Auto);
-                    videoSource2.ProvideSnapshots = false;
-                    label34.Text = "Camera Running At: ";
-                    videoSource2.Start();
-
-                    label34.Text = "Camera Running At: ";
-                    this.Camera2_Start_Button.Text = "&Stop";
-                    timer2.Enabled = true;
-                    timer2.Start();
                 }
-                else
-                {
-                    label34.Text = "Error: No Device selected.";
-                }
+
+                videoSource2 = new VideoCaptureDevice(videoDevices[0].MonikerString);
+
+                var selectedCapabilityIndex = this.Camera2_Caps_Combo.SelectedIndex;
+
+                videoSource2.VideoResolution = videoSource2.VideoCapabilities[selectedCapabilityIndex];
+                videoSource2.NewFrame += VideoSource2_NewFrame;
+                videoSource2.SetCameraProperty(CameraControlProperty.Exposure, -3, CameraControlFlags.Auto);
+                videoSource2.SetCameraProperty(CameraControlProperty.Focus, -5, CameraControlFlags.Auto);
+                videoSource2.ProvideSnapshots = false;
+                label34.Text = "Camera Running At: ";
+                videoSource2.Start();
+
+                label34.Text = "Camera Running At: ";
+                this.Camera2_Start_Button.Text = "&Stop";
+                timer2.Enabled = true;
+                timer2.Start();
             }
             else
             {
@@ -386,19 +395,19 @@ namespace CanonPhotoBooth
 
                     if (index == 0)
                     {
-                        Camera1_Name_Label.Text = device.Name;
-                        Camera1_Path_Label.Text = device.MonikerString;
-
-                        Camera1_Caps_Combo.Items.AddRange(capabilities.ToArray());
-                        Camera1_Caps_Combo.SelectedIndex = 0;
-                    }
-                    else
-                    {
                         Camera2_Name_Label.Text = device.Name;
                         Camera2_Path_Label.Text = device.MonikerString;
 
                         Camera2_Caps_Combo.Items.AddRange(capabilities.ToArray());
-                        Camera2_Caps_Combo.SelectedIndex = 0;
+                        Camera2_Caps_Combo.SelectedIndex = 16;
+                    }
+                    else
+                    {
+                        Camera1_Name_Label.Text = device.Name;
+                        Camera1_Path_Label.Text = device.MonikerString;
+
+                        Camera1_Caps_Combo.Items.AddRange(capabilities.ToArray());
+                        Camera1_Caps_Combo.SelectedIndex = 16;
 
                         DeviceExist = true;
                     }
@@ -937,6 +946,18 @@ namespace CanonPhotoBooth
         private void Trigger_GameStart_Button_Click(object sender, EventArgs e)
         {
             Game.Start();
+        }
+
+        private void Source2_Properties_Button_Click(object sender, EventArgs e)
+        {
+            if (videoSource2 != null)
+                videoSource2.DisplayPropertyPage(this.Handle);
+        }
+
+        private void Source1_Properties_Button_Click(object sender, EventArgs e)
+        {
+            if (videoSource != null)
+                videoSource.DisplayPropertyPage(this.Handle);
         }
     }
 }
