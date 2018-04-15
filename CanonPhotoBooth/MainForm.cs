@@ -18,6 +18,8 @@ using System.Windows.Forms;
 using EOSDigital.API;
 using EOSDigital.SDK;
 using System.IO.Ports;
+using Mandrill;
+using Mandrill.Model;
 
 namespace CanonPhotoBooth
 {
@@ -958,6 +960,36 @@ namespace CanonPhotoBooth
         {
             if (videoSource != null)
                 videoSource.DisplayPropertyPage(this.Handle);
+        }
+
+        private void tabPage4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private async void button1_Click(object sender, EventArgs e)
+        {
+            var dialog = new OpenFileDialog();
+            dialog.Filter = "Gif Files|*.gif";
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                string fileName = dialog.FileName;
+                byte[] data = File.ReadAllBytes(fileName);
+
+                
+                var api = new MandrillApi("1_xltjpipEzKbs51aUb2Nw");
+
+                
+                var message = new MandrillMessage("canon@confluence.me", "dhiraj@thinksmithmena.com",
+                                "Unlock the Scientist In You", "This is a test message");
+                var attachment = new MandrillAttachment("image/gif", "Animation.gif", data);
+
+                message.Attachments.Add(attachment);
+                
+                
+                var result = await api.Messages.SendAsync(message);
+            }
         }
     }
 }
