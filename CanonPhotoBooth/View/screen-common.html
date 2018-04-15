@@ -37,6 +37,10 @@
                     windowsApp.showDevTools();
                 });
             });
+
+            function map(x, in_min, in_max, out_min, out_max) {
+                return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+            }
         </script>
     </div>
     <div id="pre-play">
@@ -45,7 +49,7 @@
         <img class="arms" src="img/bicycle-arms.png" />
     </div>
     <div id="play">
-        <video class="bg-video" src="videos/hexagon.webm" loop autoplay></video>
+        <video id="video-player" class="bg-video" src="videos/hexagon.webm" loop autoplay></video>
         
         <span id="name-label">Player 1: Khaiz</span>
         <span id="speed-label">30 km/h</span>

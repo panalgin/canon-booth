@@ -54,6 +54,12 @@ namespace CanonPhotoBooth
             EventSink.PlayerJoined += EventSink_PlayerJoined;
             EventSink.GameInitialized += EventSink_GameInitialized;
             EventSink.GameTriggered += EventSink_GameTriggered;
+            EventSink.GameStarted += EventSink_GameStarted;
+        }
+
+        private void EventSink_GameStarted()
+        {
+            ScriptRunner.Run(this.Browser, ScriptAction.GameStarted, null);
         }
 
         private void EventSink_GameTriggered()

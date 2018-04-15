@@ -15,17 +15,24 @@ namespace CanonPhotoBooth
         PlayerJoined,
         GetReady,
         CountdownStarted,
+        GameStarted,
+        GameUpdated,
+        PlayerUpdated,
+
     }
 
     public static class ScriptRunner
     {
-
         private static Dictionary<ScriptAction, ScriptInfo> ScriptEntities = new Dictionary<ScriptAction, ScriptInfo>()
         {
             { ScriptAction.BlockNewcomers, new ScriptInfo("View\\js\\async\\block-newcomers.js", false) },
             { ScriptAction.PlayerJoined, new ScriptInfo("View\\js\\async\\player-joined.js", false) },
             { ScriptAction.GetReady, new ScriptInfo("View\\js\\async\\get-ready.js", false) },
             { ScriptAction.CountdownStarted, new ScriptInfo("View\\js\\async\\countdown-started.js", false) },
+            { ScriptAction.GameStarted, new ScriptInfo("View\\js\\async\\game-started.js", false) },
+            { ScriptAction.GameUpdated, new ScriptInfo("View\\js\\async\\game-updated.js", false) },
+            { ScriptAction.PlayerUpdated, new ScriptInfo("View\\js\\async\\player-updated.js", false) },
+
 
             /*{ ScriptAction.GerberTaskResolved, new ScriptInfo("View\\js\\async\\gerber-resolved.js", false) },
             { ScriptAction.SvgTaskResolved, new ScriptInfo("View\\js\\async\\svg-resolved.js", false ) },

@@ -114,9 +114,10 @@ namespace CanonPhotoBooth
         {
             CurrentGameTime--;
 
+            EventSink.InvokeGameUpdated(CurrentGameTime);
+
             if (CurrentGameTime <= 0)
             {
-                
                 Finish();
             }
         }

@@ -66,6 +66,8 @@ namespace CanonPhotoBooth
             this.DistanceCovered += (revs * distancePerRev) / 100; //in meters
             this.CaloriesBurnt += timePassed * Config.CaloriesPerMillisecond; //cal
             this.PowerGenerated = (this.CaloriesBurnt * 0.001163) * 1000; //to watt/hour
+
+            EventSink.InvokePlayerUpdated(this);
         }
 
         public Player()
