@@ -105,6 +105,15 @@
             this.label37 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.Connect_Left_Button = new System.Windows.Forms.Button();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.Connect_Right_Button = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
             this.Preview_Group.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Interval_Num)).BeginInit();
@@ -134,6 +143,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.Camera2_Interval_Num)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.tabPage8.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // RecordAsGif_Button
@@ -793,6 +805,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl2.Controls.Add(this.tabPage4);
             this.tabControl2.Controls.Add(this.tabPage5);
+            this.tabControl2.Controls.Add(this.tabPage8);
             this.tabControl2.Location = new System.Drawing.Point(12, 12);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
@@ -1089,6 +1102,98 @@
             this.pictureBox2.TabIndex = 0;
             this.pictureBox2.TabStop = false;
             // 
+            // tabPage8
+            // 
+            this.tabPage8.Controls.Add(this.groupBox3);
+            this.tabPage8.Controls.Add(this.groupBox2);
+            this.tabPage8.Location = new System.Drawing.Point(4, 22);
+            this.tabPage8.Name = "tabPage8";
+            this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage8.Size = new System.Drawing.Size(657, 499);
+            this.tabPage8.TabIndex = 2;
+            this.tabPage8.Text = "Arduinos";
+            this.tabPage8.UseVisualStyleBackColor = true;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.comboBox1);
+            this.groupBox2.Controls.Add(this.Connect_Left_Button);
+            this.groupBox2.Controls.Add(this.label1);
+            this.groupBox2.Location = new System.Drawing.Point(6, 6);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(244, 146);
+            this.groupBox2.TabIndex = 0;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Bicycle #1";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(47, 34);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(56, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "COM Port:";
+            // 
+            // Connect_Left_Button
+            // 
+            this.Connect_Left_Button.Location = new System.Drawing.Point(163, 67);
+            this.Connect_Left_Button.Name = "Connect_Left_Button";
+            this.Connect_Left_Button.Size = new System.Drawing.Size(75, 23);
+            this.Connect_Left_Button.TabIndex = 1;
+            this.Connect_Left_Button.Text = "Connect:";
+            this.Connect_Left_Button.UseVisualStyleBackColor = true;
+            this.Connect_Left_Button.Click += new System.EventHandler(this.Connect_Left_Button_Click);
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(109, 31);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(129, 21);
+            this.comboBox1.TabIndex = 2;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.comboBox2);
+            this.groupBox3.Controls.Add(this.Connect_Right_Button);
+            this.groupBox3.Controls.Add(this.label7);
+            this.groupBox3.Location = new System.Drawing.Point(256, 6);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(244, 146);
+            this.groupBox3.TabIndex = 1;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Bicycle #2";
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(109, 31);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(129, 21);
+            this.comboBox2.TabIndex = 2;
+            // 
+            // Connect_Right_Button
+            // 
+            this.Connect_Right_Button.Location = new System.Drawing.Point(163, 67);
+            this.Connect_Right_Button.Name = "Connect_Right_Button";
+            this.Connect_Right_Button.Size = new System.Drawing.Size(75, 23);
+            this.Connect_Right_Button.TabIndex = 1;
+            this.Connect_Right_Button.Text = "Connect:";
+            this.Connect_Right_Button.UseVisualStyleBackColor = true;
+            this.Connect_Right_Button.Click += new System.EventHandler(this.Connect_Right_Button_Click);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(47, 34);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(56, 13);
+            this.label7.TabIndex = 0;
+            this.label7.Text = "COM Port:";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1137,6 +1242,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.Camera2_Interval_Num)).EndInit();
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.tabPage8.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1219,6 +1329,15 @@
         private System.Windows.Forms.Label label37;
         private System.Windows.Forms.Label Camera1_Path_Label;
         private System.Windows.Forms.Label Camera1_Name_Label;
+        private System.Windows.Forms.TabPage tabPage8;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.Button Connect_Right_Button;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Button Connect_Left_Button;
+        private System.Windows.Forms.Label label1;
     }
 }
 

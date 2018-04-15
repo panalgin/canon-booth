@@ -29,5 +29,10 @@ namespace CanonPhotoBooth.Contracts
 
         [JsonProperty(PropertyName = "dateOfBirth")]
         public string DateOfBirth { get; set; }
+
+        public Visitor()
+        {
+
+        }
     }
 }

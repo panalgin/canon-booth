@@ -5,6 +5,7 @@
     <script type="text/javascript" src="js/jquery.js"></script>
 </head>
 <body>
+    <input type="hidden" id="playerInstance" value="" />
     <div id="holding">
         <video class="bg-video" src="videos/overload.webm" loop autoplay></video>
 
@@ -31,6 +32,10 @@
                 setInterval(function () {
                     typeEffect($("p.exp-energy"), 50);
                 }, 3000);
+
+                $("body").dblclick(function (e) {
+                    windowsApp.showDevTools();
+                });
             });
         </script>
     </div>

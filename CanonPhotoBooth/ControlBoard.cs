@@ -11,7 +11,7 @@ namespace CanonPhotoBooth
         public delegate void OnSampleAcquired(ulong totalRevs, ulong timePassed);
         public event OnSampleAcquired SampleAcquired;
 
-        public void Connect(string comPort, int baudRate)
+        public bool Connect(string comPort, int baudRate)
         {
             try
             {
@@ -23,10 +23,12 @@ namespace CanonPhotoBooth
 
                 serialPort.DataReceived -= SerialPort_DataReceived;
                 serialPort.DataReceived += SerialPort_DataReceived;
+
+                return true;
             }
             catch(Exception ex)
             {
-                
+                return false;
             }
         }
 

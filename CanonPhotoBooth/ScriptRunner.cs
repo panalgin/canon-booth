@@ -12,7 +12,7 @@ namespace CanonPhotoBooth
     public enum ScriptAction
     {
         BlockNewcomers,
-
+        PlayerJoined
     }
 
     public static class ScriptRunner
@@ -21,7 +21,7 @@ namespace CanonPhotoBooth
         private static Dictionary<ScriptAction, ScriptInfo> ScriptEntities = new Dictionary<ScriptAction, ScriptInfo>()
         {
             { ScriptAction.BlockNewcomers, new ScriptInfo("View\\js\\async\\block-newcomers.js", false) },
-
+            { ScriptAction.PlayerJoined, new ScriptInfo("View\\js\\async\\player-joined.js", false) }
             /*{ ScriptAction.GerberTaskResolved, new ScriptInfo("View\\js\\async\\gerber-resolved.js", false) },
             { ScriptAction.SvgTaskResolved, new ScriptInfo("View\\js\\async\\svg-resolved.js", false ) },
             { ScriptAction.ListPackagesReplied, new ScriptInfo("View\\js\\async\\list-packages-replied.js", false ) },
@@ -39,7 +39,7 @@ namespace CanonPhotoBooth
         {
             var entity = ScriptEntities[action];
 
-            browser.Invoke(new Action(() =>
+            browser.BeginInvoke(new Action(() =>
             {
                 string m_Script = string.Empty;
 

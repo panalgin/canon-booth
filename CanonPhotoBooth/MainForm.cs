@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using EOSDigital.API;
 using EOSDigital.SDK;
+using System.IO.Ports;
 
 namespace CanonPhotoBooth
 {
@@ -59,12 +60,14 @@ namespace CanonPhotoBooth
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            World.Initialize();
+            Game.Initialize();
+
             LoadSettings();
+            GetVideoDevices();
+            GetComPorts();
 
-            Cef.Initialize(new CefSettings()
-            {
-
-            });
+            Cef.Initialize(new CefSettings() {});
 
             CefSharpSettings.ShutdownOnExit = true;
             CefSharpSettings.LegacyJavascriptBindingEnabled = true;
@@ -79,7 +82,6 @@ namespace CanonPhotoBooth
 
             timer2.Interval = 1000;
             timer2.Tick += Timer2_Tick;
-            GetVideoDevices();
 
             try
             {
@@ -106,19 +108,18 @@ namespace CanonPhotoBooth
             dslrTimer.Start();
         }
 
-        private void DslrTimer_Tick(object sender, EventArgs e)
+        void GetComPorts()
         {
-            if (MainCamera != null && MainCamera.SessionOpen)
-            {
-                try
-                {
-                    MainCamera.TakePhotoShutterAsync();
-                }
-                catch (Exception ex)
-                {
-                    ReportError(ex.Message, false);
-                }
-            }
+            var comPorts = SerialPort.GetPortNames();
+
+            this.comboBox2.Items.AddRange(comPorts);
+            this.comboBox1.Items.AddRange(comPorts);
+
+            if (this.comboBox1.Items.Count > 0)
+                this.comboBox1.SelectedIndex = 0;
+
+            if (this.comboBox2.Items.Count > 0)
+                this.comboBox2.SelectedIndex = 0;
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -688,6 +689,21 @@ namespace CanonPhotoBooth
         }
         #endregion
         #region Dslr
+        private void DslrTimer_Tick(object sender, EventArgs e)
+        {
+            if (MainCamera != null && MainCamera.SessionOpen)
+            {
+                try
+                {
+                    MainCamera.TakePhotoShutterAsync();
+                }
+                catch (Exception ex)
+                {
+                    ReportError(ex.Message, false);
+                }
+            }
+        }
+
         private void OpenSession()
         {
             RefreshCamera();
@@ -814,5 +830,28 @@ namespace CanonPhotoBooth
         }
 
         #endregion
+
+        private void Connect_Left_Button_Click(object sender, EventArgs e)
+        {
+            if (World.Boards[0].Connect(this.comboBox1.SelectedItem.ToString(), 115200))
+            {
+                MessageBox.Show("Connection successfull", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.groupBox2.Enabled = false;
+            }
+            else
+                MessageBox.Show("An error occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            
+        }
+
+        private void Connect_Right_Button_Click(object sender, EventArgs e)
+        {
+            if (World.Boards[1].Connect(this.comboBox2.SelectedItem.ToString(), 115200))
+            {
+                MessageBox.Show("Connection successfull", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.groupBox3.Enabled = false;
+            }
+            else
+                MessageBox.Show("An error occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
     }
 }

@@ -31,6 +31,17 @@ namespace CanonPhotoBooth
         public static List<Player> Players = new List<Player>();
         public static GameState State { get; set; }
 
+        public static void Initialize()
+        {
+            EventSink.VisitorRegistered += EventSink_VisitorRegistered;
+        }
+
+        private static void EventSink_VisitorRegistered(Visitor visitor)
+        {
+            if (State == GameState.Awaiting)
+                Join(visitor);
+        }
+
         public static bool IsJoinable()
         {
             if (Players.Count < 2)
@@ -50,8 +61,15 @@ namespace CanonPhotoBooth
 
         public static void Join(Visitor visitor)
         {
-            Player player = visitor as Player;
+            Player player = Player.FromVisitor(visitor);
             Players.Add(player);
+
+            if (Players.Count < 2)
+                player.Board = World.Boards[0];
+            else
+                player.Board = World.Boards[1];
+
+            EventSink.InvokePlayerJoined(player);
 
             if (Players.Count == MaxAllowedPlayers)
             {

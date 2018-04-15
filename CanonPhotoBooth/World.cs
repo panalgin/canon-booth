@@ -13,6 +13,9 @@ namespace CanonPhotoBooth
         public static void Initialize()
         {
             Boards = new List<ControlBoard>();
+
+            Boards.Add(new ControlBoard());
+            Boards.Add(new ControlBoard());
         }
     }
 }

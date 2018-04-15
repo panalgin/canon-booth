@@ -460,6 +460,8 @@ label.css-label {
     }
 
 #block-input {
+    display: none;
+
     background-color: #000;
 
     top: 0px;

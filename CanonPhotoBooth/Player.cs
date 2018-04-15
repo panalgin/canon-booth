@@ -1,4 +1,5 @@
 ﻿using CanonPhotoBooth.Contracts;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,17 +9,26 @@ namespace CanonPhotoBooth
     public class Player : Visitor
     {
         const int MaxDataPoints = 10;
+
         private ControlBoard board = null;
         private List<SampleEntry> Entries = new List<SampleEntry>();
 
+        [JsonProperty(PropertyName = "fullName")]
         public string FullName { get { return string.Format("{0} {1}", this.Name, this.Surname); } }
 
+        [JsonProperty(PropertyName = "powerGenerated")]
         public double PowerGenerated { get; set; }
+
+        [JsonProperty(PropertyName = "speed")]
         public double Speed { get; set; }
 
+        [JsonProperty(PropertyName = "distanceCovered")]
         public double DistanceCovered { get; set; }
+
+        [JsonProperty(PropertyName = "caloriesBurnt")]
         public double CaloriesBurnt { get; set; }
 
+        [JsonIgnore]
         public ControlBoard Board
         {
             get
@@ -33,6 +43,8 @@ namespace CanonPhotoBooth
                 board.SampleAcquired += Board_SampleAcquired;
             }
         }
+
+
 
         private void Board_SampleAcquired(ulong revs, ulong timePassed)
         {
@@ -59,6 +71,20 @@ namespace CanonPhotoBooth
         public Player()
         {
 
+        }
+
+        public static Player FromVisitor(Visitor visitor)
+        {
+            return new Player()
+            {
+                Address = visitor.Address,
+                DateOfBirth = visitor.DateOfBirth,
+                Email = visitor.Email,
+                Gender = visitor.Gender,
+                Mobile = visitor.Mobile,
+                Name = visitor.Name,
+                Surname = visitor.Surname
+            };
         }
     }
 

@@ -1,5 +1,6 @@
 ﻿using CefSharp;
 using CefSharp.WinForms;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,6 +16,8 @@ namespace CanonPhotoBooth
 {
     public partial class LeftScreenForm : Form
     {
+        private bool IsBrowserInitialized = false;
+
         public ChromiumWebBrowser Browser { get; set; }
 
         public LeftScreenForm()
@@ -38,6 +41,16 @@ namespace CanonPhotoBooth
 
             this.Controls.Add(Browser);
             Browser.Dock = DockStyle.Fill;
+
+            LeftJavascriptHandler handler = new LeftJavascriptHandler();
+
+            Browser.RegisterAsyncJsObject("windowsApp", handler);
+            Browser.IsBrowserInitializedChanged += Browser_IsBrowserInitializedChanged;
+        }
+
+        private void Browser_IsBrowserInitializedChanged(object sender, IsBrowserInitializedChangedEventArgs e)
+        {
+            IsBrowserInitialized = e.IsBrowserInitialized;
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -46,13 +59,32 @@ namespace CanonPhotoBooth
 
             if (this.Browser != null)
                 this.Browser.Dispose();
-
-            Cef.Shutdown();
         }
 
         private void LeftScreenForm_Load(object sender, EventArgs e)
         {
+            EventSink.DevToolsRequested += EventSink_DevToolsRequested;
+            EventSink.PlayerJoined += EventSink_PlayerJoined;
+        }
 
+        private void EventSink_DevToolsRequested(Type requestedFrom)
+        {
+            if (requestedFrom == this.GetType())
+            {
+                if (IsBrowserInitialized)
+                {
+                    this.Browser.ShowDevTools();
+                }
+            }
+        }
+
+        private void EventSink_PlayerJoined(Player player)
+        {
+            if (player.Board == World.Boards[0])
+            {
+                string data = JsonConvert.SerializeObject(player);
+                ScriptRunner.Run(this.Browser, ScriptAction.PlayerJoined, Utility.HtmlEncode(data));
+            }
         }
     }
 }

@@ -39,11 +39,10 @@ namespace CanonPhotoBooth
                 DefaultEncoding = "UTF8",
             };
 
-            RegistrationJavascriptHandler handler = new RegistrationJavascriptHandler();
-
-
             this.Controls.Add(Browser);
             Browser.Dock = DockStyle.Fill;
+
+            RegistrationJavascriptHandler handler = new RegistrationJavascriptHandler();
 
             Browser.RegisterAsyncJsObject("windowsApp", handler);
             Browser.IsBrowserInitializedChanged += Browser_IsBrowserInitializedChanged;
@@ -80,7 +79,14 @@ namespace CanonPhotoBooth
             {
                 if (IsBrowserInitialized)
                 {
-                    this.Browser.ShowDevTools();
+                    try
+                    {
+                        this.Browser.ShowDevTools();
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
                 }
             }
         }
