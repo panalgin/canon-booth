@@ -1,15 +1,15 @@
 /*
- Name:    Firmware.ino
- Created: 12/5/2017 9:23:02 AM
- Author:  Mashadow
+Name:    Firmware.ino
+Created: 12/5/2017 9:23:02 AM
+Author:  Mashadow
 */
 
 #include <FastLED.h>
 
-#define INCREMENT_THRESOLD 1000  //milliseconds between two increments, how fast do we want it ?
-#define DECREMENT_THRESOLD 3000  //
+#define INCREMENT_THRESOLD 40  //milliseconds between two increments, how fast do we want it ?
+#define DECREMENT_THRESOLD 40  //
 
-#define LED_FPS 30 //how many updates per second ? 
+#define LED_FPS 60 //how many updates per second ? 
 
 #define NUM_LEDS 300
 #define DATA_PIN 6
@@ -34,6 +34,8 @@ void setup() {
 	FastLED.setTemperature(Candle);
 
 	attachInterrupt(digitalPinToInterrupt(2), onHallTriggered, RISING);
+
+	counter = 0;
 }
 
 unsigned long lastCommandSent = millis();
@@ -96,19 +98,21 @@ void checkForSampling() {
 		uint16_t timeElapsed = millis() - lastSampledAt;
 		lastSampledAt = millis();
 
-		uint16_t revsOccurred = revolutions - lastRevSample;
+		/*uint16_t revsOccurred = revolutions - lastRevSample;
 
 		Serial.print("D:");
 		Serial.print(revsOccurred);
 		Serial.print(",");
-		Serial.println(timeElapsed);
+		Serial.println(timeElapsed);*/
+
+		Serial.println(counter);
 	}
 }
 
 void updateStrip() {
 	for (uint16_t i = 0; i < NUM_LEDS; i++) {
 		if (i < counter)
-			leds[i] = CRGB::Magenta;
+			leds[i] = CRGB::Red;
 		else
 			leds[i] = CRGB::Black;
 	}
@@ -117,10 +121,14 @@ void updateStrip() {
 unsigned long lastDecrementedAt = millis();
 
 void checkForDecrement() {
-	if (millis() - lastDecrementedAt > DECREMENT_THRESOLD) {
-		lastDecrementedAt = millis();
+	if (millis() - lastIncrementedAt > INCREMENT_THRESOLD * 5) {
+		if (millis() - lastDecrementedAt > DECREMENT_THRESOLD) {
+			lastDecrementedAt = millis();
 
-		counter--;
+			if (counter > 0) {
+				counter--;
+			}
+		}
 	}
 }
 

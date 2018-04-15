@@ -134,7 +134,9 @@ namespace CanonPhotoBooth
 
             AftermathTimer.Start();
 
-            EventSink.InvokeGameFinished();
+            var winner = Players.OrderByDescending(q => q.CaloriesBurnt).FirstOrDefault();
+
+            EventSink.InvokeGameFinished(winner);
 
             
             //decide winner

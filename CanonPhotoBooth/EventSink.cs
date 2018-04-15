@@ -11,7 +11,7 @@ namespace CanonPhotoBooth
         public delegate void OnGameTriggered();
         public delegate void OnGameStarted();
         public delegate void OnGameUpdated(int timeLeft);
-        public delegate void OnGameFinished();
+        public delegate void OnGameFinished(Player winner);
         public delegate void OnGameReset();
 
         public delegate void OnRecordRequested();
@@ -64,9 +64,9 @@ namespace CanonPhotoBooth
             GameUpdated?.Invoke(timeLeft);
         }
 
-        public static void InvokeGameFinished()
+        public static void InvokeGameFinished(Player winner)
         {
-            GameFinished?.Invoke();
+            GameFinished?.Invoke(winner);
         }
 
         public static void InvokeGameReset()

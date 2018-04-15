@@ -82,9 +82,9 @@ namespace CanonPhotoBooth
             }
         }
 
-        private void EventSink_GameFinished()
-        {
-            ScriptRunner.Run(this.Browser, ScriptAction.GameFinished, null);
+        private void EventSink_GameFinished(Player winner)
+        { 
+            ScriptRunner.Run(this.Browser, ScriptAction.GameFinished, winner.Board == World.Boards[0]);
         }
 
         private void EventSink_PlayerUpdated(Player player)

@@ -114,7 +114,7 @@ namespace CanonPhotoBooth
             captureInterval2 = Convert.ToDouble(this.Camera2_Interval_Num.Value);
         }
 
-        private void EventSink_GameFinished()
+        private void EventSink_GameFinished(Player winner)
         {
             IsRecording = false;
 
