@@ -1,0 +1,1 @@
+﻿$("p#counter-label").css("font-size", "80px").css("-webkit-text-stroke", "#000 3px").html("READY!");

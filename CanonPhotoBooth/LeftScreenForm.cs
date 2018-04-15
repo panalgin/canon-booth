@@ -65,6 +65,18 @@ namespace CanonPhotoBooth
         {
             EventSink.DevToolsRequested += EventSink_DevToolsRequested;
             EventSink.PlayerJoined += EventSink_PlayerJoined;
+            EventSink.GameInitialized += EventSink_GameInitialized;
+            EventSink.GameTriggered += EventSink_GameTriggered;
+        }
+
+        private void EventSink_GameTriggered()
+        {
+            ScriptRunner.Run(this.Browser, ScriptAction.CountdownStarted, null);
+        }
+
+        private void EventSink_GameInitialized()
+        {
+            ScriptRunner.Run(this.Browser, ScriptAction.GetReady, null);
         }
 
         private void EventSink_DevToolsRequested(Type requestedFrom)

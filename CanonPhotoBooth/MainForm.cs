@@ -853,5 +853,10 @@ namespace CanonPhotoBooth
             else
                 MessageBox.Show("An error occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
+
+        private void Trigger_GameStart_Button_Click(object sender, EventArgs e)
+        {
+            Game.Start();
+        }
     }
 }

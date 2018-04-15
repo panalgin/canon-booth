@@ -114,6 +114,8 @@
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.Connect_Right_Button = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
+            this.tabPage9 = new System.Windows.Forms.TabPage();
+            this.Trigger_GameStart_Button = new System.Windows.Forms.Button();
             this.Preview_Group.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Interval_Num)).BeginInit();
@@ -146,6 +148,7 @@
             this.tabPage8.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.tabPage9.SuspendLayout();
             this.SuspendLayout();
             // 
             // RecordAsGif_Button
@@ -806,6 +809,7 @@
             this.tabControl2.Controls.Add(this.tabPage4);
             this.tabControl2.Controls.Add(this.tabPage5);
             this.tabControl2.Controls.Add(this.tabPage8);
+            this.tabControl2.Controls.Add(this.tabPage9);
             this.tabControl2.Location = new System.Drawing.Point(12, 12);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
@@ -1194,6 +1198,27 @@
             this.label7.TabIndex = 0;
             this.label7.Text = "COM Port:";
             // 
+            // tabPage9
+            // 
+            this.tabPage9.Controls.Add(this.Trigger_GameStart_Button);
+            this.tabPage9.Location = new System.Drawing.Point(4, 22);
+            this.tabPage9.Name = "tabPage9";
+            this.tabPage9.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage9.Size = new System.Drawing.Size(657, 499);
+            this.tabPage9.TabIndex = 3;
+            this.tabPage9.Text = "Game Controls";
+            this.tabPage9.UseVisualStyleBackColor = true;
+            // 
+            // Trigger_GameStart_Button
+            // 
+            this.Trigger_GameStart_Button.Location = new System.Drawing.Point(25, 17);
+            this.Trigger_GameStart_Button.Name = "Trigger_GameStart_Button";
+            this.Trigger_GameStart_Button.Size = new System.Drawing.Size(123, 23);
+            this.Trigger_GameStart_Button.TabIndex = 0;
+            this.Trigger_GameStart_Button.Text = "Trigger Game - Start";
+            this.Trigger_GameStart_Button.UseVisualStyleBackColor = true;
+            this.Trigger_GameStart_Button.Click += new System.EventHandler(this.Trigger_GameStart_Button_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1247,6 +1272,7 @@
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.tabPage9.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1338,6 +1364,8 @@
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Button Connect_Left_Button;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TabPage tabPage9;
+        private System.Windows.Forms.Button Trigger_GameStart_Button;
     }
 }
 

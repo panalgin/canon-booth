@@ -14,6 +14,7 @@ namespace CanonPhotoBooth
         {
             Awaiting, //Awaiting players
             Initialized, //Two players are present
+            Countdown, //Countdown to beginning
             Running,
             Aftermath,
         }
@@ -82,16 +83,31 @@ namespace CanonPhotoBooth
         {
             if (Players.Count == MaxAllowedPlayers && State == GameState.Initialized)
             {
-                State = GameState.Running;
+                State = GameState.Countdown;
+                EventSink.InvokeGameTriggered();
 
-                GameTimer.Elapsed -= GameTimer_Elapsed;
-                GameTimer.Elapsed += GameTimer_Elapsed;
-                GameTimer.Start();
-
-                CurrentGameTime = GameDuration;
-
-                EventSink.InvokeGameStarted();
+                Task.Run(async () =>
+                {
+                    await StartWithDelay();
+                });
             }
+        }
+
+        async static Task<bool> StartWithDelay()
+        {
+            await Task.Delay(3000);
+
+            EventSink.InvokeGameStarted();
+
+            State = GameState.Running;
+
+            GameTimer.Elapsed -= GameTimer_Elapsed;
+            GameTimer.Elapsed += GameTimer_Elapsed;
+            GameTimer.Start();
+
+            CurrentGameTime = GameDuration;
+
+            return true;
         }
 
         private static void GameTimer_Elapsed(object sender, ElapsedEventArgs e)

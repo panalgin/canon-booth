@@ -8,15 +8,16 @@ namespace CanonPhotoBooth
         public delegate void OnDevToolsRequested(Type requestedFrom);
         public delegate void OnVisitorRegistered(Visitor visitor);
         public delegate void OnGameInitialized();
+        public delegate void OnGameTriggered();
         public delegate void OnGameStarted();
         public delegate void OnGameFinished();
         public delegate void OnGameReset();
-
         public delegate void OnPlayerJoined(Player player);
 
         public static event OnDevToolsRequested DevToolsRequested;
         public static event OnVisitorRegistered VisitorRegistered;
         public static event OnGameInitialized GameInitialized;
+        public static event OnGameTriggered GameTriggered;
         public static event OnGameStarted GameStarted;
         public static event OnGameFinished GameFinished;
         public static event OnGameReset GameReset;
@@ -35,6 +36,11 @@ namespace CanonPhotoBooth
         public static void InvokeGameInitialized()
         {
             GameInitialized?.Invoke();
+        }
+
+        public static void InvokeGameTriggered()
+        {
+            GameTriggered?.Invoke();
         }
 
         public static void InvokeGameStarted()

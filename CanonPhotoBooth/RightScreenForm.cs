@@ -52,6 +52,18 @@ namespace CanonPhotoBooth
         private void RightScreenForm_Load(object sender, EventArgs e)
         {
             EventSink.PlayerJoined += EventSink_PlayerJoined;
+            EventSink.GameInitialized += EventSink_GameInitialized;
+            EventSink.GameTriggered += EventSink_GameTriggered;
+        }
+
+        private void EventSink_GameTriggered()
+        {
+            ScriptRunner.Run(this.Browser, ScriptAction.CountdownStarted, null);
+        }
+
+        private void EventSink_GameInitialized()
+        {
+            ScriptRunner.Run(this.Browser, ScriptAction.GetReady, null);
         }
 
         private void EventSink_PlayerJoined(Player player)
