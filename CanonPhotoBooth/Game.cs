@@ -95,9 +95,10 @@ namespace CanonPhotoBooth
 
         async static Task<bool> StartWithDelay()
         {
-            await Task.Delay(3000);
+            await Task.Delay(4000);
 
             EventSink.InvokeGameStarted();
+            EventSink.InvokeRecordRequested();
 
             State = GameState.Running;
 

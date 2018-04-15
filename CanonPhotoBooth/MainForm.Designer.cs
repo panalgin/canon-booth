@@ -33,7 +33,7 @@
             this.Preview_Group = new System.Windows.Forms.GroupBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.Interval_Num = new System.Windows.Forms.NumericUpDown();
+            this.Camera1_Interval_Num = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.PreviewFps_Label = new System.Windows.Forms.Label();
@@ -118,7 +118,7 @@
             this.Trigger_GameStart_Button = new System.Windows.Forms.Button();
             this.Preview_Group.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Interval_Num)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Camera1_Interval_Num)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.OutputFps_Num)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -199,28 +199,28 @@
             this.label2.TabIndex = 6;
             this.label2.Text = "Camera Running At:";
             // 
-            // Interval_Num
+            // Camera1_Interval_Num
             // 
-            this.Interval_Num.Location = new System.Drawing.Point(125, 84);
-            this.Interval_Num.Maximum = new decimal(new int[] {
+            this.Camera1_Interval_Num.Location = new System.Drawing.Point(125, 84);
+            this.Camera1_Interval_Num.Maximum = new decimal(new int[] {
             20000,
             0,
             0,
             0});
-            this.Interval_Num.Minimum = new decimal(new int[] {
+            this.Camera1_Interval_Num.Minimum = new decimal(new int[] {
             30,
             0,
             0,
             0});
-            this.Interval_Num.Name = "Interval_Num";
-            this.Interval_Num.Size = new System.Drawing.Size(118, 20);
-            this.Interval_Num.TabIndex = 7;
-            this.Interval_Num.Value = new decimal(new int[] {
-            200,
+            this.Camera1_Interval_Num.Name = "Camera1_Interval_Num";
+            this.Camera1_Interval_Num.Size = new System.Drawing.Size(118, 20);
+            this.Camera1_Interval_Num.TabIndex = 7;
+            this.Camera1_Interval_Num.Value = new decimal(new int[] {
+            1500,
             0,
             0,
             0});
-            this.Interval_Num.ValueChanged += new System.EventHandler(this.Interval_Num_ValueChanged);
+            this.Camera1_Interval_Num.ValueChanged += new System.EventHandler(this.Interval_Num_ValueChanged);
             // 
             // label3
             // 
@@ -875,7 +875,7 @@
             this.tabPage6.Controls.Add(this.label26);
             this.tabPage6.Controls.Add(this.Preview_Group);
             this.tabPage6.Controls.Add(this.Camera1_Start_Button);
-            this.tabPage6.Controls.Add(this.Interval_Num);
+            this.tabPage6.Controls.Add(this.Camera1_Interval_Num);
             this.tabPage6.Controls.Add(this.label2);
             this.tabPage6.Controls.Add(this.label3);
             this.tabPage6.Controls.Add(this.label4);
@@ -1044,7 +1044,7 @@
             this.Camera2_Interval_Num.Size = new System.Drawing.Size(118, 20);
             this.Camera2_Interval_Num.TabIndex = 21;
             this.Camera2_Interval_Num.Value = new decimal(new int[] {
-            200,
+            1500,
             0,
             0,
             0});
@@ -1234,7 +1234,7 @@
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.Preview_Group.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Interval_Num)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Camera1_Interval_Num)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.OutputFps_Num)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
@@ -1283,7 +1283,7 @@
         private System.Windows.Forms.GroupBox Preview_Group;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.NumericUpDown Interval_Num;
+        private System.Windows.Forms.NumericUpDown Camera1_Interval_Num;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label PreviewFps_Label;

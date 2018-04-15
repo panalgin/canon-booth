@@ -106,6 +106,27 @@ namespace CanonPhotoBooth
             dslrTimer.Interval = 3000;
             dslrTimer.Tick += DslrTimer_Tick;
             dslrTimer.Start();
+
+            EventSink.RecordRequested += EventSink_RecordRequested;
+            EventSink.GameFinished += EventSink_GameFinished;
+
+            captureInterval = Convert.ToDouble(this.Camera1_Interval_Num.Value);
+            captureInterval2 = Convert.ToDouble(this.Camera2_Interval_Num.Value);
+        }
+
+        private void EventSink_GameFinished()
+        {
+            IsRecording = false;
+
+            Task.Run(async () =>
+            {
+                await GenerateGifs();
+            });
+        }
+
+        private void EventSink_RecordRequested()
+        {
+            IsRecording = true;
         }
 
         void GetComPorts()
@@ -173,7 +194,7 @@ namespace CanonPhotoBooth
         {
             if (this.Camera1_Start_Button.Text == "&Start")
             {
-                if (DeviceExist)
+                if (videoDevices.Count > 0)
                 {
                     CloseVideoSource();
 
@@ -183,7 +204,7 @@ namespace CanonPhotoBooth
 
                     videoSource.VideoResolution = videoSource.VideoCapabilities[selectedCapabilityIndex];
                     videoSource.NewFrame += VideoSource_NewFrame;
-                    videoSource.SetCameraProperty(CameraControlProperty.Zoom, 3, CameraControlFlags.Manual);
+                    videoSource.SetCameraProperty(CameraControlProperty.Zoom, 0, CameraControlFlags.Manual);
                     videoSource.SetCameraProperty(CameraControlProperty.Exposure, -5, CameraControlFlags.Auto);
                     videoSource.SetCameraProperty(CameraControlProperty.Focus, -5, CameraControlFlags.Auto);
 
@@ -194,10 +215,6 @@ namespace CanonPhotoBooth
                     this.Camera1_Start_Button.Text = "&Stop";
                     timer.Enabled = true;
                     timer.Start();
-                }
-                else
-                {
-                    label2.Text = "Error: No Device selected.";
                 }
             }
             else
@@ -296,19 +313,26 @@ namespace CanonPhotoBooth
             var stream = new MemoryStream();
             map.Save(stream, encoder, encParams);
 
-            Image jpeg = Bitmap.FromStream(stream);
-
-            if (cameraIndex == 0)
-                pictureBox1.Image = jpeg;
-            else
-                pictureBox2.Image = jpeg;
-
-            if (IsRecording)
+            try
             {
-                Task.Run(async () =>
+                Image jpeg = Bitmap.FromStream(stream);
+
+                if (cameraIndex == 0)
+                    pictureBox1.Image = jpeg;
+                else
+                    pictureBox2.Image = jpeg;
+
+                if (IsRecording)
                 {
-                    await SaveGifFrame(jpeg.Clone() as Image, cameraIndex);
-                });
+                    Task.Run(async () =>
+                    {
+                        await SaveGifFrame(jpeg.Clone() as Image, cameraIndex);
+                    });
+                }
+            }
+            catch(OutOfMemoryException ex)
+            {
+
             }
         }
 
@@ -398,7 +422,7 @@ namespace CanonPhotoBooth
 
         private void Interval_Num_ValueChanged(object sender, EventArgs e)
         {
-            captureInterval = Convert.ToDouble(this.Interval_Num.Value);
+            captureInterval = Convert.ToDouble(this.Camera1_Interval_Num.Value);
         }
 
         private void Camera2_Interval_Num_ValueChanged(object sender, EventArgs e)
@@ -465,6 +489,8 @@ namespace CanonPhotoBooth
 
                         var savePath = Path.Combine(Application.StartupPath, string.Format("Output-{0}-{1}.gif", i, DateTime.Now.ToFileTimeUtc()));
                         collection.Write(savePath);
+
+                        EventSink.InvokeGifGenerated(i, savePath);
                     }
 
                     Directory.EnumerateFiles(readPath).All(delegate (string file)

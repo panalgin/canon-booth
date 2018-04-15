@@ -55,6 +55,37 @@ namespace CanonPhotoBooth
             EventSink.GameInitialized += EventSink_GameInitialized;
             EventSink.GameTriggered += EventSink_GameTriggered;
             EventSink.GameStarted += EventSink_GameStarted;
+            EventSink.GameUpdated += EventSink_GameUpdated;
+            EventSink.PlayerUpdated += EventSink_PlayerUpdated;
+            EventSink.GameFinished += EventSink_GameFinished;
+            EventSink.GifGenerated += EventSink_GifGenerated;
+        }
+
+        private void EventSink_GifGenerated(int playerIndex, string filePath)
+        {
+            if (playerIndex == 1)
+            {
+                ScriptRunner.Run(this.Browser, ScriptAction.GifGenerated, Utility.HtmlEncode(filePath));
+            }
+        }
+
+        private void EventSink_GameFinished()
+        {
+            ScriptRunner.Run(this.Browser, ScriptAction.GameFinished, null);
+        }
+
+        private void EventSink_PlayerUpdated(Player player)
+        {
+            if (player.Board == World.Boards[1])
+            {
+                var data = JsonConvert.SerializeObject(player);
+                ScriptRunner.Run(this.Browser, ScriptAction.PlayerUpdated, Utility.HtmlEncode(data));
+            }
+        }
+
+        private void EventSink_GameUpdated(int timeLeft)
+        {
+            ScriptRunner.Run(this.Browser, ScriptAction.GameUpdated, timeLeft);
         }
 
         private void EventSink_GameStarted()

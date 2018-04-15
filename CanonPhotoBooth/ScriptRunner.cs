@@ -18,20 +18,23 @@ namespace CanonPhotoBooth
         GameStarted,
         GameUpdated,
         PlayerUpdated,
-
+        GameFinished,
+        GifGenerated,
     }
 
     public static class ScriptRunner
     {
         private static Dictionary<ScriptAction, ScriptInfo> ScriptEntities = new Dictionary<ScriptAction, ScriptInfo>()
         {
-            { ScriptAction.BlockNewcomers, new ScriptInfo("View\\js\\async\\block-newcomers.js", false) },
-            { ScriptAction.PlayerJoined, new ScriptInfo("View\\js\\async\\player-joined.js", false) },
-            { ScriptAction.GetReady, new ScriptInfo("View\\js\\async\\get-ready.js", false) },
-            { ScriptAction.CountdownStarted, new ScriptInfo("View\\js\\async\\countdown-started.js", false) },
-            { ScriptAction.GameStarted, new ScriptInfo("View\\js\\async\\game-started.js", false) },
-            { ScriptAction.GameUpdated, new ScriptInfo("View\\js\\async\\game-updated.js", false) },
-            { ScriptAction.PlayerUpdated, new ScriptInfo("View\\js\\async\\player-updated.js", false) },
+            { ScriptAction.BlockNewcomers, new ScriptInfo("View\\js\\async\\block-newcomers.js", true) },
+            { ScriptAction.PlayerJoined, new ScriptInfo("View\\js\\async\\player-joined.js", true) },
+            { ScriptAction.GetReady, new ScriptInfo("View\\js\\async\\get-ready.js", true) },
+            { ScriptAction.CountdownStarted, new ScriptInfo("View\\js\\async\\countdown-started.js", true) },
+            { ScriptAction.GameStarted, new ScriptInfo("View\\js\\async\\game-started.js", true) },
+            { ScriptAction.GameUpdated, new ScriptInfo("View\\js\\async\\game-updated.js", true) },
+            { ScriptAction.PlayerUpdated, new ScriptInfo("View\\js\\async\\player-updated.js", true) },
+            { ScriptAction.GameFinished, new ScriptInfo("View\\js\\async\\game-finished.js", true) },
+            { ScriptAction.GifGenerated, new ScriptInfo("View\\js\\async\\gif-generated.js", true) }
 
 
             /*{ ScriptAction.GerberTaskResolved, new ScriptInfo("View\\js\\async\\gerber-resolved.js", false) },
