@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.RecordAsGif_Button = new System.Windows.Forms.Button();
             this.Camera1_Start_Button = new System.Windows.Forms.Button();
             this.Preview_Group = new System.Windows.Forms.GroupBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -37,10 +36,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.PreviewFps_Label = new System.Windows.Forms.Label();
-            this.Output_Button = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
-            this.OutputFps_Num = new System.Windows.Forms.NumericUpDown();
-            this.label6 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.Show_Left_Screen_Button = new System.Windows.Forms.Button();
@@ -118,10 +113,11 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage9 = new System.Windows.Forms.TabPage();
             this.Trigger_GameStart_Button = new System.Windows.Forms.Button();
+            this.tabPage10 = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
             this.Preview_Group.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Camera1_Interval_Num)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.OutputFps_Num)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Left_Height_Num)).BeginInit();
@@ -151,17 +147,8 @@
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabPage9.SuspendLayout();
+            this.tabPage10.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // RecordAsGif_Button
-            // 
-            this.RecordAsGif_Button.Location = new System.Drawing.Point(533, 31);
-            this.RecordAsGif_Button.Name = "RecordAsGif_Button";
-            this.RecordAsGif_Button.Size = new System.Drawing.Size(112, 23);
-            this.RecordAsGif_Button.TabIndex = 1;
-            this.RecordAsGif_Button.Text = "Record As Gif";
-            this.RecordAsGif_Button.UseVisualStyleBackColor = true;
-            this.RecordAsGif_Button.Click += new System.EventHandler(this.RecordAsGif_Button_Click);
             // 
             // Camera1_Start_Button
             // 
@@ -251,57 +238,6 @@
             this.PreviewFps_Label.Size = new System.Drawing.Size(104, 13);
             this.PreviewFps_Label.TabIndex = 11;
             this.PreviewFps_Label.Text = "Preview Running At:";
-            // 
-            // Output_Button
-            // 
-            this.Output_Button.Location = new System.Drawing.Point(570, 60);
-            this.Output_Button.Name = "Output_Button";
-            this.Output_Button.Size = new System.Drawing.Size(75, 23);
-            this.Output_Button.TabIndex = 12;
-            this.Output_Button.Text = "Save Gif";
-            this.Output_Button.UseVisualStyleBackColor = true;
-            this.Output_Button.Click += new System.EventHandler(this.Output_Button_Click);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(381, 65);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(65, 13);
-            this.label5.TabIndex = 13;
-            this.label5.Text = "Output FPS:";
-            // 
-            // OutputFps_Num
-            // 
-            this.OutputFps_Num.Location = new System.Drawing.Point(452, 63);
-            this.OutputFps_Num.Maximum = new decimal(new int[] {
-            20000,
-            0,
-            0,
-            0});
-            this.OutputFps_Num.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.OutputFps_Num.Name = "OutputFps_Num";
-            this.OutputFps_Num.Size = new System.Drawing.Size(112, 20);
-            this.OutputFps_Num.TabIndex = 14;
-            this.OutputFps_Num.Value = new decimal(new int[] {
-            30,
-            0,
-            0,
-            0});
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.BackColor = System.Drawing.SystemColors.Window;
-            this.label6.Location = new System.Drawing.Point(522, 68);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(20, 13);
-            this.label6.TabIndex = 15;
-            this.label6.Text = "ms";
             // 
             // tabControl1
             // 
@@ -812,6 +748,7 @@
             this.tabControl2.Controls.Add(this.tabPage5);
             this.tabControl2.Controls.Add(this.tabPage8);
             this.tabControl2.Controls.Add(this.tabPage9);
+            this.tabControl2.Controls.Add(this.tabPage10);
             this.tabControl2.Location = new System.Drawing.Point(12, 12);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
@@ -843,11 +780,6 @@
             // tabPage5
             // 
             this.tabPage5.Controls.Add(this.tabControl3);
-            this.tabPage5.Controls.Add(this.label6);
-            this.tabPage5.Controls.Add(this.OutputFps_Num);
-            this.tabPage5.Controls.Add(this.RecordAsGif_Button);
-            this.tabPage5.Controls.Add(this.label5);
-            this.tabPage5.Controls.Add(this.Output_Button);
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
@@ -1243,6 +1175,27 @@
             this.Trigger_GameStart_Button.UseVisualStyleBackColor = true;
             this.Trigger_GameStart_Button.Click += new System.EventHandler(this.Trigger_GameStart_Button_Click);
             // 
+            // tabPage10
+            // 
+            this.tabPage10.Controls.Add(this.button1);
+            this.tabPage10.Location = new System.Drawing.Point(4, 22);
+            this.tabPage10.Name = "tabPage10";
+            this.tabPage10.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage10.Size = new System.Drawing.Size(657, 499);
+            this.tabPage10.TabIndex = 4;
+            this.tabPage10.Text = "tabPage10";
+            this.tabPage10.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(36, 17);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "Send Test Mail";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1259,7 +1212,6 @@
             this.Preview_Group.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Camera1_Interval_Num)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.OutputFps_Num)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -1282,7 +1234,6 @@
             this.tabControl2.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
-            this.tabPage5.PerformLayout();
             this.tabControl3.ResumeLayout(false);
             this.tabPage6.ResumeLayout(false);
             this.tabPage6.PerformLayout();
@@ -1297,12 +1248,12 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.tabPage9.ResumeLayout(false);
+            this.tabPage10.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private System.Windows.Forms.Button RecordAsGif_Button;
         private System.Windows.Forms.Button Camera1_Start_Button;
         private System.Windows.Forms.GroupBox Preview_Group;
         private System.Windows.Forms.Label label2;
@@ -1311,10 +1262,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label PreviewFps_Label;
-        private System.Windows.Forms.Button Output_Button;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.NumericUpDown OutputFps_Num;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
@@ -1392,6 +1339,8 @@
         private System.Windows.Forms.Button Trigger_GameStart_Button;
         private System.Windows.Forms.Button Source2_Properties_Button;
         private System.Windows.Forms.Button Source1_Properties_Button;
+        private System.Windows.Forms.TabPage tabPage10;
+        private System.Windows.Forms.Button button1;
     }
 }
 

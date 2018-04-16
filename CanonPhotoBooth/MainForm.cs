@@ -41,9 +41,23 @@ namespace CanonPhotoBooth
         private bool IsRecording = false;
         #endregion
         #region MainForm Base
+
+        KeyboardHook hook = new KeyboardHook();
+
         public MainForm()
         {
             InitializeComponent();
+
+            // register the event that is fired after the key press.
+            hook.KeyPressed += new EventHandler<KeyPressedEventArgs>(hook_KeyPressed);
+            // register the control + alt + F12 combination as hot key.
+            hook.RegisterHotKey(ModifiedKeys.Control,
+                Keys.D1);
+        }
+
+        void hook_KeyPressed(object sender, KeyPressedEventArgs e)
+        {
+            Game.Start();
         }
 
         void CleanUp()
@@ -97,16 +111,12 @@ namespace CanonPhotoBooth
 
         private void EventSink_GameFinished(Player winner)
         {
+
             IsRecording = false;
 
             Task.Run(async () =>
             {
-                await GenerateGif(0);
-            });
-
-            Task.Run(async () =>
-            {
-                await GenerateGif(1);
+                await GenerateGifs();
             });
         }
 
@@ -396,129 +406,69 @@ namespace CanonPhotoBooth
             captureInterval2 = Convert.ToDouble(this.Camera2_Interval_Num.Value);
         }
 
-        private void RecordAsGif_Button_Click(object sender, EventArgs e)
-        {
-            if (this.RecordAsGif_Button.Text.StartsWith("Rec"))
-            {
-                this.RecordAsGif_Button.Text = "Stop Recording";
-                IsRecording = true;
-
-
-            }
-            else
-            {
-                this.RecordAsGif_Button.Text = "Record As Gif";
-                IsRecording = false;
-            }
-        }
-
-        private void Output_Button_Click(object sender, EventArgs e)
-        {
-            Task.Run(async () =>
-            {
-                await GenerateGifs();
-            });
-        }
+        DateTime LastEnteredIn = DateTime.MinValue;
 
         Task<bool> GenerateGifs()
         {
-            for (int i = 0; i < 2; i++)
+            if (DateTime.Now - LastEnteredIn < TimeSpan.FromSeconds(15))
+                return Task.FromResult(true);
+            else
             {
-                string readPath = Path.Combine(Application.StartupPath, "Snapshots", i.ToString());
+                LastEnteredIn = DateTime.Now;
 
-                var imageFrames = Directory.EnumerateFiles(readPath, "*.jpg", SearchOption.TopDirectoryOnly);
-
-                if (imageFrames.Count() > 0)
+                for (int i = 0; i < 2; i++)
                 {
-                    using (MagickImageCollection collection = new MagickImageCollection())
+                    string readPath = Path.Combine(Application.StartupPath, "Snapshots", i.ToString());
+
+                    var imageFrames = Directory.EnumerateFiles(readPath, "*.jpg", SearchOption.TopDirectoryOnly);
+
+                    if (imageFrames.Count() > 0)
                     {
-                        var outputFps = Convert.ToInt32(this.OutputFps_Num.Value);
-                        var animationDelay = /*1000 /*/ outputFps;
-
-                        int curFrame = 0;
-
-                        imageFrames.All(delegate (string fileName)
+                        using (MagickImageCollection collection = new MagickImageCollection())
                         {
-                            collection.Add(fileName);
-                            collection[curFrame].AnimationDelay = animationDelay;
+                            var outputFps = 30;
+                            var animationDelay = outputFps;
+
+                            int curFrame = 0;
+
+                            imageFrames.All(delegate (string fileName)
+                            {
+                                collection.Add(fileName);
+                                collection[curFrame].AnimationDelay = animationDelay;
+
+                                return true;
+                            });
+
+                            try
+                            {
+                                QuantizeSettings settings = new QuantizeSettings();
+                                settings.Colors = 32;
+
+                                collection.Quantize(settings);
+                            }
+                            catch (Exception ex)
+                            {
+                                //MessageBox.Show(ex.Message, "Gif Error");
+                            }
+
+                            var savePath = Path.Combine(Application.StartupPath, string.Format("Output-{0}-{1}.gif", i, DateTime.Now.ToFileTimeUtc()));
+                            collection.Write(savePath);
+
+                            EventSink.InvokeGifGenerated(i, savePath);
+                        }
+
+                        Directory.EnumerateFiles(readPath).All(delegate (string file)
+                        {
+                            var fileInfo = new FileInfo(file);
+                            fileInfo.Delete();
 
                             return true;
                         });
-
-                        // Optionally reduce colors
-                        QuantizeSettings settings = new QuantizeSettings();
-                        settings.Colors = 32;
-                        collection.Quantize(settings);
-
-                        // Optionally optimize the images (images should have the same size).
-                        //collection.Optimize();
-
-                        var savePath = Path.Combine(Application.StartupPath, string.Format("Output-{0}-{1}.gif", i, DateTime.Now.ToFileTimeUtc()));
-                        collection.Write(savePath);
-
-                        EventSink.InvokeGifGenerated(i, savePath);
                     }
-
-                    Directory.EnumerateFiles(readPath).All(delegate (string file)
-                    {
-                        var fileInfo = new FileInfo(file);
-                        fileInfo.Delete();
-
-                        return true;
-                    });
-                }
-            }
-
-            return Task.FromResult(true);
-        }
-
-        Task<bool> GenerateGif(int cameraIndex)
-        {
-            string readPath = Path.Combine(Application.StartupPath, "Snapshots", cameraIndex.ToString());
-
-            var imageFrames = Directory.EnumerateFiles(readPath, "*.jpg", SearchOption.TopDirectoryOnly);
-
-            if (imageFrames.Count() > 0)
-            {
-                using (MagickImageCollection collection = new MagickImageCollection())
-                {
-                    var outputFps = Convert.ToInt32(this.OutputFps_Num.Value);
-                    var animationDelay = /*1000 /*/ outputFps;
-
-                    int curFrame = 0;
-
-                    imageFrames.All(delegate (string fileName)
-                    {
-                        collection.Add(fileName);
-                        collection[curFrame].AnimationDelay = animationDelay;
-
-                        return true;
-                    });
-
-                    // Optionally reduce colors
-                    QuantizeSettings settings = new QuantizeSettings();
-                    settings.Colors = 32;
-                    collection.Quantize(settings);
-
-                    // Optionally optimize the images (images should have the same size).
-                    //collection.Optimize();
-
-                    var savePath = Path.Combine(Application.StartupPath, string.Format("Output-{0}-{1}.gif", cameraIndex, DateTime.Now.ToFileTimeUtc()));
-                    collection.Write(savePath);
-
-                    EventSink.InvokeGifGenerated(cameraIndex, savePath);
                 }
 
-                Directory.EnumerateFiles(readPath).All(delegate (string file)
-                {
-                    var fileInfo = new FileInfo(file);
-                    fileInfo.Delete();
-
-                    return true;
-                });
+                return Task.FromResult(true);
             }
-
-            return Task.FromResult(true);
         }
         #endregion
         #region Screen Parts
@@ -768,6 +718,18 @@ namespace CanonPhotoBooth
         {
             if (videoSource != null)
                 videoSource.DisplayPropertyPage(this.Handle);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var dialog = new OpenFileDialog();
+            dialog.Filter = "Gif Files|*.gif";
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                var fileName = dialog.FileName;
+                Emailer.Send(new Player() { Email = "badal.dixit@gmail.com" }, fileName);
+            }
         }
     }
 }

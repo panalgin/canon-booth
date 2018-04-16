@@ -94,8 +94,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Users\Mashadow\Downloads\EDSDKLib-1.1.2\EDSDKLib-1.1.2\EDSDKLib\bin\Debug\EDSDKLib.dll</HintPath>
     </Reference>
-    <Reference Include="Magick.NET-Q16-AnyCPU, Version=7.4.3.0, Culture=neutral, PublicKeyToken=2004825badfa91ec, processorArchitecture=MSIL">
-      <HintPath>..\packages\Magick.NET-Q16-AnyCPU.7.4.3\lib\net40\Magick.NET-Q16-AnyCPU.dll</HintPath>
+    <Reference Include="Gif.Components, Version=0.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\x86\Debug\Gif.Components.dll</HintPath>
+    </Reference>
+    <Reference Include="Magick.NET-Q16-x86, Version=7.4.3.0, Culture=neutral, PublicKeyToken=2004825badfa91ec, processorArchitecture=x86">
+      <HintPath>..\packages\Magick.NET-Q16-x86.7.4.3\lib\net40\Magick.NET-Q16-x86.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Mandrill.net, Version=4.1.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -123,6 +127,7 @@
     <Compile Include="Emailer.cs" />
     <Compile Include="EventSink.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="KeyboardHook.cs" />
     <Compile Include="LeftScreenForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -342,9 +347,13 @@
     <Error Condition="!Exists('..\packages\CefSharp.Common.63.0.3\build\CefSharp.Common.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Common.63.0.3\build\CefSharp.Common.targets'))" />
     <Error Condition="!Exists('..\packages\CefSharp.WinForms.63.0.3\build\CefSharp.WinForms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.WinForms.63.0.3\build\CefSharp.WinForms.props'))" />
     <Error Condition="!Exists('..\packages\CefSharp.WinForms.63.0.3\build\CefSharp.WinForms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.WinForms.63.0.3\build\CefSharp.WinForms.targets'))" />
+    <Error Condition="!Exists('..\packages\Magick.NET-Q8-x86.7.4.3\build\net40\Magick.NET-Q8-x86.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Magick.NET-Q8-x86.7.4.3\build\net40\Magick.NET-Q8-x86.targets'))" />
+    <Error Condition="!Exists('..\packages\Magick.NET-Q16-x86.7.4.3\build\net40\Magick.NET-Q16-x86.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Magick.NET-Q16-x86.7.4.3\build\net40\Magick.NET-Q16-x86.targets'))" />
   </Target>
   <Import Project="..\packages\CefSharp.Common.63.0.3\build\CefSharp.Common.targets" Condition="Exists('..\packages\CefSharp.Common.63.0.3\build\CefSharp.Common.targets')" />
   <Import Project="..\packages\CefSharp.WinForms.63.0.3\build\CefSharp.WinForms.targets" Condition="Exists('..\packages\CefSharp.WinForms.63.0.3\build\CefSharp.WinForms.targets')" />
+  <Import Project="..\packages\Magick.NET-Q8-x86.7.4.3\build\net40\Magick.NET-Q8-x86.targets" Condition="Exists('..\packages\Magick.NET-Q8-x86.7.4.3\build\net40\Magick.NET-Q8-x86.targets')" />
+  <Import Project="..\packages\Magick.NET-Q16-x86.7.4.3\build\net40\Magick.NET-Q16-x86.targets" Condition="Exists('..\packages\Magick.NET-Q16-x86.7.4.3\build\net40\Magick.NET-Q16-x86.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

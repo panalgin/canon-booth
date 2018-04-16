@@ -75,22 +75,6 @@ void show() {
 
 	checkForDecrement();
 	checkForSampling();
-	checkForTrigger();
-}
-
-void checkForTrigger() {
-	uint8_t triggerState = digitalRead(TRIGGER_PIN);
-
-	if (triggerState == LOW) {
-		delay(5);
-
-		triggerState = digitalRead(TRIGGER_PIN);
-
-		if (triggerState == LOW) {
-			Serial.println("Commence");
-			delay(300);
-		}
-	}
 }
 
 unsigned long lastSampledAt = 0;
@@ -104,6 +88,7 @@ void checkForSampling() {
 		lastSampledAt = millis();
 
 		uint16_t revsOccurred = revolutions - lastRevSample;
+		lastRevSample = revolutions;
 
 		Serial.print("D:");
 		Serial.print(revsOccurred);

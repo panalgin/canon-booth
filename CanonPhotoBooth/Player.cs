@@ -61,15 +61,8 @@ namespace CanonPhotoBooth
 
             var totalDistanceAchieved = totalRevs * Config.DistancePerRevolution / 100 / 1000; //km
 
-            var estimatedKmph = Math.Round(totalDistanceAchieved / (totalElapsed / 1000 / 60 / 60), 2);
-
-            if (estimatedKmph > 50)
-                estimatedKmph = 50;
-
+            var estimatedKmph = Math.Round(totalDistanceAchieved / (totalElapsed / 1000 / 60 / 60), 2) / 40;
             var caloriesBurnt = Math.Round(totalElapsed * Config.CaloriesPerMillisecond, 2); //cal
-
-            if (caloriesBurnt > 30.0)
-                caloriesBurnt = 30;
 
             this.Speed = estimatedKmph;
             this.CaloriesBurnt = caloriesBurnt;
