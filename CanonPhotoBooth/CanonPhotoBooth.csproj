@@ -120,6 +120,7 @@
     <Compile Include="Config.cs" />
     <Compile Include="Contracts\Visitor.cs" />
     <Compile Include="ControlBoard.cs" />
+    <Compile Include="Emailer.cs" />
     <Compile Include="EventSink.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="LeftScreenForm.cs">
@@ -341,11 +342,9 @@
     <Error Condition="!Exists('..\packages\CefSharp.Common.63.0.3\build\CefSharp.Common.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Common.63.0.3\build\CefSharp.Common.targets'))" />
     <Error Condition="!Exists('..\packages\CefSharp.WinForms.63.0.3\build\CefSharp.WinForms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.WinForms.63.0.3\build\CefSharp.WinForms.props'))" />
     <Error Condition="!Exists('..\packages\CefSharp.WinForms.63.0.3\build\CefSharp.WinForms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.WinForms.63.0.3\build\CefSharp.WinForms.targets'))" />
-    <Error Condition="!Exists('..\packages\Canon.EDSDK.3.6.1\build\Canon.EDSDK.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Canon.EDSDK.3.6.1\build\Canon.EDSDK.targets'))" />
   </Target>
   <Import Project="..\packages\CefSharp.Common.63.0.3\build\CefSharp.Common.targets" Condition="Exists('..\packages\CefSharp.Common.63.0.3\build\CefSharp.Common.targets')" />
   <Import Project="..\packages\CefSharp.WinForms.63.0.3\build\CefSharp.WinForms.targets" Condition="Exists('..\packages\CefSharp.WinForms.63.0.3\build\CefSharp.WinForms.targets')" />
-  <Import Project="..\packages\Canon.EDSDK.3.6.1\build\Canon.EDSDK.targets" Condition="Exists('..\packages\Canon.EDSDK.3.6.1\build\Canon.EDSDK.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

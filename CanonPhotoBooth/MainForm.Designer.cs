@@ -118,8 +118,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage9 = new System.Windows.Forms.TabPage();
             this.Trigger_GameStart_Button = new System.Windows.Forms.Button();
-            this.tabPage10 = new System.Windows.Forms.TabPage();
-            this.button1 = new System.Windows.Forms.Button();
             this.Preview_Group.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Camera1_Interval_Num)).BeginInit();
@@ -153,7 +151,6 @@
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabPage9.SuspendLayout();
-            this.tabPage10.SuspendLayout();
             this.SuspendLayout();
             // 
             // RecordAsGif_Button
@@ -815,7 +812,6 @@
             this.tabControl2.Controls.Add(this.tabPage5);
             this.tabControl2.Controls.Add(this.tabPage8);
             this.tabControl2.Controls.Add(this.tabPage9);
-            this.tabControl2.Controls.Add(this.tabPage10);
             this.tabControl2.Location = new System.Drawing.Point(12, 12);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
@@ -833,7 +829,6 @@
             this.tabPage4.TabIndex = 0;
             this.tabPage4.Text = "Screens ";
             this.tabPage4.UseVisualStyleBackColor = true;
-            this.tabPage4.Click += new System.EventHandler(this.tabPage4_Click);
             // 
             // Update_Screens_Button
             // 
@@ -1248,27 +1243,6 @@
             this.Trigger_GameStart_Button.UseVisualStyleBackColor = true;
             this.Trigger_GameStart_Button.Click += new System.EventHandler(this.Trigger_GameStart_Button_Click);
             // 
-            // tabPage10
-            // 
-            this.tabPage10.Controls.Add(this.button1);
-            this.tabPage10.Location = new System.Drawing.Point(4, 22);
-            this.tabPage10.Name = "tabPage10";
-            this.tabPage10.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage10.Size = new System.Drawing.Size(657, 499);
-            this.tabPage10.TabIndex = 4;
-            this.tabPage10.Text = "Email";
-            this.tabPage10.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(230, 52);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1323,7 +1297,6 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.tabPage9.ResumeLayout(false);
-            this.tabPage10.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1419,8 +1392,6 @@
         private System.Windows.Forms.Button Trigger_GameStart_Button;
         private System.Windows.Forms.Button Source2_Properties_Button;
         private System.Windows.Forms.Button Source1_Properties_Button;
-        private System.Windows.Forms.TabPage tabPage10;
-        private System.Windows.Forms.Button button1;
     }
 }
 

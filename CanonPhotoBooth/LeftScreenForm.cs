@@ -85,6 +85,9 @@ namespace CanonPhotoBooth
             if (playerIndex == 0)
             {
                 ScriptRunner.Run(this.Browser, ScriptAction.GifGenerated, Utility.HtmlEncode(filePath));
+
+                var player = Game.Players[playerIndex];
+                Emailer.Send(player, filePath);
             }
         }
 

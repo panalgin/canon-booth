@@ -26,20 +26,6 @@ namespace CanonPhotoBooth
     public partial class MainForm : Form
     {
         #region Public/Private Declarations
-        CanonAPI APIHandler;
-        Camera MainCamera;
-        CameraValue[] AvList;
-        CameraValue[] TvList;
-        CameraValue[] ISOList;
-        List<Camera> CamList;
-        bool IsInit = false;
-        Bitmap Evf_Bmp;
-
-        int ErrCount;
-        object ErrLock = new object();
-        object LvLock = new object();
-
-        private bool DeviceExist = false;
         private FilterInfoCollection videoDevices;
 
         private VideoCaptureDevice videoSource = null;
@@ -102,30 +88,6 @@ namespace CanonPhotoBooth
             timer2.Interval = 1000;
             timer2.Tick += Timer2_Tick;
 
-            try
-            {
-                APIHandler = new CanonAPI();
-                APIHandler.CameraAdded += APIHandler_CameraAdded;
-                ErrorHandler.SevereErrorHappened += ErrorHandler_SevereErrorHappened;
-                ErrorHandler.NonSevereErrorHappened += ErrorHandler_NonSevereErrorHappened;
-                RefreshCamera();
-                IsInit = true;
-            }
-
-            catch (DllNotFoundException) { ReportError("Canon DLLs not found!", true); }
-            catch (Exception ex) { ReportError(ex.Message, true); }
-
-
-            if (MainCamera?.SessionOpen == true)
-                CloseSession();
-
-            OpenSession();
-
-            dslrTimer = new Timer();
-            dslrTimer.Interval = 3000;
-            dslrTimer.Tick += DslrTimer_Tick;
-            dslrTimer.Start();
-
             EventSink.RecordRequested += EventSink_RecordRequested;
             EventSink.GameFinished += EventSink_GameFinished;
 
@@ -179,14 +141,6 @@ namespace CanonPhotoBooth
                 if (videoSource2.IsRunning)
                     videoSource2.SignalToStop();
             }
-
-            try
-            {
-                IsInit = false;
-                MainCamera?.Dispose();
-                APIHandler?.Dispose();
-            }
-            catch (Exception ex) { ReportError(ex.Message, false); }
 
             Cef.Shutdown();
         }
@@ -410,8 +364,6 @@ namespace CanonPhotoBooth
 
                         Camera1_Caps_Combo.Items.AddRange(capabilities.ToArray());
                         Camera1_Caps_Combo.SelectedIndex = 16;
-
-                        DeviceExist = true;
                     }
 
                     index++;
@@ -419,9 +371,7 @@ namespace CanonPhotoBooth
             }
             catch (ApplicationException ex)
             {
-                MessageBox.Show(ex.Message);
-
-                DeviceExist = false;
+                MessageBox.Show(ex.Message, "Error");
 
                 Camera1_Name_Label.Text = "No capture device on your system";
                 Camera2_Name_Label.Text = "No capture device on your system";
@@ -779,148 +729,6 @@ namespace CanonPhotoBooth
             Settings.Default.Save();
         }
         #endregion
-        #region Dslr
-        private void DslrTimer_Tick(object sender, EventArgs e)
-        {
-            if (MainCamera != null && MainCamera.SessionOpen)
-            {
-                try
-                {
-                    MainCamera.TakePhotoShutterAsync();
-                }
-                catch (Exception ex)
-                {
-                    ReportError(ex.Message, false);
-                }
-            }
-        }
-
-        private void OpenSession()
-        {
-            RefreshCamera();
-
-            if (CamList.Count > 0)
-            {
-                MainCamera = CamList[0];
-                MainCamera.OpenSession();
-                //MainCamera.LiveViewUpdated += MainCamera_LiveViewUpdated;
-                MainCamera.ProgressChanged += MainCamera_ProgressChanged;
-                MainCamera.StateChanged += MainCamera_StateChanged;
-                MainCamera.DownloadReady += MainCamera_DownloadReady;
-
-                //SessionButton.Text = "Close Session";
-                //SessionLabel.Text = MainCamera.DeviceName;
-                AvList = MainCamera.GetSettingsList(PropertyID.Av);
-                TvList = MainCamera.GetSettingsList(PropertyID.Tv);
-                ISOList = MainCamera.GetSettingsList(PropertyID.ISO);
-
-
-                MainCamera.SetSetting(PropertyID.SaveTo, (int)SaveTo.Host);
-                MainCamera.SetCapacity(4096, int.MaxValue);
-
-                /*foreach (var Av in AvList) AvCoBox.Items.Add(Av.StringValue);
-                foreach (var Tv in TvList) TvCoBox.Items.Add(Tv.StringValue);
-                foreach (var ISO in ISOList) ISOCoBox.Items.Add(ISO.StringValue);
-                AvCoBox.SelectedIndex = AvCoBox.Items.IndexOf(AvValues.GetValue(MainCamera.GetInt32Setting(PropertyID.Av)).StringValue);
-                TvCoBox.SelectedIndex = TvCoBox.Items.IndexOf(TvValues.GetValue(MainCamera.GetInt32Setting(PropertyID.Tv)).StringValue);
-                ISOCoBox.SelectedIndex = ISOCoBox.Items.IndexOf(ISOValues.GetValue(MainCamera.GetInt32Setting(PropertyID.ISO)).StringValue);
-                SettingsGroupBox.Enabled = true;
-                LiveViewGroupBox.Enabled = true;*/
-            }
-        }
-
-        private void MainCamera_LiveViewUpdated(Camera sender, Stream img)
-        {
-            try
-            {
-                lock (LvLock)
-                {
-                    Evf_Bmp?.Dispose();
-                    Evf_Bmp = new Bitmap(img);
-                }
-                //LiveViewPicBox.Invalidate();
-            }
-            catch (Exception ex) { ReportError(ex.Message, false); }
-        }
-
-        private void MainCamera_DownloadReady(Camera sender, DownloadInfo Info)
-        {
-            try
-            {
-                string saveFolder = Path.Combine(Application.StartupPath, "Temp");
-                if (!Directory.Exists(saveFolder))
-                    Directory.CreateDirectory(saveFolder);
-
-                string dir = null;
-                Invoke((Action)delegate { dir = saveFolder; });
-                sender.DownloadFile(Info, dir);
-                Invoke((Action)delegate { /*MainProgressBar.Value = 0;*/ });
-            }
-            catch (Exception ex) { ReportError(ex.Message, false); }
-        }
-
-        private void ReportError(string message, bool lockdown)
-        {
-            int errc;
-            lock (ErrLock) { errc = ++ErrCount; }
-
-            if (lockdown) { /* EnableUI(false); */ }
-
-            if (errc < 4) MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            else if (errc == 4) MessageBox.Show("Many errors happened!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-            lock (ErrLock) { ErrCount--; }
-        }
-
-        private void CloseSession()
-        {
-            MainCamera.CloseSession();
-            //AvCoBox.Items.Clear();
-            //TvCoBox.Items.Clear();
-            //ISOCoBox.Items.Clear();
-            //SettingsGroupBox.Enabled = false;
-            //LiveViewGroupBox.Enabled = false;
-            //SessionButton.Text = "Open Session";
-            //SessionLabel.Text = "No open session";
-            //LiveViewButton.Text = "Start LV";
-        }
-
-        private void RefreshCamera()
-        {
-            CamList = APIHandler.GetCameraList();
-        }
-        #endregion
-        #region Dslr Api Events
-
-        private void APIHandler_CameraAdded(CanonAPI sender)
-        {
-            try { Invoke((Action)delegate { RefreshCamera(); }); }
-            catch (Exception ex) { ReportError(ex.Message, false); }
-        }
-
-        private void MainCamera_StateChanged(Camera sender, StateEventID eventID, int parameter)
-        {
-            try { if (eventID == StateEventID.Shutdown && IsInit) { Invoke((Action)delegate { CloseSession(); }); } }
-            catch (Exception ex) { ReportError(ex.Message, false); }
-        }
-
-        private void MainCamera_ProgressChanged(object sender, int progress)
-        {
-            try { Invoke((Action)delegate { /*MainProgressBar.Value = progress;*/ }); }
-            catch (Exception ex) { ReportError(ex.Message, false); }
-        }
-
-        private void ErrorHandler_NonSevereErrorHappened(object sender, ErrorCode ex)
-        {
-            ReportError($"SDK Error code: {ex} ({((int)ex).ToString("X")})", false);
-        }
-
-        private void ErrorHandler_SevereErrorHappened(object sender, Exception ex)
-        {
-            ReportError(ex.Message, true);
-        }
-
-        #endregion
 
         private void Connect_Left_Button_Click(object sender, EventArgs e)
         {
@@ -960,36 +768,6 @@ namespace CanonPhotoBooth
         {
             if (videoSource != null)
                 videoSource.DisplayPropertyPage(this.Handle);
-        }
-
-        private void tabPage4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private async void button1_Click(object sender, EventArgs e)
-        {
-            var dialog = new OpenFileDialog();
-            dialog.Filter = "Gif Files|*.gif";
-
-            if (dialog.ShowDialog() == DialogResult.OK)
-            {
-                string fileName = dialog.FileName;
-                byte[] data = File.ReadAllBytes(fileName);
-
-                
-                var api = new MandrillApi("1_xltjpipEzKbs51aUb2Nw");
-
-                
-                var message = new MandrillMessage("canon@confluence.me", "dhiraj@thinksmithmena.com",
-                                "Unlock the Scientist In You", "This is a test message");
-                var attachment = new MandrillAttachment("image/gif", "Animation.gif", data);
-
-                message.Attachments.Add(attachment);
-                
-                
-                var result = await api.Messages.SendAsync(message);
-            }
         }
     }
 }
