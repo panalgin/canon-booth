@@ -157,6 +157,7 @@
     <Compile Include="RightScreenForm.Designer.cs">
       <DependentUpon>RightScreenForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Saver.cs" />
     <Compile Include="ScriptRunner.cs" />
     <Compile Include="Utility.cs" />
     <Compile Include="World.cs" />

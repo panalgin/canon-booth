@@ -20,9 +20,16 @@ namespace CanonPhotoBooth
 
                 var api = new MandrillApi("1_xltjpipEzKbs51aUb2Nw");
 
-                var message = new MandrillMessage("canon@confluence.me", player.Email,
-                                "Unlock the scientist in you",
-                                "Share your GIF in social media using the hashtags #CanonME and #Think_Science");
+                var from = new MandrillMailAddress("canon@confluence.me", "Canon Middle East");
+                var to = new MandrillMailAddress(player.Email, player.FullName);
+
+                var message = new MandrillMessage(from, to);
+
+                message.ReplyTo = "events@canon-me.com";
+
+                message.Subject = "Unlock the scientist in you";
+                message.Html = "Share your GIF in social media using the hashtags #CanonME and #Think_Science";
+
 
                 var attachment = new MandrillAttachment("image/gif", "animation.gif", data);
                 message.Attachments.Add(attachment);

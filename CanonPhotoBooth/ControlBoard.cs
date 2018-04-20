@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO.Ports;
+using System.Linq;
 
 namespace CanonPhotoBooth
 {
@@ -59,7 +60,10 @@ namespace CanonPhotoBooth
             }
             else if (inputBuffer.StartsWith("Stop"))
             {
-                Game.Halt();
+                var winner = Game.Players.FirstOrDefault(q => q.Board == this);
+
+                if (winner != null)
+                    Game.Halt(winner);
             }
             else if (inputBuffer.StartsWith("D:"))
             {

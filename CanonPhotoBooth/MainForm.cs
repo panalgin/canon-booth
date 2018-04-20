@@ -43,16 +43,33 @@ namespace CanonPhotoBooth
         #region MainForm Base
 
         KeyboardHook hook = new KeyboardHook();
+        KeyboardHook resetHook = new KeyboardHook();
+        KeyboardHook shutDownHook = new KeyboardHook();
 
         public MainForm()
         {
             InitializeComponent();
 
-            // register the event that is fired after the key press.
+
             hook.KeyPressed += new EventHandler<KeyPressedEventArgs>(hook_KeyPressed);
-            // register the control + alt + F12 combination as hot key.
             hook.RegisterHotKey(ModifiedKeys.Control,
                 Keys.D1);
+
+            resetHook.KeyPressed += ResetHook_KeyPressed;
+            resetHook.RegisterHotKey(ModifiedKeys.Control, Keys.D5);
+
+            shutDownHook.KeyPressed += ShutDownHook_KeyPressed;
+            shutDownHook.RegisterHotKey(ModifiedKeys.Control, Keys.D8);
+        }
+
+        private void ShutDownHook_KeyPressed(object sender, KeyPressedEventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void ResetHook_KeyPressed(object sender, KeyPressedEventArgs e)
+        {
+            Game.Reset();
         }
 
         void hook_KeyPressed(object sender, KeyPressedEventArgs e)
@@ -81,6 +98,7 @@ namespace CanonPhotoBooth
 
             World.Initialize();
             Game.Initialize();
+            Saver.Initialize();
 
             LoadSettings();
             GetVideoDevices();
@@ -442,7 +460,7 @@ namespace CanonPhotoBooth
                             try
                             {
                                 QuantizeSettings settings = new QuantizeSettings();
-                                settings.Colors = 32;
+                                settings.Colors = 256;
 
                                 collection.Quantize(settings);
                             }

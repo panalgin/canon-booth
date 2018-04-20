@@ -323,29 +323,33 @@ label.css-label {
     bottom: 0px;
 }
 
-    #play span {
+    #play span,
+    #result .name-label,
+    #result .speed-label,
+    #result .time-left-label,
+    #result .energy-label {
         font-family: "Gotham";
         font-size: 60px;
         font-weight: bold;
         position: absolute;
     }
 
-    #play #name-label {
+    #play #name-label, #result .name-label {
         top: 25px;
         left: 25px;
     }
 
-    #play #speed-label {
+    #play #speed-label, #result .speed-label {
         left: 25px;
         top: 100px;
     }
 
-    #play #time-left-label {
+    #play #time-left-label, #result .time-left-label {
         right: 25px;
         top: 25px;
     }
 
-    #play #energy-label {
+    #play #energy-label, #result .energy-label {
         right: 25px;
         top: 100px;
     }
@@ -356,21 +360,23 @@ label.css-label {
         left: calc(50% - 524px);
     }
 
-    #play .battery {
+    #play .battery, #result .battery {
         position: absolute;
         bottom: 25px;
         right: 25px;
         z-index: 1000;
     }
 
-    #play .battery-overlay {
-        width: 150px;
+    #play .battery-overlay, #result .battery-overlay {
+        width: 120px;
         background-color: lawngreen;
-        height: 170px;
+        height: 0px;
         position: absolute;
-        bottom: 45px;
-        right: 35px;
+        bottom: 63px;
+        right: 60px;
     }
+
+    #result .battery, #result .battery-overlay { opacity: 0.7; }
 
 
 #loading {
@@ -418,10 +424,10 @@ label.css-label {
 
     #result #result-gif {
         position: absolute;
-        width: 700px;
-        height: 400px;
-        left: 275px;
-        top: 300px;
+        width: 800px;
+        height: 600px;
+        left: 560px;
+        top: 230px;
         background-color: #fff;
         background-image: url('../img/camera.gif');
         background-position: center center;
@@ -448,8 +454,8 @@ label.css-label {
         font-weight: bold;
         -webkit-text-stroke: #000 3px;
         position: absolute;
-        top: 300px;
-        left: 1050px;
+        bottom: 50px;
+        left: 50px;
         line-height: 90px;
     }
 

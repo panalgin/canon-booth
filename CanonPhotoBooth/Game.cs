@@ -21,7 +21,7 @@ namespace CanonPhotoBooth
 
         const int MaxAllowedPlayers = 2;
         const int GameDuration = 60; //seconds
-        const int AftermathDuration = 30; //seconds
+        const int AftermathDuration = 45; //seconds
 
         private static Timer GameTimer = new Timer(1000);
         private static Timer AftermathTimer = new Timer(1000);
@@ -123,13 +123,13 @@ namespace CanonPhotoBooth
             }
         }
 
-        public static void Halt()
+        public static void Halt(Player winner)
         {
             if (State == GameState.Running)
-                Finish();
+                Finish(winner);
         }
 
-        private static void Finish()
+        private static void Finish(Player winner = null)
         {
             GameTimer.Stop();
 
@@ -140,7 +140,10 @@ namespace CanonPhotoBooth
 
             AftermathTimer.Start();
 
-            var winner = Players.OrderByDescending(q => q.CaloriesBurnt).FirstOrDefault();
+            State = GameState.Aftermath;
+
+            if (winner == null)
+                winner = Players.OrderByDescending(q => q.CaloriesBurnt).FirstOrDefault();
 
             EventSink.InvokeGameFinished(winner);
 

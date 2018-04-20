@@ -8,6 +8,9 @@ $("span#speed-label").html(player.speed + " km/h");
 $("span#time-left-label").html("~");
 $("span#energy-label").html(player.caloriesBurnt + " kcal");
 
+
+$("span.name-label").html("Player: " + player.firstName);
+
 var batteryLevel = map(player.caloriesBurnt, 0, 20, 0, 200);
 //var videoSpeed = map(player.speed, 0, 50, 0.05, 5);
 
